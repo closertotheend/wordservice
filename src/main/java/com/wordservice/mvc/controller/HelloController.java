@@ -1,4 +1,4 @@
-package com.wordservice.mvc;
+package com.wordservice.mvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

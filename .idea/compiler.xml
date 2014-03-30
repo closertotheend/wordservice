@@ -22,10 +22,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="spring-data-book-com.com.oreilly.springdata.oreilly.springdata.com.oreilly.springdata.neo4j" />
+        <module name="spring-data-book-neo4j" />
         <module name="WordService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="spring-data-book-neo4j" target="1.6" />
       <module name="WordService" target="1.6" />
     </bytecodeTargetLevel>
   </component>
