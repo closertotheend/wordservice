@@ -16,6 +16,7 @@
 package com.wordservice.mvc;
 
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -34,6 +35,6 @@ class ApplicationConfig {
 
 	@Bean(destroyMethod = "shutdown")
 	public GraphDatabaseService graphDatabaseService() {
-		return new EmbeddedGraphDatabase("target/graph.db");
+		return new GraphDatabaseFactory().newEmbeddedDatabase("target/graph.db");
 	}
 }

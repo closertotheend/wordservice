@@ -1,6 +1,7 @@
 package com.wordservice.mvc;
 
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.neo4j.kernel.impl.util.FileUtils;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +26,7 @@ public class TestApplicationConfig extends ApplicationConfig {
     public GraphDatabaseService graphDatabaseService() {
         try {
             FileUtils.deleteRecursively(new File("target/test-db"));
-            return new EmbeddedGraphDatabase("target/test-db");
+            return new GraphDatabaseFactory().newEmbeddedDatabase("target/test-db");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
