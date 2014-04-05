@@ -17,6 +17,7 @@ package com.wordservice.mvc;
 
 import com.wordservice.mvc.model.*;
 import org.hamcrest.Matcher;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -55,6 +56,7 @@ public class OrderRepositoryIntegrationTest extends AbstractIntegrationTest {
 		assertThat(order.getId(), is(notNullValue()));
 	}
 
+    @Ignore
 	@Test
 	public void readOrder() {
 
