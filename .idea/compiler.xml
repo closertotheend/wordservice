@@ -23,7 +23,6 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="spring-data-book-com.com.oreilly.springdata.oreilly.springdata.com.oreilly.springdata.neo4j" />
-        <module name="spring-data-book-neo4j" />
         <module name="WordService" />
       </profile>
     </annotationProcessing>

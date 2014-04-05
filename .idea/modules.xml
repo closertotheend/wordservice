@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WordService.iml" filepath="$PROJECT_DIR$/WordService.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../spring-data-book/neo4j/spring-data-book-neo4j.iml" filepath="$PROJECT_DIR$/../spring-data-book/neo4j/spring-data-book-neo4j.iml" />
     </modules>
   </component>
 </project>
