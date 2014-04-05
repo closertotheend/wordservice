@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wordservice.mvc;
+package com.wordservice.mvc.examples;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.*;
 import org.junit.internal.matchers.TypeSafeMatcher;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;

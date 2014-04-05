@@ -13,21 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wordservice.mvc;
+package com.wordservice.mvc.examples;
 
-import com.wordservice.mvc.model.Product;
-import org.hamcrest.Matcher;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
+public interface CustomerRepository extends GraphRepository<Customer> {
 
-public class CoreMatchers {
+	Customer findOne(Long id);
 
-	public static <T> Matcher<T> with(Matcher<T> matcher) {
-		return matcher;
-	}
+	<C extends Customer> C save(C customer);
 
-	public static Matcher<Product> named(String name) {
-		return hasProperty("name", is(name));
-	}
+	Customer findByEmailAddress(String emailAddress);
 }

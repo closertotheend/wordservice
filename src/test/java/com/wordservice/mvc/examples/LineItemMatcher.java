@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wordservice.mvc;
+package com.wordservice.mvc.examples;
 
 
-import com.wordservice.mvc.model.LineItem;
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;

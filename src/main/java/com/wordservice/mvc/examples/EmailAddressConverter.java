@@ -1,4 +1,4 @@
-package com.wordservice.mvc.model;
+package com.wordservice.mvc.examples;
 
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.TypeDescriptor;

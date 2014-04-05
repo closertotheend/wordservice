@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wordservice.mvc;
+package com.wordservice.mvc.examples;
 
-import com.wordservice.mvc.model.*;
 import org.hamcrest.Matcher;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -24,12 +23,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 
-import static com.wordservice.mvc.CoreMatchers.with;
-import static com.wordservice.mvc.OrderMatchers.amount;
-import static com.wordservice.mvc.OrderMatchers.containsOrder;
-import static com.wordservice.mvc.OrderMatchers.product;
-import static com.wordservice.mvc.OrderMatchers.*;
-import static com.wordservice.mvc.CoreMatchers.named;
+import static com.wordservice.mvc.examples.CoreMatchers.with;
+import static com.wordservice.mvc.examples.OrderMatchers.amount;
+import static com.wordservice.mvc.examples.OrderMatchers.containsOrder;
+import static com.wordservice.mvc.examples.OrderMatchers.product;
+import static com.wordservice.mvc.examples.OrderMatchers.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 

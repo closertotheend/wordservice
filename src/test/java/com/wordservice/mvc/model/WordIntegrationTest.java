@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestApplicationConfig.class})
 @Transactional
-public class WordTest {
+public class WordIntegrationTest {
 
     @Autowired
     Neo4jTemplate template;
@@ -45,12 +45,8 @@ public class WordTest {
         assertEquals("retrieved word matches persisted one", forrest.getWord(), template.findOne(forrest.getId(), WordEntity.class).getWord());
 
         GraphRepository<WordEntity> wordRepository = template.repositoryFor(WordEntity.class);
-        EndResult<WordEntity> retrievedWordResult = wordRepository.findAllByPropertyValue("word", "Gump");
-        System.err.println("Single " + retrievedWordResult.single());
-
-        for (WordEntity wordEntity : template.findOne(forrest.getId(), WordEntity.class).getFollowedWords()) {
-            System.err.println("WordEntity " + wordEntity.getWord() );
-        }
+        assertEquals(gump, wordRepository.findAllByPropertyValue("word", "Gump").single());
+        assertEquals(2,template.findOne(forrest.getId(), WordEntity.class).getFollowedWords().size());
     }
 
 }

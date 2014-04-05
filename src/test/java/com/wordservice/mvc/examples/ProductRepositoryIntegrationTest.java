@@ -13,11 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wordservice.mvc;
+package com.wordservice.mvc.examples;
 
-import com.wordservice.mvc.model.Product;
-import com.wordservice.mvc.model.ProductRepository;
-import com.wordservice.mvc.model.Rating;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 
-import static com.wordservice.mvc.CoreMatchers.named;
+import static com.wordservice.mvc.examples.CoreMatchers.named;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.*;

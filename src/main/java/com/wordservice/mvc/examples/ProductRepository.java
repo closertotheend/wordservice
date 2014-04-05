@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wordservice.mvc.model;
+package com.wordservice.mvc.examples;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

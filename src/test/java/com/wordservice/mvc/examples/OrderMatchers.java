@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wordservice.mvc;
+package com.wordservice.mvc.examples;
 
-import com.wordservice.mvc.model.LineItem;
-import com.wordservice.mvc.model.Order;
-import com.wordservice.mvc.model.Product;
+import com.wordservice.mvc.examples.LineItem;
+import com.wordservice.mvc.examples.Order;
+import com.wordservice.mvc.examples.Product;
 import org.hamcrest.Matcher;
 
 import static org.hamcrest.Matchers.*;

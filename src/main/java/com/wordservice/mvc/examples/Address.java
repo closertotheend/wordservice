@@ -13,15 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wordservice.mvc.model;
+package com.wordservice.mvc.examples;
 
-import org.springframework.data.neo4j.repository.GraphRepository;
+import org.springframework.data.neo4j.annotation.NodeEntity;
 
-public interface CustomerRepository extends GraphRepository<Customer> {
+@NodeEntity
+public class Address extends AbstractEntity {
 
-	Customer findOne(Long id);
+	private String street, city;
 
-	<C extends Customer> C save(C customer);
+    private Country country;
 
-	Customer findByEmailAddress(String emailAddress);
+	public Address(String street, String city, Country country) {
+		this.street = street;
+		this.city = city;
+        this.country = country;
+    }
+
+	public Address() {
+
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
 }

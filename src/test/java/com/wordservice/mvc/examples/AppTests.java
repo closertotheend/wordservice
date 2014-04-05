@@ -1,4 +1,4 @@
-package com.wordservice.mvc;
+package com.wordservice.mvc.examples;
 
 import org.junit.Before;
 import org.junit.Test;

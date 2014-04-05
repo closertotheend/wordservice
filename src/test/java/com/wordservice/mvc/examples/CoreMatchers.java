@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wordservice.mvc.model;
+package com.wordservice.mvc.examples;
 
-import org.springframework.data.neo4j.annotation.Indexed;
-import org.springframework.data.neo4j.annotation.NodeEntity;
+import com.wordservice.mvc.examples.Product;
+import org.hamcrest.Matcher;
 
-@NodeEntity
-public class Country extends AbstractEntity {
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 
-    @Indexed(unique=true) String code;
-    String name;
+public class CoreMatchers {
 
-    public Country(String code, String name) {
-        this.code = code;
-        this.name = name;
-    }
+	public static <T> Matcher<T> with(Matcher<T> matcher) {
+		return matcher;
+	}
 
-    public Country() {
-    }
+	public static Matcher<Product> named(String name) {
+		return hasProperty("name", is(name));
+	}
 }
