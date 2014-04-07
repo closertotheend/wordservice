@@ -2,33 +2,33 @@
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/ApplicationConfig.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/Address.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/Category.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/Country.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/Customer.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/CustomerRepository.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/EmailAddress.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/EmailAddressConverter.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/LineItem.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/Order.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/OrderRepository.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/Product.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/ProductRepository.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/Rating.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/model/Tag.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/Address.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/Category.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/Country.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/Customer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/CustomerRepository.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/EmailAddress.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/EmailAddressConverter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/LineItem.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/Order.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/OrderRepository.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/Product.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/ProductRepository.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/Rating.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/wordservice/mvc/examples/Tag.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/META-INF/spring/application-context.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/META-INF/spring/spring-data-context.xml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/AbstractIntegrationTest.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/ApplicationConfigTest.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/CollectionPathMatcher.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/CoreMatchers.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/CustomerRepositoryIntegrationTest.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/LineItemMatcher.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/OrderMatchers.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/OrderRepositoryIntegrationTest.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/ProductRepositoryIntegrationTest.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/PropertyPathValueMatcher.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/TestApplicationConfig.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/examples/AbstractIntegrationTest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/examples/CollectionPathMatcher.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/examples/CoreMatchers.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/examples/CustomerRepositoryIntegrationTest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/examples/LineItemMatcher.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/examples/OrderMatchers.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/examples/OrderRepositoryIntegrationTest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/examples/ProductRepositoryIntegrationTest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/wordservice/mvc/examples/PropertyPathValueMatcher.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../spring-data-book/neo4j" charset="UTF-8" />
   </component>
 </project>

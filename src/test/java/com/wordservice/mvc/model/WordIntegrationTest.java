@@ -48,6 +48,7 @@ public class WordIntegrationTest {
 
         assertEquals(gump, wordRepository.findAllByPropertyValue("word", "Gump").single());
         assertEquals(2,wordRepository.findOne(forrest.getId()).getFollowedWords().size());
+        assertEquals(2,wordRepository.findOne(forrest.getId()).getRelationships().size());
     }
 
 }

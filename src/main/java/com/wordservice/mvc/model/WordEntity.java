@@ -1,8 +1,10 @@
 package com.wordservice.mvc.model;
 
+import com.wordservice.mvc.examples.LineItem;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,12 +17,15 @@ public class WordEntity {
     @GraphId
     private Long id;
 
-    @Indexed(unique = true)
+    @Indexed(unique = true, indexName = "word")
     private String word;
 
     @RelatedTo(type = "IS_FOLLOWED_BY")
     @Fetch
     private Set<WordEntity> followedAfterWords;
+
+    @RelatedToVia(type = "IS_FOLLOWED_BY")
+    private Set<WordRelationship> relationships = new HashSet<>();
 
     private WordEntity() {
     }
@@ -41,6 +46,10 @@ public class WordEntity {
         return followedAfterWords;
     }
 
+    public Set<WordRelationship> getRelationships() {
+        return relationships;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,16 +58,13 @@ public class WordEntity {
         WordEntity that = (WordEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (word != null ? !word.equals(that.word) : that.word != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (word != null ? word.hashCode() : 0);
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
