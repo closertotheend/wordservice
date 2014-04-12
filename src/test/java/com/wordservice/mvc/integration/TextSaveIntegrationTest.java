@@ -31,12 +31,13 @@ public class TextSaveIntegrationTest extends IntegrationTestsBase {
 
     @Test
     public void getAllWordsAfterA() {
-        wordEntityService.saveToRepo(dickensText);
+        wordEntityService.saveToRepo("tralala hahaha.");
         long startTime = System.currentTimeMillis();
-        WordEntity byPropertyValue = wordRepository.findByWord("a");
-        System.err.println(byPropertyValue.getFollowedWords());
+        wordEntityService.saveToRepo(dickensText);
         long estimatedTime = System.currentTimeMillis() - startTime;
-        System.err.println(estimatedTime);
+        System.err.println("All opertaions " + estimatedTime);
+        WordEntity byPropertyValue = wordRepository.findByWord("a");
+        //System.err.println(byPropertyValue.getFollowedAfterWords());
     }
 
     @Test

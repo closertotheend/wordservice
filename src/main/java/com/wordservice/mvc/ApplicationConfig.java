@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.neo4j.rest.SpringRestGraphDatabase;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -35,6 +36,6 @@ class ApplicationConfig {
 
 	@Bean(destroyMethod = "shutdown")
 	public GraphDatabaseService graphDatabaseService() {
-		return new GraphDatabaseFactory().newEmbeddedDatabase("target/graph.db");
+		return new SpringRestGraphDatabase("http://localhost:7474/db/data");
 	}
 }
