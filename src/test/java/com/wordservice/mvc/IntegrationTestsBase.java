@@ -1,7 +1,7 @@
 package com.wordservice.mvc;
 
 import com.wordservice.mvc.repository.WordRepository;
-import com.wordservice.mvc.service.WordEntityService;
+import com.wordservice.mvc.service.WordEntitySaverService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
@@ -25,7 +25,7 @@ public abstract class IntegrationTestsBase {
     public WordRepository wordRepository;
 
     @Autowired
-    public WordEntityService wordEntityService;
+    public WordEntitySaverService wordEntitySaverService;
 
     public static final String dickensText = "I fully expected to find a Constable in the kitchen, waiting to take me up. But not only was there no Constable there, but no discovery had yet been made of the robbery. Mrs. Joe was prodigiously busy in getting the house ready for the festivities of the day, and Joe had been put upon the kitchen door-step to keep him out of the dust-pan - an article into which his destiny always led him sooner or later, when my sister was vigorously reaping the floors of her establishment.\n" +
             "\n" +

@@ -18,7 +18,8 @@ wordApp.config(['$routeProvider',
                 templateUrl: 'pages/partials/use-example.html'
             })
             .when('/extend', {
-                templateUrl: 'pages/partials/extend.html'
+                templateUrl: 'pages/partials/extend.html',
+                controller: 'WordApiController'
             })
             .when('/analyze', {
                 templateUrl: 'pages/partials/analyze.html',

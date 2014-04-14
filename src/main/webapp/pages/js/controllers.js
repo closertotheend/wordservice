@@ -9,8 +9,13 @@ wordAppControllers.controller('WordApiController', ['$scope', '$routeParams', 'W
         $scope.fail = "Sthing is failing!";
 
         $scope.executeQuery = function(word) {
-            $scope.results = WordApiService.query({word: word});
+            $scope.results = WordApiService.getTop(word);
         }
+
+        $scope.saveText = function(text) {
+            WordApiService.save(text);
+        }
+
 
         $scope.setImage = function(imageUrl) {
             $scope.mainImageUrl = imageUrl;
