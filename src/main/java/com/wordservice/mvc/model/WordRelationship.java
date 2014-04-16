@@ -1,9 +1,7 @@
 package com.wordservice.mvc.model;
 
-import org.springframework.data.neo4j.annotation.EndNode;
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.RelationshipEntity;
-import org.springframework.data.neo4j.annotation.StartNode;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.data.neo4j.annotation.*;
 import scala.util.parsing.combinator.testing.Str;
 
 @RelationshipEntity(type = "IS_FOLLOWED_BY")
@@ -13,12 +11,15 @@ public class WordRelationship {
     @GraphId
     private Long id;
 
+    @JsonIgnore
     @StartNode
     private WordEntity startWord;
 
+    @JsonIgnore
     @EndNode
     private WordEntity secondWord;
 
+    @Indexed
     private long popularity;
 
     private WordRelationship() {
@@ -27,6 +28,10 @@ public class WordRelationship {
     public WordRelationship(WordEntity startWord, WordEntity secondWord) {
         this.startWord = startWord;
         this.secondWord = secondWord;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public WordEntity getStartWord() {

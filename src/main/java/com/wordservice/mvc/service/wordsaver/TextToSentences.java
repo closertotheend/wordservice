@@ -1,4 +1,4 @@
-package com.wordservice.mvc.service;
+package com.wordservice.mvc.service.wordsaver;
 
 import java.text.BreakIterator;
 import java.util.ArrayList;
@@ -8,8 +8,7 @@ import java.util.Locale;
 /**
  * Created by ilja on 4/7/2014.
  */
-public enum  TextToSentences {
-    INSTANCE;
+public class  TextToSentences {
     private static final BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);
 
     public static List<String> transform(String text) {

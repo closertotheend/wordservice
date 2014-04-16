@@ -1,0 +1,30 @@
+package com.wordservice.mvc.repository;
+
+import com.wordservice.mvc.IntegrationTestsBase;
+import com.wordservice.mvc.model.WordEntity;
+import com.wordservice.mvc.model.WordRelationship;
+import org.junit.Test;
+
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+
+/**
+ * Created by ilja on 4/14/2014.
+ */
+public class WordRelationshipRepositoryImplTest extends IntegrationTestsBase {
+
+    @Test
+    public void testFindByWord() throws Exception {
+        WordEntity hello = new WordEntity("Hello");
+        WordEntity ilja = new WordEntity("Ilja");
+
+        wordRepositoryImpl.save(hello);
+        wordRepositoryImpl.save(ilja);
+
+        WordRelationship relationship = new WordRelationship(hello, ilja);
+        wordRelationshipRepository.save(relationship);
+
+        assertNotNull(wordRelationshipRepository.getRelationshipBetween(hello,ilja));
+    }
+
+}

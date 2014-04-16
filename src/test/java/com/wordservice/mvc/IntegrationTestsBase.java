@@ -1,7 +1,8 @@
 package com.wordservice.mvc;
 
-import com.wordservice.mvc.repository.WordRepository;
-import com.wordservice.mvc.service.WordEntitySaverService;
+import com.wordservice.mvc.repository.WordRelationshipRepositoryImpl;
+import com.wordservice.mvc.repository.WordRepositoryImpl;
+import com.wordservice.mvc.service.wordsaver.WordEntitySaverService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
@@ -22,7 +23,10 @@ public abstract class IntegrationTestsBase {
     public Neo4jTemplate template;
 
     @Autowired
-    public WordRepository wordRepository;
+    public WordRepositoryImpl wordRepositoryImpl;
+
+    @Autowired
+    public WordRelationshipRepositoryImpl wordRelationshipRepository;
 
     @Autowired
     public WordEntitySaverService wordEntitySaverService;

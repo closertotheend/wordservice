@@ -4,6 +4,7 @@ import com.wordservice.mvc.examples.LineItem;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.*;
+import org.springframework.data.neo4j.support.index.IndexType;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,15 +23,8 @@ public class WordEntity {
     @Indexed(unique = true, indexName = "word")
     private String word;
 
-/*
-    @JsonIgnore
-    @RelatedTo(type = "IS_FOLLOWED_BY")
-    private Set<WordEntity> followedAfterWords;
-*/
-
-    @JsonIgnore
-    @RelatedToVia(type = "IS_FOLLOWED_BY")
-    private Set<WordRelationship> relationships = new HashSet<>();
+//    @RelatedToVia(type = "IS_FOLLOWED_BY")
+//    private Set<WordRelationship> relationships = new HashSet<>();
 
     private WordEntity() {
     }
@@ -47,13 +41,9 @@ public class WordEntity {
         return word;
     }
 
-    /*public Set<WordEntity> getFollowedAfterWords() {
-        return followedAfterWords;
-    }*/
-
-    public Set<WordRelationship> getRelationships() {
-        return relationships;
-    }
+//    public Set<WordRelationship> getRelationships() {
+//        return relationships;
+//    }
 
     @Override
     public boolean equals(Object o) {

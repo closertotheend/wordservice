@@ -10,19 +10,20 @@ import static junit.framework.Assert.assertTrue;
  * Created by ilja on 4/7/2014.
  */
 
-public class WordRepositoryTest extends IntegrationTestsBase{
+public class WordRepositoryImplTest extends IntegrationTestsBase{
 
 
     @Test
     public void testFindByWord() throws Exception {
         wordEntitySaverService.saveToRepo("Hello Ilja!");
-        assertNotNull(wordRepository.findByWord("Hello"));
+        assertNotNull(wordRepositoryImpl.findByWord("Hello"));
     }
 
     @Test
     public void testGetTop10Words() throws Exception {
         wordEntitySaverService.saveToRepo("Hello Ilja, I am neo4j, I am slow, I am slow, I am slow and ugly! I am happy, I am happy.");
-        assertNotNull(wordRepository.getTop10WordsAfter("am"));
-        System.err.println(wordRepository.getTop10WordsAfter("am"));
+        assertNotNull(wordRepositoryImpl.getTop10WordsAfter("am"));
+        System.err.println(wordRepositoryImpl.getTop10WordsAfter("am"));
+        System.err.println(wordRepositoryImpl.getTop10WordsAfter("I","am"));
     }
 }

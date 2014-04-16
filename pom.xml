@@ -128,6 +128,13 @@
             <version>4.1.0.Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>r09</version>
+        </dependency>
+
+
         <!-- Jackson JSON Mapper -->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
@@ -141,6 +148,9 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.6</version>
         </dependency>
+
+
+
 
     </dependencies>
 

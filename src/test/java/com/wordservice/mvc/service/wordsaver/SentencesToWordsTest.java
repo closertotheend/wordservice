@@ -1,6 +1,6 @@
-package com.wordservice.mvc.service;
+package com.wordservice.mvc.service.wordsaver;
 
-import com.wordservice.mvc.model.WordEntity;
+import com.wordservice.mvc.service.wordsaver.SentencesToWords;
 import org.junit.Test;
 
 import java.util.ArrayList;
