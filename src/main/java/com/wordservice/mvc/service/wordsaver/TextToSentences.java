@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by ilja on 4/7/2014.
- */
-public class  TextToSentences {
+
+public class TextToSentences {
     private static final BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);
 
     public static List<String> transform(String text) {

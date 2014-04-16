@@ -25,43 +25,43 @@ import java.util.Collection;
 
 public class CollectionPathMatcher extends TypeSafeMatcher<Collection<Object>> {
 
-	private String collectionPath;
-	private Matcher<?> propertyMatcher;
+    private String collectionPath;
+    private Matcher<?> propertyMatcher;
 
-	public CollectionPathMatcher(String collectionPath, Matcher<?> delegate) {
-		this.collectionPath = collectionPath;
-		this.propertyMatcher = delegate;
-	}
+    public CollectionPathMatcher(String collectionPath, Matcher<?> delegate) {
+        this.collectionPath = collectionPath;
+        this.propertyMatcher = delegate;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
-	 */
-	@Override
-	public void describeTo(Description description) {
-		// TODO Auto-generated method stub
+    /* (non-Javadoc)
+     * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+     */
+    @Override
+    public void describeTo(Description description) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	/* (non-Javadoc)
-	 * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
-	 */
-	@Override
-	protected boolean matchesSafely(Collection<Object> item) {
+    /* (non-Javadoc)
+     * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
+     */
+    @Override
+    protected boolean matchesSafely(Collection<Object> item) {
 
-		for (Object outer : item) {
+        for (Object outer : item) {
 
-			BeanWrapper wrapper = new BeanWrapperImpl(outer);
-			Object property = wrapper.getPropertyValue(collectionPath);
+            BeanWrapper wrapper = new BeanWrapperImpl(outer);
+            Object property = wrapper.getPropertyValue(collectionPath);
 
-			if (propertyMatcher.matches(property)) {
-				return true;
-			}
-		}
+            if (propertyMatcher.matches(property)) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public static Matcher<Collection<Object>> hasElement(String path, Matcher<?> matcher) {
-		return new CollectionPathMatcher(path, matcher);
-	}
+    public static Matcher<Collection<Object>> hasElement(String path, Matcher<?> matcher) {
+        return new CollectionPathMatcher(path, matcher);
+    }
 }

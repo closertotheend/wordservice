@@ -26,31 +26,31 @@ import org.springframework.data.domain.Sort.Direction;
 import static com.wordservice.mvc.examples.CoreMatchers.named;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
 /**
  * Integration tests for {@link ProductRepository}.
- * 
+ *
  * @author Oliver Gierke
  */
 public class ProductRepositoryIntegrationTest extends AbstractIntegrationTest {
 
-	@Autowired
+    @Autowired
     ProductRepository repository;
 
-	@Test
-	public void createProduct() {
+    @Test
+    public void createProduct() {
 
-		Product product = new Product("Camera bag");
-		Product result = repository.save(product);
+        Product product = new Product("Camera bag");
+        Product result = repository.save(product);
 
         assertThat(result.getId(), is(notNullValue()));
         assertThat(result.getName(), is(product.getName()));
-	}
+    }
 
-	@Test
-	public void findProductsInCustomerOrders() {
+    @Test
+    public void findProductsInCustomerOrders() {
 
 //        QProduct product = QProduct.product;
 //        QCustomer customer = QCustomer.customer;
@@ -70,20 +70,19 @@ public class ProductRepositoryIntegrationTest extends AbstractIntegrationTest {
 //        assertThat(result.get(1).getName(), is(iPad.getName()));
     }
 
-	@Test
-	@SuppressWarnings("unchecked")
-	public void lookupProductsByDescription() {
+    @Test
+    @SuppressWarnings("unchecked")
+    public void lookupProductsByDescription() {
 
-		Pageable pageable = new PageRequest(0, 1, Direction.DESC, "product.name"); // TODO JIRA
-		Page<Product> page = repository.findByDescriptionLike("Apple", pageable); // TODO JIRA findByDescriptionContaining
+        Pageable pageable = new PageRequest(0, 1, Direction.DESC, "product.name"); // TODO JIRA
+        Page<Product> page = repository.findByDescriptionLike("Apple", pageable); // TODO JIRA findByDescriptionContaining
 
-		assertThat(page.getContent(), hasSize(1));
-		assertThat(page, Matchers.<Product>hasItems(named("iPad")));
-		assertThat(page.isFirstPage(), is(true));
-		//assertThat(page.isLastPage(), is(false)); // TODO JIRA
-		//assertThat(page.hasNextPage(), is(true));
-	}
-
+        assertThat(page.getContent(), hasSize(1));
+        assertThat(page, Matchers.<Product>hasItems(named("iPad")));
+        assertThat(page.isFirstPage(), is(true));
+        //assertThat(page.isLastPage(), is(false)); // TODO JIRA
+        //assertThat(page.hasNextPage(), is(true));
+    }
 
 
     @Test

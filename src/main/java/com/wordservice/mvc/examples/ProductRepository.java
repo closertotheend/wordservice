@@ -27,30 +27,33 @@ import java.util.List;
 
 public interface ProductRepository extends GraphRepository<Product>, CypherDslRepository<Product> {
 
-	Page<Product> findByDescriptionLike(String description, Pageable pageable);
+    Page<Product> findByDescriptionLike(String description, Pageable pageable);
 
-	List<Product> findByAttributesContains(String attribute);
+    List<Product> findByAttributesContains(String attribute);
 
     // search string must be description:text
     @Query("START product=node:product_search({0}) " +
-           " MATCH product-[r:RATED]-customer " +
-           " RETURN product " +
-           " ORDER BY avg(r.stars) DESC")
+            " MATCH product-[r:RATED]-customer " +
+            " RETURN product " +
+            " ORDER BY avg(r.stars) DESC")
     Page<Product> listProductsRanked(String description, Pageable page);
 
     @Query("start cat=node:Category(name={0}) match cat-[SUB_CAT*0..5]-leaf<-[:CATEGORY]-product return product")
     Iterable<Product> findByCategory(String category);
-    
+
     @Query("START cust=node({0}) " +
-           " MATCH cust-[r1:RATED]->product<-[r2:RATED]-similar-[:ORDERED]->order-[:ITEMS]->suggestion " +
-           " where abs(r1.stars - r2.stars) <= 2 "+
-           " RETURN suggestion, count(*) as score" +
-           " ORDER BY score DESC")
+            " MATCH cust-[r1:RATED]->product<-[r2:RATED]-similar-[:ORDERED]->order-[:ITEMS]->suggestion " +
+            " where abs(r1.stars - r2.stars) <= 2 " +
+            " RETURN suggestion, count(*) as score" +
+            " ORDER BY score DESC")
     List<Suggestion> recommendProducts(Customer customer);
-    
+
     @MapResult
     interface Suggestion {
-        @ResultColumn("suggestion") Product getProduct();
-        @ResultColumn("score") Integer getScore();
+        @ResultColumn("suggestion")
+        Product getProduct();
+
+        @ResultColumn("score")
+        Integer getScore();
     }
 }

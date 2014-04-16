@@ -14,11 +14,12 @@ import java.util.TreeSet;
  */
 @NodeEntity
 public class Category extends AbstractEntity implements Comparable<Category> {
-    @Indexed(unique = true) String name;
+    @Indexed(unique = true)
+    String name;
     @Fetch // loads all children eagerly (cascading!)
-    @RelatedTo(type="SUB_CAT")
+    @RelatedTo(type = "SUB_CAT")
     Set<Category> children = new TreeSet<Category>();
-    
+
     public void addChild(Category cat) {
         this.children.add(cat);
     }

@@ -20,29 +20,29 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 @NodeEntity
 public class Address extends AbstractEntity {
 
-	private String street, city;
+    private String street, city;
 
     private Country country;
 
-	public Address(String street, String city, Country country) {
-		this.street = street;
-		this.city = city;
+    public Address(String street, String city, Country country) {
+        this.street = street;
+        this.city = city;
         this.country = country;
     }
 
-	public Address() {
+    public Address() {
 
-	}
+    }
 
-	public String getStreet() {
-		return street;
-	}
+    public String getStreet() {
+        return street;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public Country getCountry() {
-		return country;
-	}
+    public Country getCountry() {
+        return country;
+    }
 }

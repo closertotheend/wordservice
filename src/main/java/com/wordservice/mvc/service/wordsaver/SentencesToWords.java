@@ -1,14 +1,9 @@
 package com.wordservice.mvc.service.wordsaver;
 
-import com.wordservice.mvc.model.WordEntity;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by ilja on 4/6/2014.
- */
 public class SentencesToWords {
 
     public static List<String> transform(String sentence) {

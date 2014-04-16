@@ -21,7 +21,8 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 @NodeEntity
 public class Country extends AbstractEntity {
 
-    @Indexed(unique=true) String code;
+    @Indexed(unique = true)
+    String code;
     String name;
 
     public Country(String code, String name) {

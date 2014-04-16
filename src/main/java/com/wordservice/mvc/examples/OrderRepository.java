@@ -21,6 +21,7 @@ import java.util.List;
 
 public interface OrderRepository extends GraphRepository<Order> {
 
-	List<Order> findByCustomer(Customer customer);
-	List<Order> findByCustomerEmailAddress(String emailAddress);
+    List<Order> findByCustomer(Customer customer);
+
+    List<Order> findByCustomerEmailAddress(String emailAddress);
 }

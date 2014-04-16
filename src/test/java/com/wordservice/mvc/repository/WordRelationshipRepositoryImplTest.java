@@ -6,11 +6,7 @@ import com.wordservice.mvc.model.WordRelationship;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
 
-/**
- * Created by ilja on 4/14/2014.
- */
 public class WordRelationshipRepositoryImplTest extends IntegrationTestsBase {
 
     @Test
@@ -24,7 +20,7 @@ public class WordRelationshipRepositoryImplTest extends IntegrationTestsBase {
         WordRelationship relationship = new WordRelationship(hello, ilja);
         wordRelationshipRepository.save(relationship);
 
-        assertNotNull(wordRelationshipRepository.getRelationshipBetween(hello,ilja));
+        assertNotNull(wordRelationshipRepository.getRelationshipBetween(hello, ilja));
     }
 
 }

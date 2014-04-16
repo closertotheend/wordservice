@@ -2,7 +2,6 @@ package com.wordservice.mvc;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.neo4j.kernel.impl.util.FileUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +13,6 @@ import java.io.IOException;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
-/**
- * @author mh
- * @since 01.06.12
- */
 @Configuration
 @EnableTransactionManagement
 public class TestApplicationConfig extends ApplicationConfig {

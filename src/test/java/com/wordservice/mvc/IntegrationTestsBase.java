@@ -50,7 +50,7 @@ public abstract class IntegrationTestsBase {
             "\n" +
             "The time came, without bringing with it any relief to my feelings, and the company came. Mr. Wopsle, united to a Roman nose and a large shining bald forehead, had a deep voice which he was uncommonly proud of; indeed it was understood among his acquaintance that if you could only give him his head, he would read the clergyman into fits; he himself confessed that if the Church was \"thrown open,\" meaning to competition, he would not despair of making his mark in it. The Church not being \"thrown open,\" he was, as I have said, our clerk. But he punished the Amens tremendously; and when he gave out the psalm - always giving the whole verse - he looked all round the congregation first, as much as to say, \"You have heard my friend overhead; oblige me with your opinion of this style!\"";
 
-    public static final String MARTIN_EDEN =   "The one opened the door with a latch-key and went in, followed by a\n" +
+    public static final String MARTIN_EDEN = "The one opened the door with a latch-key and went in, followed by a\n" +
             "young fellow who awkwardly removed his cap. He wore rough clothes\n" +
             "that smacked of the sea, and he was manifestly out of place in the\n" +
             "spacious hall in which he found himself. He did not know what to\n" +

@@ -28,58 +28,59 @@ import java.util.Set;
 @NodeEntity
 public class Order extends AbstractEntity {
 
-	@RelatedTo
-	private Customer customer;
-	@RelatedTo
-	private Address billingAddress;
-	@RelatedTo
-	private Address shippingAddress;
+    @RelatedTo
+    private Customer customer;
+    @RelatedTo
+    private Address billingAddress;
+    @RelatedTo
+    private Address shippingAddress;
 
-	@RelatedToVia(type = "ITEMS")
+    @RelatedToVia(type = "ITEMS")
     @Fetch
-	private Set<LineItem> lineItems = new HashSet<LineItem>();
+    private Set<LineItem> lineItems = new HashSet<LineItem>();
 
-	public Order(Customer customer) {
-		this.customer = customer;
-	}
+    public Order(Customer customer) {
+        this.customer = customer;
+    }
 
-	protected Order() {
+    protected Order() {
 
-	}
+    }
 
-	public void add(LineItem lineItem) {
-		this.lineItems.add(lineItem);
-	}
+    public void add(LineItem lineItem) {
+        this.lineItems.add(lineItem);
+    }
+
     // TODO JIRA setter was used when hydrating object from storage, don't use BeanWrapper
     public Order withBillingAddress(Address billingAddress) {
-        Assert.state(customer.hasAddress(billingAddress),"valid customer address for "+customer);
+        Assert.state(customer.hasAddress(billingAddress), "valid customer address for " + customer);
         this.billingAddress = billingAddress;
         return this;
     }
 
     public Order withShippingAddress(Address shippingAddress) {
-        Assert.state(customer.hasAddress(shippingAddress),"valid customer address for "+customer);
+        Assert.state(customer.hasAddress(shippingAddress), "valid customer address for " + customer);
         this.shippingAddress = shippingAddress;
         return this;
     }
 
     public Customer getCustomer() {
-		return customer;
-	}
+        return customer;
+    }
 
-	public Address getBillingAddress() {
-		return billingAddress;
-	}
+    public Address getBillingAddress() {
+        return billingAddress;
+    }
 
-	public Address getShippingAddress() {
-		return shippingAddress;
-	}
+    public Address getShippingAddress() {
+        return shippingAddress;
+    }
 
-	public Set<LineItem> getLineItems() {
-		return Collections.unmodifiableSet(lineItems);
-	}
+    public Set<LineItem> getLineItems() {
+        return Collections.unmodifiableSet(lineItems);
+    }
 
     public void add(Product product, int amount) {
-        add(new LineItem(this,product,amount));
+        add(new LineItem(this, product, amount));
     }
 }

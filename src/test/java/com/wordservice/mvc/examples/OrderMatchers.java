@@ -15,28 +15,25 @@
  */
 package com.wordservice.mvc.examples;
 
-import com.wordservice.mvc.examples.LineItem;
-import com.wordservice.mvc.examples.Order;
-import com.wordservice.mvc.examples.Product;
 import org.hamcrest.Matcher;
 
 import static org.hamcrest.Matchers.*;
 
 public class OrderMatchers {
 
-	public static <T> Matcher<Iterable<? super T>> containsOrder(Matcher<T> matcher) {
-		return hasItem(matcher);
-	}
+    public static <T> Matcher<Iterable<? super T>> containsOrder(Matcher<T> matcher) {
+        return hasItem(matcher);
+    }
 
-	public static Matcher<Order> LineItem(Matcher<LineItem> matcher) {
-		return hasProperty("lineItems", hasItem(matcher));
-	}
+    public static Matcher<Order> LineItem(Matcher<LineItem> matcher) {
+        return hasProperty("lineItems", hasItem(matcher));
+    }
 
-	public static Matcher<LineItem> product(Matcher<Product> matcher) {
-		return hasProperty("product", matcher);
-	}
+    public static Matcher<LineItem> product(Matcher<Product> matcher) {
+        return hasProperty("product", matcher);
+    }
 
-	public static Matcher<LineItem> amount(int amount) {
-		return hasProperty("amount", is(amount));
-	}
+    public static Matcher<LineItem> amount(int amount) {
+        return hasProperty("amount", is(amount));
+    }
 }

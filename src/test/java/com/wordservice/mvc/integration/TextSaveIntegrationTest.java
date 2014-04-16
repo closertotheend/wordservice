@@ -37,13 +37,11 @@ public class TextSaveIntegrationTest extends IntegrationTestsBase {
         long estimatedTime = System.currentTimeMillis() - startTime;
         System.err.println("All opertaions " + estimatedTime);
         WordEntity byPropertyValue = wordRepositoryImpl.findByWord("a");
-        //System.err.println(byPropertyValue.getFollowedAfterWords());
     }
 
     @Test
     public void testRelationshipCreatement() {
         wordEntitySaverService.saveToRepo("Hello Ilja, I am neo4j, I am slow and ugly! I am happy, I am happy.");
-       // assertEquals(3, wordRepositoryImpl.findByWord("am").getRelationships().size());
         WordRelationship relationshipBetweenAmAndHappy = template.getRelationshipBetween(
                 wordRepositoryImpl.findByWord("am"), wordRepositoryImpl.findByWord("happy"),
                 WordRelationship.class, WordRelationship.relationshipType);

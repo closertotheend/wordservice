@@ -23,37 +23,37 @@ import org.hamcrest.TypeSafeMatcher;
 
 public class LineItemMatcher extends TypeSafeMatcher<LineItem> {
 
-	private final String name;
+    private final String name;
 
-	public LineItemMatcher(String name) {
-		this.name = name;
-	}
+    public LineItemMatcher(String name) {
+        this.name = name;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
-	 */
-	@Override
-	public void describeTo(Description description) {
-		// TODO Auto-generated method stub
+    /* (non-Javadoc)
+     * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+     */
+    @Override
+    public void describeTo(Description description) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	/* (non-Javadoc)
-	 * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
-	 */
-	@Override
-	protected boolean matchesSafely(LineItem item) {
+    /* (non-Javadoc)
+     * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
+     */
+    @Override
+    protected boolean matchesSafely(LineItem item) {
 
-		if (item == null) {
-			return false;
-		}
+        if (item == null) {
+            return false;
+        }
 
-		return item.getProduct().getName().equals(name);
-	}
+        return item.getProduct().getName().equals(name);
+    }
 
-	@Factory
-	public static <T> Matcher<LineItem> lineItemWithName(String name) {
-		return new LineItemMatcher(name);
-	}
+    @Factory
+    public static <T> Matcher<LineItem> lineItemWithName(String name) {
+        return new LineItemMatcher(name);
+    }
 
 }

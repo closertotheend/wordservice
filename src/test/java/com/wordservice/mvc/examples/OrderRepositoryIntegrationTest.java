@@ -22,56 +22,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-
 import static com.wordservice.mvc.examples.CoreMatchers.with;
-import static com.wordservice.mvc.examples.OrderMatchers.amount;
-import static com.wordservice.mvc.examples.OrderMatchers.containsOrder;
-import static com.wordservice.mvc.examples.OrderMatchers.product;
+import static com.wordservice.mvc.examples.OrderMatchers.LineItem;
 import static com.wordservice.mvc.examples.OrderMatchers.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class OrderRepositoryIntegrationTest extends AbstractIntegrationTest {
 
-	@Autowired
+    @Autowired
     OrderRepository repository;
 
-	@Autowired
+    @Autowired
     CustomerRepository customerRepository;
-	@Autowired
+    @Autowired
     ProductRepository productRepository;
 
-	@Test
-	public void createOrder() {
+    @Test
+    public void createOrder() {
 
-		Customer dave = customerRepository.findByEmailAddress(new EmailAddress("dave@dmband.com").getEmail());
-		Product iPad = productRepository.findByPropertyValue("name", "iPad");
+        Customer dave = customerRepository.findByEmailAddress(new EmailAddress("dave@dmband.com").getEmail());
+        Product iPad = productRepository.findByPropertyValue("name", "iPad");
 
-		Order order = new Order(dave);
-		order.add(new LineItem(order, iPad));
+        Order order = new Order(dave);
+        order.add(new LineItem(order, iPad));
 
-		order = repository.save(order);
-		assertThat(order.getId(), is(notNullValue()));
-	}
+        order = repository.save(order);
+        assertThat(order.getId(), is(notNullValue()));
+    }
 
     @Ignore
-	@Test
-	public void readOrder() {
+    @Test
+    public void readOrder() {
 
-		final EmailAddress email = new EmailAddress("dave@dmband.com");
+        final EmailAddress email = new EmailAddress("dave@dmband.com");
 
-		List<Order> orders = repository.findByCustomerEmailAddress(email.getEmail());
+        List<Order> orders = repository.findByCustomerEmailAddress(email.getEmail());
 
-		assertThat(orders, hasSize(1));
+        assertThat(orders, hasSize(1));
 
-		Matcher<LineItem> twoIPads = allOf(product(CoreMatchers.named("iPad")), amount(2));
-		Matcher<LineItem> singleMacBook = allOf(product(CoreMatchers.named("MacBook Pro")), amount(1));
+        Matcher<LineItem> twoIPads = allOf(product(CoreMatchers.named("iPad")), amount(2));
+        Matcher<LineItem> singleMacBook = allOf(product(CoreMatchers.named("MacBook Pro")), amount(1));
 
-		assertThat(orders, containsOrder(with(LineItem(twoIPads))));
-		assertThat(orders, containsOrder(with(LineItem(singleMacBook))));
-	}
-
-
+        assertThat(orders, containsOrder(with(LineItem(twoIPads))));
+        assertThat(orders, containsOrder(with(LineItem(singleMacBook))));
+    }
 
 
 }

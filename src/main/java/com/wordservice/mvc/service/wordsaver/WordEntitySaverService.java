@@ -67,7 +67,7 @@ public class WordEntitySaverService {
     private void createOrIncrementPopularityOfRelationship(WordEntity wordEntity1, WordEntity wordEntity2) {
         long startTime = System.currentTimeMillis();
 
-        WordRelationship relationshipBetween = wordRelationshipRepository.getRelationshipBetween(wordEntity1, wordEntity2 );
+        WordRelationship relationshipBetween = wordRelationshipRepository.getRelationshipBetween(wordEntity1, wordEntity2);
         if (relationshipBetween == null) {
             WordRelationship wordRelationship = new WordRelationship(wordEntity1, wordEntity2);
             wordRelationshipRepository.save(wordRelationship);

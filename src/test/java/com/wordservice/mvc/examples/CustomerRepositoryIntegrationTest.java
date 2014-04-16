@@ -15,7 +15,6 @@
  */
 package com.wordservice.mvc.examples;
 
-import com.wordservice.mvc.examples.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,42 +24,42 @@ import static org.junit.Assert.assertThat;
 
 public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
 
-	@Autowired
+    @Autowired
     CustomerRepository repository;
 
-	@Test
-	public void savesCustomerCorrectly() {
+    @Test
+    public void savesCustomerCorrectly() {
 
-		EmailAddress email = new EmailAddress("alicia@keys.com");
+        EmailAddress email = new EmailAddress("alicia@keys.com");
 
-		Customer alicia = new Customer("Alicia", "Keys",email.getEmail()); // todo
-        Country usa=new Country("US","United States");
+        Customer alicia = new Customer("Alicia", "Keys", email.getEmail()); // todo
+        Country usa = new Country("US", "United States");
         alicia.add(new Address("27 Broadway", "New York", usa));
 
-		Customer result = repository.save(alicia);
-		assertThat(result.getId(), is(notNullValue()));
-	}
+        Customer result = repository.save(alicia);
+        assertThat(result.getId(), is(notNullValue()));
+    }
 
-	@Test
-	public void readsCustomerByEmail() {
+    @Test
+    public void readsCustomerByEmail() {
 
-		EmailAddress email = new EmailAddress("alicia@keys.com");
-		Customer alicia = new Customer("Alicia", "Keys",email.getEmail());
+        EmailAddress email = new EmailAddress("alicia@keys.com");
+        Customer alicia = new Customer("Alicia", "Keys", email.getEmail());
 
-		repository.save(alicia);
+        repository.save(alicia);
 
-		Customer result = repository.findByEmailAddress(email.getEmail());
-		assertThat(result, is(alicia));
-	}
+        Customer result = repository.findByEmailAddress(email.getEmail());
+        assertThat(result, is(alicia));
+    }
 
-	@Test
-	public void preventsDuplicateEmail() {
+    @Test
+    public void preventsDuplicateEmail() {
 
         final EmailAddress email = new EmailAddress("dave@dmband.com");
         Customer dave = repository.findByEmailAddress(email.getEmail());
 
-		Customer anotherDave = new Customer("Dave", "Matthews",dave.getEmailAddress());
+        Customer anotherDave = new Customer("Dave", "Matthews", dave.getEmailAddress());
 
         repository.save(anotherDave);
-	}
+    }
 }

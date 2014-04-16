@@ -31,20 +31,20 @@ public class ApplicationConfigTest {
 
     @After
     public void tearDown() throws Exception {
-        if (context!=null) context.close();
+        if (context != null) context.close();
     }
 
     @Test
-	public void bootstrapAppFromJavaConfig() {
+    public void bootstrapAppFromJavaConfig() {
 
         context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-		assertThat(context, is(notNullValue()));
-	}
+        assertThat(context, is(notNullValue()));
+    }
 
-	@Test
-	public void bootstrapAppFromXml() {
+    @Test
+    public void bootstrapAppFromXml() {
 
         context = new ClassPathXmlApplicationContext("META-INF/spring/application-context.xml");
-		assertThat(context, is(notNullValue()));
-	}
+        assertThat(context, is(notNullValue()));
+    }
 }

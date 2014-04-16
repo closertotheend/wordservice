@@ -23,36 +23,36 @@ import org.springframework.beans.BeanWrapperImpl;
 
 public class PropertyPathValueMatcher extends TypeSafeMatcher<Object> {
 
-	private final String propertyPath;
-	private final Object expected;
+    private final String propertyPath;
+    private final Object expected;
 
-	public PropertyPathValueMatcher(String propertyPath, Object value) {
-		this.propertyPath = propertyPath;
-		this.expected = value;
-	}
+    public PropertyPathValueMatcher(String propertyPath, Object value) {
+        this.propertyPath = propertyPath;
+        this.expected = value;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
-	 */
-	@Override
-	public void describeTo(Description description) {
-		// TODO Auto-generated method stub
+    /* (non-Javadoc)
+     * @see org.hamcrest.SelfDescribing#describeTo(org.hamcrest.Description)
+     */
+    @Override
+    public void describeTo(Description description) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	/* (non-Javadoc)
-	 * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
-	 */
-	@Override
-	public boolean matchesSafely(Object object) {
+    /* (non-Javadoc)
+     * @see org.hamcrest.TypeSafeMatcher#matchesSafely(java.lang.Object)
+     */
+    @Override
+    public boolean matchesSafely(Object object) {
 
-		BeanWrapper wrapper = new BeanWrapperImpl(object);
-		Object value = wrapper.getPropertyValue(propertyPath);
+        BeanWrapper wrapper = new BeanWrapperImpl(object);
+        Object value = wrapper.getPropertyValue(propertyPath);
 
-		return expected == null ? value == null : expected.equals(value);
-	}
+        return expected == null ? value == null : expected.equals(value);
+    }
 
-	public static Matcher<? extends Object> withProperty(String name, Object value) {
-		return new PropertyPathValueMatcher(name, value);
-	}
+    public static Matcher<? extends Object> withProperty(String name, Object value) {
+        return new PropertyPathValueMatcher(name, value);
+    }
 }

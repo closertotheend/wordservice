@@ -12,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by ilja on 3/31/2014.
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestApplicationConfig.class})
 @Transactional
@@ -32,8 +29,8 @@ public class WordIntegrationTest {
         WordEntity gump = new WordEntity("Gump");
         WordEntity forrest = new WordEntity("Forrest");
         WordEntity lump = new WordEntity("Lump");
-        WordRelationship wordRelationship = new WordRelationship(forrest,gump);
-        WordRelationship wordRelationship2 = new WordRelationship(forrest,lump);
+        WordRelationship wordRelationship = new WordRelationship(forrest, gump);
+        WordRelationship wordRelationship2 = new WordRelationship(forrest, lump);
 
         wordRepositoryImpl.save(gump);
         wordRepositoryImpl.save(forrest);
@@ -47,8 +44,6 @@ public class WordIntegrationTest {
         assertEquals("retrieved word matches persisted one", forrest.getWord(), wordRepositoryImpl.findOne(forrest.getId()).getWord());
 
         assertEquals(gump, wordRepositoryImpl.findAllByPropertyValue("word", "Gump").single());
-       // assertEquals(2,wordRepository.findOne(forrest.getId()).getFollowedAfterWords().size());
-       // assertEquals(2, wordRepositoryImpl.findOne(forrest.getId()).getRelationships().size());
     }
 
 }

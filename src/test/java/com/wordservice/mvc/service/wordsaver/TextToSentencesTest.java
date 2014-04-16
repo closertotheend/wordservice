@@ -1,15 +1,11 @@
 package com.wordservice.mvc.service.wordsaver;
 
-import com.wordservice.mvc.service.wordsaver.TextToSentences;
 import org.junit.Test;
 
 import java.util.List;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
 
-/**
- * Created by ilja on 4/7/2014.
- */
 public class TextToSentencesTest {
     @Test
     public void testTransform() throws Exception {

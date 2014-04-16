@@ -25,40 +25,40 @@ import org.springframework.util.Assert;
 @RelationshipEntity(type = "ITEMS")
 public class LineItem extends AbstractEntity {
 
-	@StartNode
-	private Order order;
+    @StartNode
+    private Order order;
     @Fetch
     @EndNode
-	private Product product;
+    private Product product;
 
-	private int amount;
+    private int amount;
 
-	public LineItem(Order order, Product product) {
-		this(order,product, 1);
-	}
+    public LineItem(Order order, Product product) {
+        this(order, product, 1);
+    }
 
-	public LineItem(Order order, Product product, int amount) {
+    public LineItem(Order order, Product product, int amount) {
         Assert.notNull(product);
         Assert.notNull(order);
 
         this.order = order;
-		this.product = product;
-		this.amount = amount;
-	}
+        this.product = product;
+        this.amount = amount;
+    }
 
-	public LineItem() {
+    public LineItem() {
 
-	}
+    }
 
-	public Product getProduct() {
-		return product;
-	}
+    public Product getProduct() {
+        return product;
+    }
 
     public Order getOrder() {
         return order;
     }
 
     public int getAmount() {
-		return amount;
-	}
+        return amount;
+    }
 }

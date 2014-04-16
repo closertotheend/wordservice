@@ -4,13 +4,8 @@ import com.wordservice.mvc.IntegrationTestsBase;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
 
-/**
- * Created by ilja on 4/7/2014.
- */
-
-public class WordRepositoryImplTest extends IntegrationTestsBase{
+public class WordRepositoryImplTest extends IntegrationTestsBase {
 
 
     @Test
@@ -24,6 +19,6 @@ public class WordRepositoryImplTest extends IntegrationTestsBase{
         wordEntitySaverService.saveToRepo("Hello Ilja, I am neo4j, I am slow, I am slow, I am slow and ugly! I am happy, I am happy.");
         assertNotNull(wordRepositoryImpl.getTop10WordsAfter("am"));
         System.err.println(wordRepositoryImpl.getTop10WordsAfter("am"));
-        System.err.println(wordRepositoryImpl.getTop10WordsAfter("I","am"));
+        System.err.println(wordRepositoryImpl.getTop10WordsAfter("I", "am"));
     }
 }

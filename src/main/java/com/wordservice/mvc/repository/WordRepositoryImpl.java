@@ -1,13 +1,8 @@
 package com.wordservice.mvc.repository;
 
-import com.wordservice.mvc.examples.Product;
 import com.wordservice.mvc.model.WordEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.neo4j.annotation.Query;
-import org.springframework.data.neo4j.repository.CypherDslRepository;
 import org.springframework.data.neo4j.repository.GraphRepository;
-import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;

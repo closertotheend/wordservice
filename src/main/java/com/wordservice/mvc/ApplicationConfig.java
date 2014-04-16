@@ -16,8 +16,6 @@
 package com.wordservice.mvc;
 
 import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -34,8 +32,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 class ApplicationConfig {
 
-	@Bean(destroyMethod = "shutdown")
-	public GraphDatabaseService graphDatabaseService() {
-		return new SpringRestGraphDatabase("http://localhost:7474/db/data");
-	}
+    @Bean(destroyMethod = "shutdown")
+    public GraphDatabaseService graphDatabaseService() {
+        return new SpringRestGraphDatabase("http://localhost:7474/db/data");
+    }
 }

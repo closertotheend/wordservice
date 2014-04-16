@@ -1,17 +1,9 @@
 package com.wordservice.mvc.model;
 
-import com.wordservice.mvc.examples.LineItem;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.neo4j.graphdb.Direction;
-import org.springframework.data.neo4j.annotation.*;
-import org.springframework.data.neo4j.support.index.IndexType;
-
-import java.util.HashSet;
-import java.util.Set;
-
-/**
- * Created by ilja on 3/31/2014.
- */
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.Indexed;
+import org.springframework.data.neo4j.annotation.NodeEntity;
 
 @NodeEntity
 public class WordEntity {
@@ -23,8 +15,8 @@ public class WordEntity {
     @Indexed(unique = true, indexName = "word")
     private String word;
 
-//    @RelatedToVia(type = "IS_FOLLOWED_BY")
-//    private Set<WordRelationship> relationships = new HashSet<>();
+    @Indexed
+    private long popularity;
 
     private WordEntity() {
     }
@@ -41,9 +33,13 @@ public class WordEntity {
         return word;
     }
 
-//    public Set<WordRelationship> getRelationships() {
-//        return relationships;
-//    }
+    public long getPopularity() {
+        return popularity;
+    }
+
+    public void incrementPopularity() {
+        this.popularity++;
+    }
 
     @Override
     public boolean equals(Object o) {

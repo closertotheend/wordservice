@@ -2,7 +2,6 @@ package com.wordservice.mvc.model;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.neo4j.annotation.*;
-import scala.util.parsing.combinator.testing.Str;
 
 @RelationshipEntity(type = "IS_FOLLOWED_BY")
 public class WordRelationship {
@@ -34,20 +33,8 @@ public class WordRelationship {
         return id;
     }
 
-    public WordEntity getStartWord() {
-        return startWord;
-    }
-
-    public WordEntity getSecondWord() {
-        return secondWord;
-    }
-
     public long getPopularity() {
         return popularity;
-    }
-
-    public void setPopularity(long popularity) {
-        this.popularity = popularity;
     }
 
     public void incrementPopularity() {

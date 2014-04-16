@@ -17,7 +17,6 @@ package com.wordservice.mvc.examples;
 
 
 import com.wordservice.mvc.TestApplicationConfig;
-import com.wordservice.mvc.examples.*;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +28,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { TestApplicationConfig.class })
+@ContextConfiguration(classes = {TestApplicationConfig.class})
 @Transactional
 public abstract class AbstractIntegrationTest {
 
-	@Autowired
+    @Autowired
     protected Neo4jTemplate template;
     protected Product iPad;
     protected Product mbp;
@@ -57,15 +56,15 @@ insert into LineItem (id, product_id, amount, order_id) values (2, 2, 1, 1);
     @Before
     public void setUp() throws Exception {
         dave = template.save(new Customer("Dave", "Matthews", "dave@dmband.com"));
-        template.save(new Customer("Carter","Beauford","carter@dmband.com"));
-        template.save(new Customer("Boyd","Tinsley","boyd@dmband.com"));
+        template.save(new Customer("Carter", "Beauford", "carter@dmband.com"));
+        template.save(new Customer("Boyd", "Tinsley", "boyd@dmband.com"));
         final Country usa = template.save(new Country("US", "United States"));
-        template.save(new Address("27 Broadway","New York",usa));
+        template.save(new Address("27 Broadway", "New York", usa));
         iPad = template.save(new Product("iPad", "Apple tablet device").withPrice(BigDecimal.valueOf(499D)));
         mbp = template.save(new Product("MacBook Pro", "Apple notebook").withPrice(BigDecimal.valueOf(1299D)));
         final Order order = new Order(dave);
-        order.add(iPad,2);
-        order.add(mbp,1);
+        order.add(iPad, 2);
+        order.add(mbp, 1);
         template.save(order);
     }
 }

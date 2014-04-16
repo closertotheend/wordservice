@@ -4,19 +4,19 @@ import org.springframework.data.neo4j.annotation.GraphId;
 
 public abstract class AbstractEntity {
 
-	@GraphId
+    @GraphId
     private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
+    @Override
+    public boolean equals(Object obj) {
 
-		if (this == obj) {
-			return true;
-		}
+        if (this == obj) {
+            return true;
+        }
 
         if (id == null || obj == null || !getClass().equals(obj.getClass())) {
             return false;
@@ -25,8 +25,8 @@ public abstract class AbstractEntity {
 
     }
 
-	@Override
-	public int hashCode() {
-		return id == null ? 0 : id.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id.hashCode();
+    }
 }

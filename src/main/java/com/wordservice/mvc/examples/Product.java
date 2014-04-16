@@ -31,53 +31,53 @@ import java.util.Set;
 @NodeEntity
 public class Product extends AbstractEntity {
     @Indexed(unique = true)
-	private String name;
-    @Indexed(indexType = IndexType.FULLTEXT,indexName = "product_search")
-	private String description;
+    private String name;
+    @Indexed(indexType = IndexType.FULLTEXT, indexName = "product_search")
+    private String description;
     @GraphProperty(propertyType = double.class)
-	private BigDecimal price;
+    private BigDecimal price;
 
     @RelatedTo
-	private Set<Tag> tags = new HashSet<Tag> ();
+    private Set<Tag> tags = new HashSet<Tag>();
 
-    private DynamicProperties attributes=new PrefixedDynamicProperties("attributes");
+    private DynamicProperties attributes = new PrefixedDynamicProperties("attributes");
 
-	public Product(String name) {
-		this(name, null);
-	}
+    public Product(String name) {
+        this(name, null);
+    }
 
-	public Product(String name, String description) {
-		this.name = name;
-		this.description = description;
-	}
+    public Product(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
-	public Product() {
+    public Product() {
 
-	}
+    }
 
-	public void setAttribute(String key, String value) {
+    public void setAttribute(String key, String value) {
         this.attributes.setProperty(key, value);
-	}
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public Set<Tag> getTags() {
-		return Collections.unmodifiableSet(tags);
-	}
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
 
     public DynamicProperties getAttributes() {
-		return attributes;
-	}
+        return attributes;
+    }
 
-	public BigDecimal getPrice() {
-		return price;
-	}
+    public BigDecimal getPrice() {
+        return price;
+    }
 
     public Product withPrice(BigDecimal price) {
         this.price = price;
