@@ -1,8 +1,10 @@
 package com.wordservice.mvc.service.wordsaver;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class SentencesToWords {
 
@@ -27,7 +29,8 @@ public class SentencesToWords {
     }
 
     static String cleanWord(String dirtyWord) {
-        return dirtyWord.replaceAll("[^\\p{L}\\p{Nd}]", "");
+        return dirtyWord.substring(0, dirtyWord.length()-1) +
+                dirtyWord.substring(dirtyWord.length()-1).replaceAll("[^\\p{L}\\p{Nd}]", "");
     }
 
 }

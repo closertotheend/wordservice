@@ -55,8 +55,10 @@ public class WordEntitySaverService {
         WordEntity wordEntity = wordRepositoryCached.findByWord(word);
         if (wordEntity == null) {
             wordEntity = new WordEntity(word);
-            wordRepositoryCached.save(wordEntity);
+        }else{
+            wordEntity.incrementPopularity();
         }
+        wordRepositoryCached.save(wordEntity);
 
         long estimatedTime = System.currentTimeMillis() - startTime;
         logger.info("Elapsed time for word {} operations is " + estimatedTime, word);

@@ -6,6 +6,7 @@ import com.wordservice.mvc.model.WordRelationship;
 import org.junit.Test;
 
 import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
 
 public class TextSaveIntegrationTest extends IntegrationTestsBase {
 
@@ -18,9 +19,15 @@ public class TextSaveIntegrationTest extends IntegrationTestsBase {
     }
 
     @Test
-    public void checkLastName() {
+    public void checkWordCount() {
         wordEntitySaverService.saveToRepo("Hello Ilja!");
-        assertTrue(wordRepositoryImpl.count() == 2);
+        assertEquals(2,wordRepositoryImpl.count());
+    }
+
+    @Test
+    public void checkLastName() {
+        wordEntitySaverService.saveToRepo("Hello Hello Hello");
+        assertEquals(2, wordRepositoryImpl.findByWord("Hello").getPopularity());
     }
 
     @Test
