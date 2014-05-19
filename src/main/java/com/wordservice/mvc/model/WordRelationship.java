@@ -21,7 +21,7 @@ public class WordRelationship {
     @Indexed
     private long popularity;
 
-    private WordRelationship() {
+    public WordRelationship() {
     }
 
     public WordRelationship(WordEntity startWord, WordEntity secondWord) {
@@ -29,16 +29,29 @@ public class WordRelationship {
         this.secondWord = secondWord;
     }
 
+    public void incrementPopularity() {
+        this.popularity++;
+    }
+
+    // GETTERS SETTERS
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public long getPopularity() {
         return popularity;
     }
 
-    public void incrementPopularity() {
-        this.popularity++;
+    public WordEntity getStartWord() {
+        return startWord;
+    }
+
+    public WordEntity getSecondWord() {
+        return secondWord;
     }
 
     @Override

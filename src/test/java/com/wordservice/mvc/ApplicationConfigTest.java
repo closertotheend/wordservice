@@ -34,12 +34,7 @@ public class ApplicationConfigTest {
         if (context != null) context.close();
     }
 
-    @Test
-    public void bootstrapAppFromJavaConfig() {
 
-        context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-        assertThat(context, is(notNullValue()));
-    }
 
     @Test
     public void bootstrapAppFromXml() {

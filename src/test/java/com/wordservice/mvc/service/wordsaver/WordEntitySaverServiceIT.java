@@ -1,53 +1,60 @@
-package com.wordservice.mvc.integration;
+package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
 
 import static junit.framework.Assert.*;
 import static junit.framework.Assert.assertEquals;
 
-public class TextSaveIntegrationTest extends IntegrationTestsBase {
+public class WordEntitySaverServiceIT extends IntegrationTestsBase {
 
 
     @Test
-    public void persistedTextShouldBeRetrievable() {
+    @Ignore
+    public void shouldSaveBigAmountOfWordsWithoutFailing() {
         wordEntitySaverService.saveToRepo(dickensText);
         assertTrue(wordRepositoryImpl.count() > 300);
         assertNull(template.getRelationshipBetween(new WordEntity("zxc"), new WordEntity("ds"), WordRelationship.class, WordRelationship.relationshipType));
     }
 
     @Test
-    public void checkWordCount() {
+    @Rollback
+    public void shouldReturnCorrectAmountOfWords() {
         wordEntitySaverService.saveToRepo("Hello Ilja!");
         assertEquals(2,wordRepositoryImpl.count());
     }
 
     @Test
-    public void checkLastName() {
+    @Rollback
+    public void shouldReturnCorrectPopularityOfSavedWord() {
         wordEntitySaverService.saveToRepo("Hello Hello Hello");
         assertEquals(2, wordRepositoryImpl.findByWord("Hello").getPopularity());
     }
 
     @Test
-    public void checkMultipleSenences() {
+    @Rollback
+    public void shouldSaveWordsFromDifferentSenteces() {
         wordEntitySaverService.saveToRepo("Hello Ilja! My name is neo4j, and I am confused.");
         assertTrue(wordRepositoryImpl.count() == 10);
     }
 
     @Test
-    public void getAllWordsAfterA() {
+    @Rollback
+    public void shouldCheckThatSavedWordsShouldBeRetrivable() {
         wordEntitySaverService.saveToRepo("tralala hahaha.");
-        long startTime = System.currentTimeMillis();
-        wordEntitySaverService.saveToRepo(dickensText);
-        long estimatedTime = System.currentTimeMillis() - startTime;
-        System.err.println("All opertaions " + estimatedTime);
-        WordEntity byPropertyValue = wordRepositoryImpl.findByWord("a");
+        WordEntity hahaha = wordRepositoryImpl.findByWord("hahaha");
+        assertNotNull(hahaha);
+        WordEntity a = wordRepositoryImpl.findByWord("a");
+        assertNull(a);
     }
 
     @Test
-    public void testRelationshipCreatement() {
+    @Rollback
+    public void shouldCreateCorrectAmountOfRelationshipsAndCorrectlyIncrementPopularityOfThem() {
         wordEntitySaverService.saveToRepo("Hello Ilja, I am neo4j, I am slow and ugly! I am happy, I am happy.");
         WordRelationship relationshipBetweenAmAndHappy = template.getRelationshipBetween(
                 wordRepositoryImpl.findByWord("am"), wordRepositoryImpl.findByWord("happy"),
@@ -56,6 +63,7 @@ public class TextSaveIntegrationTest extends IntegrationTestsBase {
     }
 
     @Test
+    @Rollback
     public void checkInjection() {
         assertNotNull(wordEntitySaverService);
         assertNotNull(template);

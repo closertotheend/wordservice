@@ -3,17 +3,20 @@ package com.wordservice.mvc.repository;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.neo4j.conversion.EndResult;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
-public class WordRelationshipRepositoryImpl {
+public class WordRelationshipRepository {
 
     @Autowired
     private Neo4jTemplate template;
 
-    public void save(WordRelationship wordRelationship) {
-        template.save(wordRelationship);
+    public WordRelationship save(WordRelationship wordRelationship) {
+        return template.save(wordRelationship);
     }
 
 
@@ -24,6 +27,10 @@ public class WordRelationshipRepositoryImpl {
 
     public WordRelationship findOne(Long id) {
         return template.findOne(id, WordRelationship.class);
+    }
+
+    public EndResult<WordRelationship> findAll(){
+        return template.findAll(WordRelationship.class);
     }
 
 }

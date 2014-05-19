@@ -29,8 +29,7 @@ public class SentencesToWords {
     }
 
     static String cleanWord(String dirtyWord) {
-        return dirtyWord.substring(0, dirtyWord.length()-1) +
-                dirtyWord.substring(dirtyWord.length()-1).replaceAll("[^\\p{L}\\p{Nd}]", "");
+         return dirtyWord.replaceAll("[^\\p{L}\\p{Nd}]", "");
     }
 
 }

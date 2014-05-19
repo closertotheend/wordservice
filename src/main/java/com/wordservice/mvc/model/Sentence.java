@@ -1,33 +1,23 @@
 package com.wordservice.mvc.model;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.GraphProperty;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
-@NodeEntity
-public class WordEntity {
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-    @JsonIgnore
+@NodeEntity
+public class Sentence {
     @GraphId
     private Long id;
 
-    @Indexed(unique = true, indexName = "word")
-    private String word;
-
     @Indexed
-    private long popularity;
-
-    private WordEntity() {
-    }
-
-    public WordEntity(String word) {
-        this.word = word;
-    }
-
-    public void incrementPopularity() {
-        this.popularity++;
-    }
+    @GraphProperty
+    private List<Long> wordRelationships = new ArrayList<>();
 
     // GETTERS SETTERS
     public Long getId() {
@@ -38,12 +28,12 @@ public class WordEntity {
         this.id = id;
     }
 
-    public String getWord() {
-        return word;
+    public List<Long> getWordRelationships() {
+        return wordRelationships;
     }
 
-    public long getPopularity() {
-        return popularity;
+    public void setWordRelationships(List<Long> wordRelationships) {
+        this.wordRelationships = wordRelationships;
     }
 
     @Override
@@ -51,9 +41,9 @@ public class WordEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        WordEntity that = (WordEntity) o;
+        Sentence sentence = (Sentence) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (id != null ? !id.equals(sentence.id) : sentence.id != null) return false;
 
         return true;
     }
@@ -65,9 +55,9 @@ public class WordEntity {
 
     @Override
     public String toString() {
-        return "WordEntity{" +
+        return "Sentence{" +
                 "id=" + id +
-                ", word='" + word + '\'' +
+                ", wordRelationships=" + wordRelationships +
                 '}';
     }
 }

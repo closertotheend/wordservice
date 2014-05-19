@@ -1,9 +1,11 @@
 package com.wordservice.mvc.service.wordsaver;
 
+import com.wordservice.mvc.model.Sentence;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.repository.WordRelationshipRepositoryImpl;
-import com.wordservice.mvc.repository.WordRepositoryImpl;
+import com.wordservice.mvc.repository.SentenceRepository;
+import com.wordservice.mvc.repository.WordRelationshipRepository;
+import com.wordservice.mvc.repository.WordRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +14,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by ilja on 4/6/2014.
- */
+
 @Service
 public class WordEntitySaverService {
     private static final Logger logger = LoggerFactory
             .getLogger(WordEntitySaverService.class);
 
     @Autowired
-    WordRelationshipRepositoryImpl wordRelationshipRepository;
+    private WordRelationshipRepository wordRelationshipRepository;
 
     @Autowired
-    WordRepositoryImpl wordRepositoryCached;
+    private WordRepository wordRepository;
 
-    @Transactional
+    @Autowired
+    private SentenceRepository sentenceRepository;
+
     public void saveToRepo(String text) {
         List<String> sentences = TextToSentences.transform(text);
         for (String sentence : sentences) {
@@ -36,29 +38,32 @@ public class WordEntitySaverService {
         logger.info("UPLOAD FINISHED!");
     }
 
-    private void saveToRepo(List<String> words) {
+    void saveToRepo(List<String> words) {
         if (words.size() >= 2) {
             WordEntity wordEntity1 = getOrCreateWordEntity(words, 0);
+            Sentence sentence = new Sentence();
             for (int i = 0; i + 1 < words.size(); i++) {
                 WordEntity wordEntity2 = getOrCreateWordEntity(words, i + 1);
-                createOrIncrementPopularityOfRelationship(wordEntity1, wordEntity2);
+                WordRelationship wordRelationship = createOrIncrementPopularityOfRelationship(wordEntity1, wordEntity2);
+                sentence.getWordRelationships().add(wordRelationship.getId());
                 wordEntity1 = wordEntity2;
             }
+            sentenceRepository.save(sentence);
         }
 
     }
 
-    private WordEntity getOrCreateWordEntity(List<String> wordEntities, int wordIndex) {
+    WordEntity getOrCreateWordEntity(List<String> wordEntities, int wordIndex) {
         long startTime = System.currentTimeMillis();
 
         String word = wordEntities.get(wordIndex);
-        WordEntity wordEntity = wordRepositoryCached.findByWord(word);
+        WordEntity wordEntity = wordRepository.findByWord(word);
         if (wordEntity == null) {
             wordEntity = new WordEntity(word);
         }else{
             wordEntity.incrementPopularity();
         }
-        wordRepositoryCached.save(wordEntity);
+        wordEntity = wordRepository.save(wordEntity);
 
         long estimatedTime = System.currentTimeMillis() - startTime;
         logger.info("Elapsed time for word {} operations is " + estimatedTime, word);
@@ -66,20 +71,22 @@ public class WordEntitySaverService {
         return wordEntity;
     }
 
-    private void createOrIncrementPopularityOfRelationship(WordEntity wordEntity1, WordEntity wordEntity2) {
+    WordRelationship createOrIncrementPopularityOfRelationship(WordEntity wordEntity1, WordEntity wordEntity2) {
         long startTime = System.currentTimeMillis();
-
+        System.err.println("ALOOOO");
         WordRelationship relationshipBetween = wordRelationshipRepository.getRelationshipBetween(wordEntity1, wordEntity2);
         if (relationshipBetween == null) {
             WordRelationship wordRelationship = new WordRelationship(wordEntity1, wordEntity2);
-            wordRelationshipRepository.save(wordRelationship);
+            relationshipBetween = wordRelationshipRepository.save(wordRelationship);
         } else {
             relationshipBetween.incrementPopularity();
-            wordRelationshipRepository.save(relationshipBetween);
+            relationshipBetween = wordRelationshipRepository.save(relationshipBetween);
         }
 
         long estimatedTime = System.currentTimeMillis() - startTime;
         logger.info("Elapsed time for relationship {} operations is " + estimatedTime, startTime);
+
+        return relationshipBetween;
     }
 
 }

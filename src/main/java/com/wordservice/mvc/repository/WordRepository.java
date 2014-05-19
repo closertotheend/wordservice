@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface WordRepositoryImpl extends GraphRepository<WordEntity> {
+public interface WordRepository extends GraphRepository<WordEntity> {
     WordEntity findByWord(String word);
 
     @Query("START wordEntity=node:word(word={word}) " +
@@ -19,8 +19,5 @@ public interface WordRepositoryImpl extends GraphRepository<WordEntity> {
             "MATCH wordEntity-[r:IS_FOLLOWED_BY]->wordEntity2-[r2:IS_FOLLOWED_BY]->otherWord" +
             " RETURN otherWord ORDER BY r2.popularity DESC")
     List<WordEntity> getTop10WordsAfter(@Param("word1") String word1, @Param("word2") String word2);
-
-    @Override
-    public WordEntity save(WordEntity entity);
 
 }

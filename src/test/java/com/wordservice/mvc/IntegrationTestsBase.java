@@ -1,7 +1,9 @@
 package com.wordservice.mvc;
 
-import com.wordservice.mvc.repository.WordRelationshipRepositoryImpl;
-import com.wordservice.mvc.repository.WordRepositoryImpl;
+import com.wordservice.mvc.repository.SentenceRepository;
+import com.wordservice.mvc.repository.WordRelationshipRepository;
+import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.service.wordfinder.WordFinderService;
 import com.wordservice.mvc.service.wordsaver.WordEntitySaverService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Created by ilja on 4/7/2014.
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestApplicationConfig.class})
 @Transactional
@@ -23,13 +22,19 @@ public abstract class IntegrationTestsBase {
     public Neo4jTemplate template;
 
     @Autowired
-    public WordRepositoryImpl wordRepositoryImpl;
+    public WordRepository wordRepositoryImpl;
 
     @Autowired
-    public WordRelationshipRepositoryImpl wordRelationshipRepository;
+    public WordRelationshipRepository wordRelationshipRepository;
+
+    @Autowired
+    public SentenceRepository sentenceRepository;
 
     @Autowired
     public WordEntitySaverService wordEntitySaverService;
+
+    @Autowired
+    public WordFinderService wordFinderService;
 
     public static final String dickensText = "I fully expected to find a Constable in the kitchen, waiting to take me up. But not only was there no Constable there, but no discovery had yet been made of the robbery. Mrs. Joe was prodigiously busy in getting the house ready for the festivities of the day, and Joe had been put upon the kitchen door-step to keep him out of the dust-pan - an article into which his destiny always led him sooner or later, when my sister was vigorously reaping the floors of her establishment.\n" +
             "\n" +

@@ -57,6 +57,7 @@
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-core:1.4" />
           <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
           <element id="library" level="project" name="Maven: junit:junit:4.8.2" />
+          <element id="library" level="project" name="Maven: org.mockito:mockito-all:1.9.5" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:1.0.0.GA" />
           <element id="library" level="project" name="Maven: org.apache.lucene:lucene-queries:3.5.0" />
           <element id="library" level="project" name="Maven: jakarta-regexp:jakarta-regexp:1.4" />
