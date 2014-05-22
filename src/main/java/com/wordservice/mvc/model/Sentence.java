@@ -4,6 +4,7 @@ import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.GraphProperty;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.support.index.IndexType;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,7 +16,7 @@ public class Sentence {
     @GraphId
     private Long id;
 
-    @Indexed
+    @Indexed(indexName = "sentenceIndex",indexType = IndexType.FULLTEXT)
     @GraphProperty
     private List<Long> wordRelationships = new ArrayList<>();
 

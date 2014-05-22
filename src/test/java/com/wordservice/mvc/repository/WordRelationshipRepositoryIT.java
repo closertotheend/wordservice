@@ -21,8 +21,8 @@ public class WordRelationshipRepositoryIT extends IntegrationTestsBase {
         WordEntity hello = new WordEntity("Hello");
         WordEntity ilja = new WordEntity("Ilja");
 
-        wordRepositoryImpl.save(hello);
-        wordRepositoryImpl.save(ilja);
+        wordRepository.save(hello);
+        wordRepository.save(ilja);
 
         WordRelationship relationship = new WordRelationship(hello, ilja);
         wordRelationshipRepository.save(relationship);
@@ -43,8 +43,8 @@ public class WordRelationshipRepositoryIT extends IntegrationTestsBase {
         WordEntity hello = new WordEntity("Hello");
         WordEntity ilja = new WordEntity("Ilja");
 
-        wordRepositoryImpl.save(hello);
-        wordRepositoryImpl.save(ilja);
+        wordRepository.save(hello);
+        wordRepository.save(ilja);
 
         WordRelationship relationship = new WordRelationship(hello, ilja);
         wordRelationshipRepository.save(relationship);

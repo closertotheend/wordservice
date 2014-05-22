@@ -17,7 +17,7 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
     @Ignore
     public void shouldSaveBigAmountOfWordsWithoutFailing() {
         wordEntitySaverService.saveToRepo(dickensText);
-        assertTrue(wordRepositoryImpl.count() > 300);
+        assertTrue(wordRepository.count() > 300);
         assertNull(template.getRelationshipBetween(new WordEntity("zxc"), new WordEntity("ds"), WordRelationship.class, WordRelationship.relationshipType));
     }
 
@@ -25,30 +25,30 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldReturnCorrectAmountOfWords() {
         wordEntitySaverService.saveToRepo("Hello Ilja!");
-        assertEquals(2,wordRepositoryImpl.count());
+        assertEquals(2, wordRepository.count());
     }
 
     @Test
     @Rollback
     public void shouldReturnCorrectPopularityOfSavedWord() {
         wordEntitySaverService.saveToRepo("Hello Hello Hello");
-        assertEquals(2, wordRepositoryImpl.findByWord("Hello").getPopularity());
+        assertEquals(2, wordRepository.findByWord("Hello").getPopularity());
     }
 
     @Test
     @Rollback
     public void shouldSaveWordsFromDifferentSenteces() {
         wordEntitySaverService.saveToRepo("Hello Ilja! My name is neo4j, and I am confused.");
-        assertTrue(wordRepositoryImpl.count() == 10);
+        assertTrue(wordRepository.count() == 10);
     }
 
     @Test
     @Rollback
     public void shouldCheckThatSavedWordsShouldBeRetrivable() {
         wordEntitySaverService.saveToRepo("tralala hahaha.");
-        WordEntity hahaha = wordRepositoryImpl.findByWord("hahaha");
+        WordEntity hahaha = wordRepository.findByWord("hahaha");
         assertNotNull(hahaha);
-        WordEntity a = wordRepositoryImpl.findByWord("a");
+        WordEntity a = wordRepository.findByWord("a");
         assertNull(a);
     }
 
@@ -57,7 +57,7 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
     public void shouldCreateCorrectAmountOfRelationshipsAndCorrectlyIncrementPopularityOfThem() {
         wordEntitySaverService.saveToRepo("Hello Ilja, I am neo4j, I am slow and ugly! I am happy, I am happy.");
         WordRelationship relationshipBetweenAmAndHappy = template.getRelationshipBetween(
-                wordRepositoryImpl.findByWord("am"), wordRepositoryImpl.findByWord("happy"),
+                wordRepository.findByWord("am"), wordRepository.findByWord("happy"),
                 WordRelationship.class, WordRelationship.relationshipType);
         assertEquals(1, relationshipBetweenAmAndHappy.getPopularity());
     }
@@ -67,7 +67,7 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
     public void checkInjection() {
         assertNotNull(wordEntitySaverService);
         assertNotNull(template);
-        assertNotNull(wordRepositoryImpl);
+        assertNotNull(wordRepository);
     }
 
 

@@ -19,7 +19,7 @@ import static junit.framework.Assert.assertEquals;
 
 
 @Service
-public class WordFinderService {
+public class SentenceContextWordFinderService {
 
     @Autowired
     private WordRelationshipRepository wordRelationshipRepository;
@@ -31,9 +31,9 @@ public class WordFinderService {
     private SentenceRepository sentenceRepository;
 
     public List<String> getNextWords(String word1, String word2){
-        WordEntity firstWord = wordRepository.findByWord(word1);;
+        WordEntity firstWord = wordRepository.findByWord(word1);
         if (firstWord == null) return Collections.emptyList();
-        WordEntity secondWord = wordRepository.findByWord(word2);;
+        WordEntity secondWord = wordRepository.findByWord(word2);
         if (secondWord == null) return Collections.emptyList();
         WordRelationship relationshipBetween1and2 = wordRelationshipRepository.getRelationshipBetween(firstWord, secondWord);;
         if (relationshipBetween1and2 == null) return Collections.emptyList();
@@ -46,7 +46,9 @@ public class WordFinderService {
             if (relationshipIsNotLastInSentece(sentence, indexOfRelationship)){
                 Long idOfNextRelationship = sentence.getWordRelationships().get(indexOfRelationship + 1);
                 WordRelationship nextWordRelationship = wordRelationshipRepository.findOne(idOfNextRelationship);
-                words.add(wordRepository.findOne(nextWordRelationship.getSecondWord().getId()).getWord());
+                words.add(wordRepository.findOne(
+                        nextWordRelationship.getSecondWord().getId()
+                ).getWord());
             }
         }
 

@@ -1,7 +1,6 @@
 package com.wordservice.mvc.model;
 
 import com.wordservice.mvc.IntegrationTestsBase;
-import junit.framework.TestCase;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
@@ -15,7 +14,7 @@ public class SentenceIT extends IntegrationTestsBase {
     public void testGetWordRelationships() throws Exception {
         wordEntitySaverService.saveToRepo("Hello Ilja!");
 
-        assertEquals(2,wordRepositoryImpl.count());
+        assertEquals(2, wordRepository.count());
         assertEquals(1, sentenceRepository.count());
     }
 }

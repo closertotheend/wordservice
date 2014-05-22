@@ -57,4 +57,30 @@ public class WordEntitySaverServiceTest {
         verify(wordRelationshipRepository, times(numberOfRelationsBetween2Words)).save(any(WordRelationship.class));
         verify(wordRelationshipRepository, atLeastOnce()).getRelationshipBetween(any(WordEntity.class), any(WordEntity.class));
     }
+
+    @Test
+    public void testGetOrCreateWordEntity() throws Exception {
+        WordEntity existingWordEntity = new WordEntity();
+        when(wordRepository.findByWord(anyString())).thenReturn(existingWordEntity);
+        wordEntitySaverService.getOrCreateWordEntity(anyString());
+        verify(wordRepository).save(existingWordEntity);
+        assertEquals("saving twice enforces incrementation of popularity",1,existingWordEntity.getPopularity());
+    }
+
+    @Test
+    public void testCreateOrIncrementPopularityOfRelationship() throws Exception {
+        wordEntitySaverService.createOrIncrementPopularityOfRelationship(new WordEntity(),new WordEntity());
+        verify(wordRelationshipRepository).getRelationshipBetween(any(WordEntity.class), any(WordEntity.class));
+        verify(wordRelationshipRepository).save(any(WordRelationship.class));
+    }
+
+    @Test
+    public void testCreateOrIncrementPopularityOfRelationship2() throws Exception {
+        WordRelationship wordRelationship = new WordRelationship();
+        when(wordRelationshipRepository.getRelationshipBetween(any(WordEntity.class), any(WordEntity.class))).thenReturn(wordRelationship);
+        wordEntitySaverService.createOrIncrementPopularityOfRelationship(new WordEntity(), new WordEntity());
+        verify(wordRelationshipRepository).getRelationshipBetween(any(WordEntity.class), any(WordEntity.class));
+        verify(wordRelationshipRepository).save(any(WordRelationship.class));
+        assertEquals("wordrelationship existed so saving twice increases popularity",1,wordRelationship.getPopularity());
+    }
 }

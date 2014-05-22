@@ -15,6 +15,7 @@
  */
 package com.wordservice.mvc.examples;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,6 +29,7 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
     CustomerRepository repository;
 
     @Test
+    @Ignore
     public void savesCustomerCorrectly() {
 
         EmailAddress email = new EmailAddress("alicia@keys.com");
@@ -41,6 +43,7 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void readsCustomerByEmail() {
 
         EmailAddress email = new EmailAddress("alicia@keys.com");
@@ -53,6 +56,7 @@ public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void preventsDuplicateEmail() {
 
         final EmailAddress email = new EmailAddress("dave@dmband.com");

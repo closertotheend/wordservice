@@ -39,6 +39,7 @@ public class OrderRepositoryIntegrationTest extends AbstractIntegrationTest {
     ProductRepository productRepository;
 
     @Test
+    @Ignore
     public void createOrder() {
 
         Customer dave = customerRepository.findByEmailAddress(new EmailAddress("dave@dmband.com").getEmail());

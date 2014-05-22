@@ -18,7 +18,6 @@ public class WordRelationship {
     @EndNode
     private WordEntity secondWord;
 
-    @Indexed
     private long popularity;
 
     public WordRelationship() {
@@ -52,6 +51,14 @@ public class WordRelationship {
 
     public WordEntity getSecondWord() {
         return secondWord;
+    }
+
+    public void setSecondWord(WordEntity secondWord) {
+        this.secondWord = secondWord;
+    }
+
+    public void setStartWord(WordEntity startWord) {
+        this.startWord = startWord;
     }
 
     @Override

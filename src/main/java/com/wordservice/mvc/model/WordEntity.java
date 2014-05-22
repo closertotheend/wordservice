@@ -4,6 +4,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.support.index.IndexType;
 
 @NodeEntity
 public class WordEntity {
@@ -12,13 +13,12 @@ public class WordEntity {
     @GraphId
     private Long id;
 
-    @Indexed(unique = true, indexName = "word")
+    @Indexed(indexType = IndexType.FULLTEXT, unique = true, indexName = "word")
     private String word;
 
-    @Indexed
     private long popularity;
 
-    private WordEntity() {
+    public WordEntity() {
     }
 
     public WordEntity(String word) {
@@ -44,6 +44,10 @@ public class WordEntity {
 
     public long getPopularity() {
         return popularity;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.Sentence;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
@@ -23,18 +22,18 @@ public class SentenceRepositoryIT extends IntegrationTestsBase{
     public void testGetSentencesWithRelationshipId() throws Exception {
         wordEntitySaverService.saveToRepo("Hello Ilja! I am neo4j server. You should test wordrelationship I am twice!");
 
-        WordEntity hello = wordRepositoryImpl.findByWord("Hello");
-        WordEntity ilja = wordRepositoryImpl.findByWord("Ilja");
-        WordEntity i = wordRepositoryImpl.findByWord("I");
-        WordEntity am = wordRepositoryImpl.findByWord("am");
-        WordEntity neo4j = wordRepositoryImpl.findByWord("neo4j");
-        WordEntity server = wordRepositoryImpl.findByWord("server");
-        WordEntity you = wordRepositoryImpl.findByWord("You");
-        WordEntity should = wordRepositoryImpl.findByWord("should");
-        WordEntity test = wordRepositoryImpl.findByWord("test");
-        WordEntity wordrelationship = wordRepositoryImpl.findByWord("wordrelationship");
-        WordEntity twice = wordRepositoryImpl.findByWord("twice");
-        WordEntity nonexisting = wordRepositoryImpl.findByWord("nonexisting");
+        WordEntity hello = wordRepository.findByWord("Hello");
+        WordEntity ilja = wordRepository.findByWord("Ilja");
+        WordEntity i = wordRepository.findByWord("I");
+        WordEntity am = wordRepository.findByWord("am");
+        WordEntity neo4j = wordRepository.findByWord("neo4j");
+        WordEntity server = wordRepository.findByWord("server");
+        WordEntity you = wordRepository.findByWord("You");
+        WordEntity should = wordRepository.findByWord("should");
+        WordEntity test = wordRepository.findByWord("test");
+        WordEntity wordrelationship = wordRepository.findByWord("wordrelationship");
+        WordEntity twice = wordRepository.findByWord("twice");
+        WordEntity nonexisting = wordRepository.findByWord("nonexisting");
 
         assertNotNull(hello);
         assertNotNull(ilja);
@@ -74,8 +73,8 @@ public class SentenceRepositoryIT extends IntegrationTestsBase{
         WordRelationship wordrelationship1 = wordRelationshipRepository.findOne(sentences3.get(0).getWordRelationships().get(
                 sentences3.get(0).getWordRelationships().indexOf(idOfRealtionshipIam)
         ));
-        assertEquals("I", wordRepositoryImpl.findOne(wordrelationship1.getStartWord().getId()).getWord());
-        assertEquals("am", wordRepositoryImpl.findOne(wordrelationship1.getSecondWord().getId()).getWord());
+        assertEquals("I", wordRepository.findOne(wordrelationship1.getStartWord().getId()).getWord());
+        assertEquals("am", wordRepository.findOne(wordrelationship1.getSecondWord().getId()).getWord());
 
 
 
@@ -83,15 +82,7 @@ public class SentenceRepositoryIT extends IntegrationTestsBase{
         WordRelationship wordrelationship2 = wordRelationshipRepository.findOne(sentences3.get(1).getWordRelationships().get(
                 sentences3.get(1).getWordRelationships().indexOf(idOfRealtionshipIam)
         ));
-        assertEquals("I", wordRepositoryImpl.findOne(wordrelationship2.getStartWord().getId()).getWord());
-        assertEquals("am", wordRepositoryImpl.findOne(wordrelationship2.getSecondWord().getId()).getWord());
-
-        // process second result
-        WordRelationship wordrelationship3 = wordRelationshipRepository.findOne(sentences3.get(1).getWordRelationships().get(
-                sentences3.get(1).getWordRelationships().indexOf(idOfRealtionshipIam) +1
-        ));
-        assertEquals("am", wordRepositoryImpl.findOne(wordrelationship3.getStartWord().getId()).getWord());
-        assertEquals("twice", wordRepositoryImpl.findOne(wordrelationship3.getSecondWord().getId()).getWord());
-
+        assertEquals("I", wordRepository.findOne(wordrelationship2.getStartWord().getId()).getWord());
+        assertEquals("am", wordRepository.findOne(wordrelationship2.getSecondWord().getId()).getWord());
     }
 }

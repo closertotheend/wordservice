@@ -9,11 +9,11 @@ wordAppServices.service('WordApiService',['$resource',
         var WordApiService={};
 
         WordApiService.getTop = function(word){
-            return $resource('/word-completion-api/getTopFor/:word').query({word: word});
+            return $resource('/getTopFor/:word').query({word: word});
         }
 
         WordApiService.save = function(text){
-            $resource('/word-completion-api/wordApi/', null,
+            $resource('/wordApi/', null,
                 {
                     'save': { method:'POST' }
                 }).save(text);

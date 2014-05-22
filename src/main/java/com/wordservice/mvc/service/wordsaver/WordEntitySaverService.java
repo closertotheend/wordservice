@@ -40,10 +40,10 @@ public class WordEntitySaverService {
 
     void saveToRepo(List<String> words) {
         if (words.size() >= 2) {
-            WordEntity wordEntity1 = getOrCreateWordEntity(words, 0);
+            WordEntity wordEntity1 = getOrCreateWordEntity(words.get(0));
             Sentence sentence = new Sentence();
             for (int i = 0; i + 1 < words.size(); i++) {
-                WordEntity wordEntity2 = getOrCreateWordEntity(words, i + 1);
+                WordEntity wordEntity2 = getOrCreateWordEntity(words.get(i + 1));
                 WordRelationship wordRelationship = createOrIncrementPopularityOfRelationship(wordEntity1, wordEntity2);
                 sentence.getWordRelationships().add(wordRelationship.getId());
                 wordEntity1 = wordEntity2;
@@ -53,10 +53,9 @@ public class WordEntitySaverService {
 
     }
 
-    WordEntity getOrCreateWordEntity(List<String> wordEntities, int wordIndex) {
+    WordEntity getOrCreateWordEntity(String word) {
         long startTime = System.currentTimeMillis();
 
-        String word = wordEntities.get(wordIndex);
         WordEntity wordEntity = wordRepository.findByWord(word);
         if (wordEntity == null) {
             wordEntity = new WordEntity(word);
@@ -73,7 +72,7 @@ public class WordEntitySaverService {
 
     WordRelationship createOrIncrementPopularityOfRelationship(WordEntity wordEntity1, WordEntity wordEntity2) {
         long startTime = System.currentTimeMillis();
-        System.err.println("ALOOOO");
+
         WordRelationship relationshipBetween = wordRelationshipRepository.getRelationshipBetween(wordEntity1, wordEntity2);
         if (relationshipBetween == null) {
             WordRelationship wordRelationship = new WordRelationship(wordEntity1, wordEntity2);
