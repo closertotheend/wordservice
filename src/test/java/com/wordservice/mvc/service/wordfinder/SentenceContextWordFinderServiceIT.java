@@ -1,6 +1,7 @@
 package com.wordservice.mvc.service.wordfinder;
 
 import com.wordservice.mvc.IntegrationTestsBase;
+import com.wordservice.mvc.model.WordEntity;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
@@ -14,9 +15,9 @@ public class SentenceContextWordFinderServiceIT extends IntegrationTestsBase {
     @Rollback
     public void testGetNextWords() throws Exception {
         wordEntitySaverService.saveToRepo("This is text. This is cat. This string should be easy. This is.");
-        List<String> sentences = sentenceContextWordFinderService.getNextWords("This", "is");
-        assertTrue(sentences.contains("text"));
-        assertTrue(sentences.contains("cat"));
+        List<WordEntity> sentences = sentenceContextWordFinderService.getNextWords("This", "is");
+        assertTrue(sentences.contains(wordRepository.findByWord("text")));
+        assertTrue(sentences.contains(wordRepository.findByWord("cat")));
         assertEquals(2,sentences.size());
     }
 
@@ -24,7 +25,7 @@ public class SentenceContextWordFinderServiceIT extends IntegrationTestsBase {
     @Rollback
     public void testGetNextWords2() throws Exception {
         wordEntitySaverService.saveToRepo("This is text. This is cat. This string should be easy. This is.");
-        List<String> sentences = sentenceContextWordFinderService.getNextWords("This", "iasdaasdasds");
+        List<WordEntity> sentences = sentenceContextWordFinderService.getNextWords("This", "iasdaasdasds");
         assertEquals(0,sentences.size());
     }
 }

@@ -4,10 +4,12 @@ import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.repository.WordRepository;
 import com.wordservice.mvc.service.wordfinder.SentenceContextWordFinderService;
 import com.wordservice.mvc.service.wordsaver.WordEntitySaverService;
+import com.wordservice.mvc.util.WordPopularityComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -36,20 +38,24 @@ public class WordControllerImpl {
 
     @RequestMapping(value = "getSentence/{word1}/{word2}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<String> getSentence(@PathVariable String word1, @PathVariable String word2) {
+    public List<WordEntity> getSentence(@PathVariable String word1, @PathVariable String word2) {
         return sentenceContextWordFinderService.getNextWords(word1, word2);
     }
 
     @RequestMapping(value = "getWordStartingWith/{string}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<WordEntity> getWordStartingWith(@PathVariable String string) {
-        return wordRepository.findByWordStartingWith(string);
+        List<WordEntity> startingWords = wordRepository.findByWordStartingWith(string);
+        Collections.sort(startingWords, new WordPopularityComparator());
+        return startingWords;
     }
 
     @RequestMapping(value = "getWordContaining/{string}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<WordEntity> getWordContaining(@PathVariable String string) {
-        return wordRepository.findByWordContaining(string);
+        List<WordEntity> containingWords = wordRepository.findByWordContaining(string);
+        Collections.sort(containingWords, new WordPopularityComparator());
+        return containingWords;
     }
 
     @RequestMapping(value = "wordApi", method = RequestMethod.POST)

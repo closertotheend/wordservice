@@ -6,10 +6,6 @@ import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.repository.SentenceRepository;
 import com.wordservice.mvc.repository.WordRelationshipRepository;
 import com.wordservice.mvc.repository.WordRepository;
-import com.wordservice.mvc.service.wordsaver.SentencesToWords;
-import com.wordservice.mvc.service.wordsaver.TextToSentences;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +26,7 @@ public class SentenceContextWordFinderService {
     @Autowired
     private SentenceRepository sentenceRepository;
 
-    public List<String> getNextWords(String word1, String word2){
+    public List<WordEntity> getNextWords(String word1, String word2){
         WordEntity firstWord = wordRepository.findByWord(word1);
         if (firstWord == null) return Collections.emptyList();
         WordEntity secondWord = wordRepository.findByWord(word2);
@@ -40,7 +36,7 @@ public class SentenceContextWordFinderService {
 
         List<Sentence> sentencesWithRelationshipId = sentenceRepository.getSentencesWithRelationshipId(relationshipBetween1and2.getId());
 
-        List<String> words = new ArrayList<>();
+        List<WordEntity> words = new ArrayList<>();
         for (Sentence sentence : sentencesWithRelationshipId) {
             int indexOfRelationship = sentence.getWordRelationships().indexOf(relationshipBetween1and2.getId());
             if (relationshipIsNotLastInSentece(sentence, indexOfRelationship)){
@@ -48,7 +44,7 @@ public class SentenceContextWordFinderService {
                 WordRelationship nextWordRelationship = wordRelationshipRepository.findOne(idOfNextRelationship);
                 words.add(wordRepository.findOne(
                         nextWordRelationship.getSecondWord().getId()
-                ).getWord());
+                ));
             }
         }
 

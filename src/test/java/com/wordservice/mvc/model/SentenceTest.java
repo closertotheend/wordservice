@@ -32,4 +32,28 @@ public class SentenceTest {
 
         assertTrue("Sentences are matched by id only", sentenceNo1.equals(sentenceNo2));
     }
+
+    @Test
+    public void testName() throws Exception {
+        int i, j;
+        boolean not;
+
+        System.out.println("P\t Q\t AND\t OR\t XOR\t NOT");
+
+        i = 1; j= 1;
+
+
+        System.out.print(i+"\t" +" "+ j + "\t" +" ");
+        System.out.print((i&j) + "\t" + " "+ (i|j) + "\t"+" ");
+        System.out.println((i^j) + "\t" + " "+ (i+1)%2 + "\t"+" ");
+
+    }
+
+//    public static final int fromBoolToInt(boolean bool){
+//        if(bool == true){
+//            return 1;
+//        }else {
+//            return 0;
+//        }
+//    }
 }

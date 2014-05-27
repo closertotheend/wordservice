@@ -90,9 +90,9 @@ public class SentenceContextWordFinderServiceTest {
         when(wordRelationshipRepository.getRelationshipBetween(thiss, is)).thenReturn(wordRelationship123);
         when(sentenceRepository.getSentencesWithRelationshipId(wordRelationship123.getId())).thenReturn(Arrays.asList(sentence1, sentence2));
 
-        List<String> sentences = sentenceContextWordFinderService.getNextWords("This", "is");
-        assertTrue(sentences.contains("cat"));
-        assertTrue(sentences.contains("dog"));
+        List<WordEntity> sentences = sentenceContextWordFinderService.getNextWords("This", "is");
+        assertTrue(sentences.contains(cat));
+        assertTrue(sentences.contains(dog));
         assertEquals(2,sentences.size());
     }
 }

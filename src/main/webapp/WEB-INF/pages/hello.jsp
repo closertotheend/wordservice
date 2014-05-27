@@ -22,9 +22,6 @@
     <script src="../../pages/js/controllers.js"></script>
     <script src="../../pages/js/services.js"></script>
 
-    <!-- -->
-    <script src="../../resources/modules/graphcomplete/graphcomplete.js"></script>
-
     <style>
         body {
             padding-top: 50px;
