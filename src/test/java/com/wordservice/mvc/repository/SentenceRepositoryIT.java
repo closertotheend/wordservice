@@ -22,18 +22,18 @@ public class SentenceRepositoryIT extends IntegrationTestsBase{
     public void testGetSentencesWithRelationshipId() throws Exception {
         wordEntitySaverService.saveToRepo("Hello Ilja! I am neo4j server. You should test wordrelationship I am twice!");
 
-        WordEntity hello = wordRepository.findByWord("Hello");
-        WordEntity ilja = wordRepository.findByWord("Ilja");
-        WordEntity i = wordRepository.findByWord("I");
-        WordEntity am = wordRepository.findByWord("am");
-        WordEntity neo4j = wordRepository.findByWord("neo4j");
-        WordEntity server = wordRepository.findByWord("server");
-        WordEntity you = wordRepository.findByWord("You");
-        WordEntity should = wordRepository.findByWord("should");
-        WordEntity test = wordRepository.findByWord("test");
-        WordEntity wordrelationship = wordRepository.findByWord("wordrelationship");
-        WordEntity twice = wordRepository.findByWord("twice");
-        WordEntity nonexisting = wordRepository.findByWord("nonexisting");
+        WordEntity hello = wordRepositoryFixedIndexesSearch.findByWord("Hello");
+        WordEntity ilja = wordRepositoryFixedIndexesSearch.findByWord("Ilja");
+        WordEntity i = wordRepositoryFixedIndexesSearch.findByWord("I");
+        WordEntity am = wordRepositoryFixedIndexesSearch.findByWord("am");
+        WordEntity neo4j = wordRepositoryFixedIndexesSearch.findByWord("neo4j");
+        WordEntity server = wordRepositoryFixedIndexesSearch.findByWord("server");
+        WordEntity you = wordRepositoryFixedIndexesSearch.findByWord("You");
+        WordEntity should = wordRepositoryFixedIndexesSearch.findByWord("should");
+        WordEntity test = wordRepositoryFixedIndexesSearch.findByWord("test");
+        WordEntity wordrelationship = wordRepositoryFixedIndexesSearch.findByWord("wordrelationship");
+        WordEntity twice = wordRepositoryFixedIndexesSearch.findByWord("twice");
+        WordEntity nonexisting = wordRepositoryFixedIndexesSearch.findByWord("nonexisting");
 
         assertNotNull(hello);
         assertNotNull(ilja);

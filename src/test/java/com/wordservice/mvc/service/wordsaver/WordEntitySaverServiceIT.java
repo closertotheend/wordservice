@@ -32,7 +32,7 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldReturnCorrectPopularityOfSavedWord() {
         wordEntitySaverService.saveToRepo("Hello Hello Hello");
-        assertEquals(2, wordRepository.findByWord("Hello").getPopularity());
+        assertEquals(2, wordRepositoryFixedIndexesSearch.findByWord("Hello").getPopularity());
     }
 
     @Test
@@ -46,9 +46,9 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldCheckThatSavedWordsShouldBeRetrivable() {
         wordEntitySaverService.saveToRepo("tralala hahaha.");
-        WordEntity hahaha = wordRepository.findByWord("hahaha");
+        WordEntity hahaha = wordRepositoryFixedIndexesSearch.findByWord("hahaha");
         assertNotNull(hahaha);
-        WordEntity a = wordRepository.findByWord("a");
+        WordEntity a = wordRepositoryFixedIndexesSearch.findByWord("a");
         assertNull(a);
     }
 
@@ -57,7 +57,7 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
     public void shouldCreateCorrectAmountOfRelationshipsAndCorrectlyIncrementPopularityOfThem() {
         wordEntitySaverService.saveToRepo("Hello Ilja, I am neo4j, I am slow and ugly! I am happy, I am happy.");
         WordRelationship relationshipBetweenAmAndHappy = template.getRelationshipBetween(
-                wordRepository.findByWord("am"), wordRepository.findByWord("happy"),
+                wordRepositoryFixedIndexesSearch.findByWord("am"), wordRepositoryFixedIndexesSearch.findByWord("happy"),
                 WordRelationship.class, WordRelationship.relationshipType);
         assertEquals(1, relationshipBetweenAmAndHappy.getPopularity());
     }

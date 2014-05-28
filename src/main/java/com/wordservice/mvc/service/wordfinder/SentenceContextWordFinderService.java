@@ -6,6 +6,7 @@ import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.repository.SentenceRepository;
 import com.wordservice.mvc.repository.WordRelationshipRepository;
 import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +25,15 @@ public class SentenceContextWordFinderService {
     private WordRepository wordRepository;
 
     @Autowired
+    private WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
+
+    @Autowired
     private SentenceRepository sentenceRepository;
 
     public List<WordEntity> getNextWords(String word1, String word2){
-        WordEntity firstWord = wordRepository.findByWord(word1);
+        WordEntity firstWord = wordRepositoryFixedIndexesSearch.findByWord(word1);
         if (firstWord == null) return Collections.emptyList();
-        WordEntity secondWord = wordRepository.findByWord(word2);
+        WordEntity secondWord = wordRepositoryFixedIndexesSearch.findByWord(word2);
         if (secondWord == null) return Collections.emptyList();
         WordRelationship relationshipBetween1and2 = wordRelationshipRepository.getRelationshipBetween(firstWord, secondWord);;
         if (relationshipBetween1and2 == null) return Collections.emptyList();

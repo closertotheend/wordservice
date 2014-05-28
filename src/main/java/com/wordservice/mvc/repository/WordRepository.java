@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface WordRepository extends GraphRepository<WordEntity> {
-    WordEntity findByWord(String word);
+    List<WordEntity> findByWord(String word);
 
     @Query("START wordEntity=node:word(word={word}) " +
             "MATCH wordEntity-[r:IS_FOLLOWED_BY]->otherWord" +

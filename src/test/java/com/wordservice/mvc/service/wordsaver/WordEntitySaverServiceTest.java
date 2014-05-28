@@ -5,6 +5,7 @@ import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.repository.SentenceRepository;
 import com.wordservice.mvc.repository.WordRelationshipRepository;
 import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
@@ -25,6 +26,9 @@ public class WordEntitySaverServiceTest {
 
     @Mock
     SentenceRepository sentenceRepository;
+
+    @Mock
+    WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
 
     @InjectMocks
     WordEntitySaverService wordEntitySaverService;
@@ -61,7 +65,7 @@ public class WordEntitySaverServiceTest {
     @Test
     public void testGetOrCreateWordEntity() throws Exception {
         WordEntity existingWordEntity = new WordEntity();
-        when(wordRepository.findByWord(anyString())).thenReturn(existingWordEntity);
+        when(wordRepositoryFixedIndexesSearch.findByWord(anyString())).thenReturn(existingWordEntity);
         wordEntitySaverService.getOrCreateWordEntity(anyString());
         verify(wordRepository).save(existingWordEntity);
         assertEquals("saving twice enforces incrementation of popularity",1,existingWordEntity.getPopularity());

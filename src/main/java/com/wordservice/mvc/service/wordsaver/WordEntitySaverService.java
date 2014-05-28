@@ -6,6 +6,7 @@ import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.repository.SentenceRepository;
 import com.wordservice.mvc.repository.WordRelationshipRepository;
 import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class WordEntitySaverService {
 
     @Autowired
     private SentenceRepository sentenceRepository;
+
+    @Autowired
+    private WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
 
     public void saveToRepo(String text) {
         List<String> sentences = TextToSentences.transform(text);
@@ -56,7 +60,7 @@ public class WordEntitySaverService {
     WordEntity getOrCreateWordEntity(String word) {
         long startTime = System.currentTimeMillis();
 
-        WordEntity wordEntity = wordRepository.findByWord(word);
+        WordEntity wordEntity = wordRepositoryFixedIndexesSearch.findByWord(word);
         if (wordEntity == null) {
             wordEntity = new WordEntity(word);
         }else{

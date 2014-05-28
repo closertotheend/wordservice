@@ -1,12 +1,11 @@
 package com.wordservice.mvc.repository;
 
 import com.wordservice.mvc.IntegrationTestsBase;
+import com.wordservice.mvc.model.WordEntity;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 public class WordRepositoryIT extends IntegrationTestsBase {
 
@@ -15,7 +14,7 @@ public class WordRepositoryIT extends IntegrationTestsBase {
     @Rollback
     public void testFindByWord() throws Exception {
         wordEntitySaverService.saveToRepo("Hello Ilja!");
-        assertNotNull(wordRepository.findByWord("Hello"));
+        assertNotNull(wordRepository.findByWord("Hello").size()>0);
     }
 
     @Test

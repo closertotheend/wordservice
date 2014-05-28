@@ -6,6 +6,7 @@ import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.repository.SentenceRepository;
 import com.wordservice.mvc.repository.WordRelationshipRepository;
 import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -29,6 +30,9 @@ public class SentenceContextWordFinderServiceTest {
 
     @Mock
     private WordRepository wordRepository;
+
+    @Mock
+    private WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
 
     @Mock
     private SentenceRepository sentenceRepository;
@@ -76,8 +80,8 @@ public class SentenceContextWordFinderServiceTest {
         sentence2.getWordRelationships().add(123l);
         sentence2.getWordRelationships().add(888l);
 
-        when(wordRepository.findByWord("This")).thenReturn(thiss);
-        when(wordRepository.findByWord("is")).thenReturn(is);
+        when(wordRepositoryFixedIndexesSearch.findByWord("This")).thenReturn(thiss);
+        when(wordRepositoryFixedIndexesSearch.findByWord("is")).thenReturn(is);
 
         when(wordRepository.findOne(cat.getId())).thenReturn(cat);
         when(wordRepository.findOne(dog.getId())).thenReturn(dog);

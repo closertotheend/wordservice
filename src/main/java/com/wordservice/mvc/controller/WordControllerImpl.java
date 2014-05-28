@@ -2,6 +2,7 @@ package com.wordservice.mvc.controller;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
 import com.wordservice.mvc.service.wordfinder.SentenceContextWordFinderService;
 import com.wordservice.mvc.service.wordsaver.WordEntitySaverService;
 import com.wordservice.mvc.util.WordPopularityComparator;
@@ -17,6 +18,9 @@ public class WordControllerImpl {
 
     @Autowired
     private WordRepository wordRepository;
+
+    @Autowired
+    private WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
 
     @Autowired
     private WordEntitySaverService wordEntitySaverService;
@@ -45,7 +49,7 @@ public class WordControllerImpl {
     @RequestMapping(value = "getWordStartingWith/{string}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<WordEntity> getWordStartingWith(@PathVariable String string) {
-        List<WordEntity> startingWords = wordRepository.findByWordStartingWith(string);
+        List<WordEntity> startingWords = wordRepositoryFixedIndexesSearch.findByWordStartingWith(string);
         Collections.sort(startingWords, new WordPopularityComparator());
         return startingWords;
     }

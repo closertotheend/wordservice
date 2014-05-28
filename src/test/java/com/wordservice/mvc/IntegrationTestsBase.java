@@ -3,6 +3,7 @@ package com.wordservice.mvc;
 import com.wordservice.mvc.repository.SentenceRepository;
 import com.wordservice.mvc.repository.WordRelationshipRepository;
 import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
 import com.wordservice.mvc.service.wordfinder.SentenceContextWordFinderService;
 import com.wordservice.mvc.service.wordsaver.WordEntitySaverService;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(classes = {TestApplicationConfig.class})
 @Transactional
 public abstract class IntegrationTestsBase {
+
 
 
     @Autowired
@@ -35,6 +37,9 @@ public abstract class IntegrationTestsBase {
 
     @Autowired
     public SentenceContextWordFinderService sentenceContextWordFinderService;
+
+    @Autowired
+    public WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
 
     public static final String dickensText = "I fully expected to find a Constable in the kitchen, waiting to take me up. But not only was there no Constable there, but no discovery had yet been made of the robbery. Mrs. Joe was prodigiously busy in getting the house ready for the festivities of the day, and Joe had been put upon the kitchen door-step to keep him out of the dust-pan - an article into which his destiny always led him sooner or later, when my sister was vigorously reaping the floors of her establishment.\n" +
             "\n" +
