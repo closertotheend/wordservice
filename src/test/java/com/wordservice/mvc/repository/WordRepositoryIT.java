@@ -5,6 +5,8 @@ import com.wordservice.mvc.model.WordEntity;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.List;
+
 import static junit.framework.Assert.*;
 
 public class WordRepositoryIT extends IntegrationTestsBase {
@@ -30,7 +32,7 @@ public class WordRepositoryIT extends IntegrationTestsBase {
         wordEntitySaverService.saveToRepo("Pneumonoultramicroscopicsilicovolcanoconiosis is huge word. Honorificabilitudinitatibus is also.");
         assertEquals( 1 , wordRepository.findByWordContaining("Pneumono").size());
         assertEquals( 1 , wordRepository.findByWordContaining("croscopicsi").size());
-        assertEquals("firstone  + is", 2 , wordRepository.findByWordContaining("is").size());
+        assertEquals("firstone  + is", 2, wordRepository.findByWordContaining("is").size());
     }
 
     @Test
@@ -73,6 +75,16 @@ public class WordRepositoryIT extends IntegrationTestsBase {
         wordRepository.findByWordStartingWith("i");
         long estimatedTime = System.currentTimeMillis() - startTime;
         assertTrue(estimatedTime<30);
+    }
+
+    @Test
+    @Rollback
+    public void testFindByWordIgnoreCase() throws Exception {
+        wordEntitySaverService.saveToRepo("Hello Ilja! hello martin");
+        List<WordEntity> bigLetterHello = wordRepository.findByWord("Hello");
+        assertEquals(2, bigLetterHello.size());
+        List<WordEntity> smallLetterHello = wordRepository.findByWord("hello");
+        assertEquals(2, smallLetterHello.size());
     }
 
 }

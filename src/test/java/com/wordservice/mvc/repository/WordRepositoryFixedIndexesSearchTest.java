@@ -1,19 +1,15 @@
 package com.wordservice.mvc.repository;
 
 import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.service.wordfinder.SentenceContextWordFinderService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;

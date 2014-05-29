@@ -15,27 +15,31 @@ public class WordRepositoryFixedIndexesSearch {
     @Autowired
     private WordRepository wordRepository;
 
-    public WordEntity findByWord(String word){
-        List<WordEntity> allCaseWords;
+    public WordEntity findByWord(String word) {
+        List<WordEntity> allCaseWords = Collections.emptyList();
 
-        try {
-            allCaseWords = wordRepository.findByWord(word);
-        }catch (Exception e){
-            allCaseWords = Collections.emptyList();
+        if (!word.trim().isEmpty()) {
+            try {
+                allCaseWords = wordRepository.findByWord(word);
+            } catch (Exception e) {
+                e.printStackTrace();
+                allCaseWords = Collections.emptyList();
+            }
         }
 
         for (WordEntity someWord : allCaseWords) {
-            if(someWord.getWord().equals(word)){
+            if (someWord.getWord().equals(word)) {
                 return someWord;
             }
         }
         return null;
-    };
+    }
+
 
     public List<WordEntity> findByWordStartingWith(String sequence){
         try {
             List<WordEntity> allCaseWords = wordRepository.findByWordStartingWith(sequence);
-            List<WordEntity> result = new ArrayList<>(50);
+            List<WordEntity> result = new ArrayList<>(allCaseWords.size());
             for (WordEntity someWord : allCaseWords) {
                 if(someWord.getWord().contains(sequence)){
                     result.add(someWord);

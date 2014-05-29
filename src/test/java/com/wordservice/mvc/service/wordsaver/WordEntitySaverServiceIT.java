@@ -14,11 +14,15 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
 
 
     @Test
-    @Ignore
     public void shouldSaveBigAmountOfWordsWithoutFailing() {
+        long startTime = System.currentTimeMillis();
+
         wordEntitySaverService.saveToRepo(dickensText);
         assertTrue(wordRepository.count() > 300);
         assertNull(template.getRelationshipBetween(new WordEntity("zxc"), new WordEntity("ds"), WordRelationship.class, WordRelationship.relationshipType));
+
+        long estimatedTime = System.currentTimeMillis() - startTime;
+        System.err.println(estimatedTime);
     }
 
     @Test

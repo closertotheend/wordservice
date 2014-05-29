@@ -15,7 +15,8 @@ var strategyIsBlocked= false;
 })();
 
 function templateFunction(value) {
-    return '<img style="height: 20px; width: 20px;" src="/resources/modules/graphcomplete/indicators/' + value.severity + '.png"/>' + "  " + "<b>" + value.word + "</b>";
+    return '<img style="height: 20px; width: 20px;" src="/resources/modules/graphcomplete/indicators/' + value.severity + '.png"/>'
+        + "  " + "<b>" + value.word + "</b>" + " (" + value.popularity + ")" ;
 }
 
 function turnOnAutocompletion() {
@@ -78,7 +79,15 @@ function turnOnAutocompletion() {
 
             },
             replace: function (value) {
-                return value.word + " ";
+                console.error("Block strategy no one");
+                strategyIsBlocked=true;
+
+                setTimeout(function () {
+                    console.error("Release");
+                    strategyIsBlocked=false;
+                }, 300);
+
+                return value.word;
             },
             template: function (value) {
                 return templateFunction(value);
@@ -167,7 +176,7 @@ function turnOnAutocompletion() {
             setTimeout(function () {
                 console.error("Release");
                 strategyIsBlocked=false;
-            }, 100);
+            }, 300);
 
             return " " + value.word;
         },
