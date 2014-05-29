@@ -14,7 +14,7 @@ public interface SentenceRepository extends GraphRepository<Sentence> {
 
     @Query("START sentence=node(*) " +
             "WHERE has(sentence.wordRelationships) AND (str({id}) IN sentence.wordRelationships) " +
-            "RETURN sentence " )
+            "RETURN sentence LIMIT 10" )
     List<Sentence> getSentencesWithRelationshipId(@Param("id") Long id);
 
 }

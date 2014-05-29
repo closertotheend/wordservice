@@ -3,6 +3,7 @@ package com.wordservice.mvc.repository;
 
 import com.wordservice.mvc.model.WordEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class WordRepositoryFixedIndexesSearch {
 
     public List<WordEntity> findByWordStartingWith(String sequence){
         try {
-            List<WordEntity> allCaseWords = wordRepository.findByWordStartingWith(sequence);
+            List<WordEntity> allCaseWords = wordRepository.findByWordRegexOrderByPopularity(sequence + ".*");
             List<WordEntity> result = new ArrayList<>(allCaseWords.size());
             for (WordEntity someWord : allCaseWords) {
                 if(someWord.getWord().contains(sequence)){
@@ -52,7 +53,7 @@ public class WordRepositoryFixedIndexesSearch {
         }
     }
 
-    List<WordEntity> findByWordContaining(String word){
-        return wordRepository.findByWordContaining(word);
+    public List<WordEntity> findByWordContaining(String sequence){
+        return wordRepository.findByWordRegexOrderByPopularity(".*" + sequence + ".*");
     }
 }

@@ -28,14 +28,15 @@ function turnOnAutocompletion() {
             search: function (term, callback) {
 
                 (function doSearch() {
-                    console.log("Word completion strategy executed");
-                    if (!strategyIsBlocked) {
-                        try {
+                    try {
+                        console.log("Word completion strategy executed");
+                        if (!strategyIsBlocked) {
                             performSearch(term);
-                        } catch (e) {
-                            console.error(e)
+                        } else {
+                            callback([]);
                         }
-                    } else {
+                    } catch (e) {
+                        console.error(e);
                         callback([]);
                     }
                 })();
@@ -103,18 +104,21 @@ function turnOnAutocompletion() {
         search: function (term, callback) {
 
             (function doSearch() {
-                console.log("Next word completion strategy executed");
-                var textAsArray = $.trim($('.graphcomplete-textfield').val()).split(' ');
-                var previousWord = textAsArray[textAsArray.length - 2];
-                var lastWord = textAsArray[textAsArray.length - 1];
-                var wordsResult = [];
-                if (previousWord !== '' || previousWord !== null || previousWord !== undefined ||
-                    lastWord !== '' || lastWord !== null || lastWord !== undefined) {
-                    try {
-                        performContextualSearch(previousWord, lastWord, wordsResult);
-                    } catch (e) {
-                        console.error(e)
+                try {
+                    console.log("Next word completion strategy executed");
+                    var textAsArray = $.trim($('.graphcomplete-textfield').val()).split(' ');
+                    var previousWord = textAsArray[textAsArray.length - 2];
+                    var lastWord = textAsArray[textAsArray.length - 1];
+                    var wordsResult = [];
+                    if (previousWord !== '' && previousWord !== null && previousWord !== undefined &&
+                        lastWord !== '' && lastWord !== null && lastWord !== undefined) {
+                            performContextualSearch(previousWord, lastWord, wordsResult);
+                    }else{
+                        callback(wordsResult);
                     }
+                } catch (e) {
+                    console.error(e);
+                    callback([]);
                 }
             })();
 

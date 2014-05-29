@@ -21,7 +21,8 @@ public interface WordRepository extends GraphRepository<WordEntity> {
             " RETURN otherWord ORDER BY r2.popularity DESC LIMIT 10")
     List<WordEntity> getTop10WordsAfter(@Param("word1") String word1, @Param("word2") String word2);
 
-    List<WordEntity> findByWordContaining(String word);
+    @Query("START wordEntity= node(*) WHERE has(wordEntity.word) AND wordEntity.word =~ {word1}" +
+            "RETURN wordEntity ORDER BY wordEntity.popularity DESC LIMIT 10")
+    List<WordEntity> findByWordRegexOrderByPopularity(@Param("word1") String word1);
 
-    List<WordEntity> findByWordStartingWith(String word);
 }

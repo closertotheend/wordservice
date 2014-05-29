@@ -13,10 +13,11 @@ public class WordEntity {
     @GraphId
     private Long id;
 
-    @Indexed(indexType = IndexType.FULLTEXT, unique = true, indexName = "word")
+    @Indexed(indexType = IndexType.FULLTEXT, numeric = false,  unique = true, indexName = "word")
     private String word;
 
-    private long popularity;
+    @Indexed(indexName = "popularity")
+    private Long popularity = 0l;
 
     public WordEntity() {
     }

@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -65,7 +66,7 @@ public class WordRepositoryFixedIndexesSearchTest {
         wordEntitites.add(big);
         wordEntitites.add(medium);
 
-        when(wordRepository.findByWordStartingWith("il")).thenReturn(wordEntitites);
+        when(wordRepository.findByWordRegexOrderByPopularity("il.*")).thenReturn(wordEntitites);
 
         assertTrue(wordRepositoryFixedIndexesSearch.findByWordStartingWith("il").contains(small));
         assertTrue(wordRepositoryFixedIndexesSearch.findByWordStartingWith("il").contains(medium));
@@ -74,7 +75,7 @@ public class WordRepositoryFixedIndexesSearchTest {
 
     @Test
     public void testFindByWordStartingWithThrowException() throws Exception {
-        when(wordRepository.findByWordStartingWith(anyString())).thenThrow(new NullPointerException());
+        when(wordRepository.findByWordRegexOrderByPopularity(anyString())).thenThrow(new NullPointerException());
         assertEquals(0, wordRepositoryFixedIndexesSearch.findByWordStartingWith("ilja").size());
     }
 }

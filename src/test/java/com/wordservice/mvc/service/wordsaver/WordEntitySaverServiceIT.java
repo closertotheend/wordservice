@@ -14,6 +14,7 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
 
 
     @Test
+    @Ignore
     public void shouldSaveBigAmountOfWordsWithoutFailing() {
         long startTime = System.currentTimeMillis();
 
