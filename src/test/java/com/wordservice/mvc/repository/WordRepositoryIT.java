@@ -3,7 +3,6 @@ package com.wordservice.mvc.repository;
 import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.WordEntity;
 import org.junit.Test;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;

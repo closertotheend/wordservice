@@ -7,8 +7,6 @@ import org.springframework.data.neo4j.conversion.EndResult;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-
 @Service
 public class WordRelationshipRepository {
 

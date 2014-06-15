@@ -11,7 +11,6 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
 
 public class SentenceRepositoryIT extends IntegrationTestsBase{

@@ -1,7 +1,10 @@
 package com.wordservice.mvc.model;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.springframework.data.neo4j.annotation.*;
+import org.springframework.data.neo4j.annotation.EndNode;
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.RelationshipEntity;
+import org.springframework.data.neo4j.annotation.StartNode;
 
 @RelationshipEntity(type = "IS_FOLLOWED_BY")
 public class WordRelationship {

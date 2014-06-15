@@ -1,10 +1,8 @@
 package com.wordservice.mvc.service.wordsaver;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class SentencesToWords {
 

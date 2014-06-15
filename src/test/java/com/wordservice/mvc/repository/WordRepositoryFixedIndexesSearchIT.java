@@ -7,10 +7,7 @@ import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
-import static org.junit.Assert.*;
+import static junit.framework.Assert.*;
 
 public class WordRepositoryFixedIndexesSearchIT extends IntegrationTestsBase{
 

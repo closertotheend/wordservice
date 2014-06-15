@@ -3,7 +3,6 @@ package com.wordservice.mvc.model;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

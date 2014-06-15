@@ -3,7 +3,6 @@ package com.wordservice.mvc.repository;
 
 import com.wordservice.mvc.model.WordEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 
 public class SentenceIT extends IntegrationTestsBase {
 

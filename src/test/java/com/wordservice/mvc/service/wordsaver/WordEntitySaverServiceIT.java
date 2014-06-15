@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
 import static junit.framework.Assert.*;
-import static junit.framework.Assert.assertEquals;
 
 public class WordEntitySaverServiceIT extends IntegrationTestsBase {
 

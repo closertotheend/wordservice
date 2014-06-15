@@ -16,8 +16,6 @@
 package com.wordservice.mvc;
 
 import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.kernel.impl.util.FileUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,12 +23,6 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.neo4j.rest.SpringRestGraphDatabase;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import java.io.File;
-import java.io.IOException;
-
-/**
- * Spring JavaConfig configuration class to setup a Spring container and infrastructure components.
- */
 @Configuration
 @ComponentScan
 @ImportResource("classpath:META-INF/spring/spring-data-context.xml")

@@ -1,9 +1,7 @@
 package com.wordservice.mvc;
 
-import com.wordservice.mvc.repository.SentenceRepository;
-import com.wordservice.mvc.repository.WordRelationshipRepository;
-import com.wordservice.mvc.repository.WordRepository;
-import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
+import com.wordservice.mvc.model.WordTriTuple;
+import com.wordservice.mvc.repository.*;
 import com.wordservice.mvc.service.wordfinder.SentenceContextWordFinderService;
 import com.wordservice.mvc.service.wordsaver.WordEntitySaverService;
 import org.junit.runner.RunWith;
@@ -18,7 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public abstract class IntegrationTestsBase {
 
+    @Autowired
+    public WordTupleRepository wordTupleRepository;
 
+    @Autowired
+    public WordTriTupleRepository wordTriTupleRepository;
 
     @Autowired
     public Neo4jTemplate template;

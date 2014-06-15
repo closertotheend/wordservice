@@ -9,7 +9,6 @@ import org.springframework.test.annotation.Rollback;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.fail;
 
