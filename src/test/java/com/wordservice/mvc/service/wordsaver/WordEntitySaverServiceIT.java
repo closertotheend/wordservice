@@ -13,7 +13,6 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
 
 
     @Test
-    @Ignore
     public void shouldSaveBigAmountOfWordsWithoutFailing() {
         long startTime = System.currentTimeMillis();
 
@@ -34,9 +33,31 @@ public class WordEntitySaverServiceIT extends IntegrationTestsBase {
 
     @Test
     @Rollback
+    public void shouldSaveOneWord() {
+        wordEntitySaverService.saveToRepo("Hello");
+        assertEquals(1, wordRepository.count());
+    }
+
+    @Test
+    @Rollback
     public void shouldReturnCorrectPopularityOfSavedWord() {
         wordEntitySaverService.saveToRepo("Hello Hello Hello");
         assertEquals(2, wordRepositoryFixedIndexesSearch.findByWord("Hello").getPopularity());
+        assertEquals(1, wordTupleRepository.count());
+    }
+
+    @Test
+    @Rollback
+    public void shouldReturnCorrectTupleAmountForOneWord() {
+        wordEntitySaverService.saveToRepo("Hello");
+        assertEquals(0, wordTupleRepository.count());
+    }
+
+    @Test
+    @Rollback
+    public void shouldReturnCorrectTupleAmountForTwoWords() {
+        wordEntitySaverService.saveToRepo("Hello Great World");
+        assertEquals(1, wordTupleRepository.count());
     }
 
     @Test
