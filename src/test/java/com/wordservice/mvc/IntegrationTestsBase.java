@@ -1,9 +1,8 @@
 package com.wordservice.mvc;
 
-import com.wordservice.mvc.model.WordTriTuple;
 import com.wordservice.mvc.repository.*;
 import com.wordservice.mvc.service.wordfinder.SentenceContextWordFinderService;
-import com.wordservice.mvc.service.wordsaver.WordEntitySaverService;
+import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
@@ -35,7 +34,7 @@ public abstract class IntegrationTestsBase {
     public SentenceRepository sentenceRepository;
 
     @Autowired
-    public WordEntitySaverService wordEntitySaverService;
+    public TextSaverService textSaverService;
 
     @Autowired
     public SentenceContextWordFinderService sentenceContextWordFinderService;

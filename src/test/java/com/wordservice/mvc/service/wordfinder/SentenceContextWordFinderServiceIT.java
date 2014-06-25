@@ -15,7 +15,7 @@ public class SentenceContextWordFinderServiceIT extends IntegrationTestsBase {
     @Test
     @Rollback
     public void testGetNextWords() throws Exception {
-        wordEntitySaverService.saveToRepo("This is text. This is cat. This string should be easy. This is.");
+        textSaverService.saveToRepo("This is text. This is cat. This string should be easy. This is.");
         List<WordEntity> sentences = sentenceContextWordFinderService.getNextWords("This", "is");
         assertTrue(sentences.contains(wordRepositoryFixedIndexesSearch.findByWord("text")));
         assertTrue(sentences.contains(wordRepositoryFixedIndexesSearch.findByWord("cat")));
@@ -25,7 +25,7 @@ public class SentenceContextWordFinderServiceIT extends IntegrationTestsBase {
     @Test
     @Rollback
     public void testGetNextWords2() throws Exception {
-        wordEntitySaverService.saveToRepo("This is text. This is cat. This string should be easy. This is.");
+        textSaverService.saveToRepo("This is text. This is cat. This string should be easy. This is.");
         List<WordEntity> sentences = sentenceContextWordFinderService.getNextWords("This", "iasdaasdasds");
         assertEquals(0,sentences.size());
     }

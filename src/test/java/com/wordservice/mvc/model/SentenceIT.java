@@ -11,7 +11,7 @@ public class SentenceIT extends IntegrationTestsBase {
     @Test
     @Rollback
     public void testGetWordRelationships() throws Exception {
-        wordEntitySaverService.saveToRepo("Hello Ilja!");
+        textSaverService.saveToRepo("Hello Ilja!");
 
         assertEquals(2, wordRepository.count());
         assertEquals(1, sentenceRepository.count());

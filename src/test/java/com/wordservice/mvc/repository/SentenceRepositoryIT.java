@@ -19,7 +19,7 @@ public class SentenceRepositoryIT extends IntegrationTestsBase{
     @Rollback
     @Test
     public void testGetSentencesWithRelationshipId() throws Exception {
-        wordEntitySaverService.saveToRepo("Hello Ilja! I am neo4j server. You should test wordrelationship I am twice!");
+        textSaverService.saveToRepo("Hello Ilja! I am neo4j server. You should test wordrelationship I am twice!");
 
         WordEntity hello = wordRepositoryFixedIndexesSearch.findByWord("Hello");
         WordEntity ilja = wordRepositoryFixedIndexesSearch.findByWord("Ilja");

@@ -4,7 +4,7 @@ import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.repository.WordRepository;
 import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
 import com.wordservice.mvc.service.wordfinder.SentenceContextWordFinderService;
-import com.wordservice.mvc.service.wordsaver.WordEntitySaverService;
+import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import com.wordservice.mvc.util.WordPopularityComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class WordControllerImpl {
     private WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
 
     @Autowired
-    private WordEntitySaverService wordEntitySaverService;
+    private TextSaverService textSaverService;
 
     @Autowired
     private SentenceContextWordFinderService sentenceContextWordFinderService;
@@ -65,7 +65,7 @@ public class WordControllerImpl {
     @RequestMapping(value = "wordApi", method = RequestMethod.POST)
     @ResponseBody
     public void save(@RequestBody String text) {
-        wordEntitySaverService.saveToRepo(clean(text));
+        textSaverService.saveToRepo(clean(text));
     }
 
     private static String clean(String word) {

@@ -14,7 +14,7 @@ public class WordRepositoryFixedIndexesSearchIT extends IntegrationTestsBase{
     @Test
     @Rollback
     public void testFindByWordCheckCase() throws Exception {
-        wordEntitySaverService.saveToRepo("Hello Ilja! hello martin");
+        textSaverService.saveToRepo("Hello Ilja! hello martin");
         WordEntity bigLetterHello = wordRepositoryFixedIndexesSearch.findByWord("Hello");
         assertNotNull(bigLetterHello);
         WordEntity smallLetterHello = wordRepositoryFixedIndexesSearch.findByWord("hello");
@@ -27,7 +27,7 @@ public class WordRepositoryFixedIndexesSearchIT extends IntegrationTestsBase{
     @Test
     @Rollback
     public void testFindByWordStartingWith() throws Exception {
-        wordEntitySaverService.saveToRepo("Hello Ilja! hello martin");
+        textSaverService.saveToRepo("Hello Ilja! hello martin");
         List<WordEntity> bigLetterHello = wordRepositoryFixedIndexesSearch.findByWordStartingWith("Hello");
         assertEquals(1,bigLetterHello.size());
     }

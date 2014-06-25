@@ -2,10 +2,8 @@ package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.repository.SentenceRepository;
-import com.wordservice.mvc.repository.WordRelationshipRepository;
-import com.wordservice.mvc.repository.WordRepository;
-import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
+import com.wordservice.mvc.model.WordTuple;
+import com.wordservice.mvc.repository.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +16,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 
-public class WordEntitySaverServiceTest {
+public class TextSaverServiceTest {
 
     @Mock
     WordRelationshipRepository wordRelationshipRepository;
@@ -35,8 +33,11 @@ public class WordEntitySaverServiceTest {
     @Mock
     SaverService saverService;
 
+    @Mock
+    WordTupleRepository wordTupleRepository;
+
     @InjectMocks
-    WordEntitySaverService wordEntitySaverService;
+    TextSaverService textSaverService;
 
     @Before
     public void init(){
@@ -47,22 +48,23 @@ public class WordEntitySaverServiceTest {
     public void testSaveToRepo() throws Exception {
         when(saverService.createOrIncrementPopularityOfRelationship(any(WordEntity.class),any(WordEntity.class)))
                 .thenReturn(new WordRelationship());
-        wordEntitySaverService.saveToRepo("Hello World!");
+        textSaverService.saveToRepo("Hello World!");
 
         verify(saverService, times(2)).getOrCreateWordEntity(anyString());
-        verify(saverService).createOrIncrementPopularityOfRelationship(any(WordEntity.class),any(WordEntity.class));
+        verify(saverService).createOrIncrementPopularityOfRelationship(any(WordEntity.class), any(WordEntity.class));
     }
 
     @Test
     public void testSaveToRepo2() throws Exception {
         when(saverService.createOrIncrementPopularityOfRelationship(any(WordEntity.class),any(WordEntity.class)))
                 .thenReturn(new WordRelationship());
-        wordEntitySaverService.saveToRepo("Hello World! Hello Sun and Earth.");
+        textSaverService.saveToRepo("Hello World! Hello Sun and Earth.");
         int numberOfWords = 6;
         int numberOfRelationsBetween2Words = 4;
 
         verify(saverService, times(numberOfWords)).getOrCreateWordEntity(anyString());
-        verify(saverService, times(numberOfRelationsBetween2Words)).createOrIncrementPopularityOfRelationship(any(WordEntity.class),any(WordEntity.class));
+        verify(saverService, times(numberOfRelationsBetween2Words)).createOrIncrementPopularityOfRelationship(any(WordEntity.class), any(WordEntity.class));
+        verify(wordTupleRepository, times(numberOfRelationsBetween2Words/2)).save(any(WordTuple.class));
     }
 
 

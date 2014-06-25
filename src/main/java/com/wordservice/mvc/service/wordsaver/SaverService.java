@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SaverService {
     private static final Logger logger = LogManager
-            .getLogger(WordEntitySaverService.class.getName());
+            .getLogger(TextSaverService.class.getName());
 
     @Autowired
     private WordRelationshipRepository wordRelationshipRepository;
