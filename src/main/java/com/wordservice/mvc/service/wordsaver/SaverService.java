@@ -3,6 +3,7 @@ package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
+import com.wordservice.mvc.model.WordTuple;
 import com.wordservice.mvc.repository.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -25,6 +26,20 @@ public class SaverService {
     @Autowired
     private WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
 
+    @Autowired
+    private WordTupleRepository wordTupleRepository;
+
+    WordTuple createOrIncrementPopularityOfWordTuple(WordRelationship wordRelationship1, WordRelationship wordRelationship2) {
+        WordTuple wordTuple;
+        wordTuple = wordTupleRepository.getTupleWithRelationShipIds(wordRelationship1.getId(), wordRelationship2.getId());
+        if(wordTuple == null) {
+            wordTuple = wordTupleRepository.save(new WordTuple(wordRelationship1.getId(), wordRelationship2.getId()));
+        }else {
+            wordTuple.incrementPopularity();
+            wordTupleRepository.save(wordTuple);
+        }
+        return wordTuple;
+    }
 
     WordEntity getOrCreateWordEntity(String word) {
         long startTime = System.currentTimeMillis();

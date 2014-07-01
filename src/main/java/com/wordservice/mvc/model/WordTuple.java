@@ -1,26 +1,33 @@
 package com.wordservice.mvc.model;
 
 import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.GraphProperty;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
-import scala.annotation.target.getter;
 
 @NodeEntity
 public class WordTuple {
     @GraphId
     private Long id;
 
-    private Long firstWordRelationshipId;
+    @Indexed
+    private Long fWordRelationshipId;
+
+    @Indexed
     private Long secondWordRelationshipId;
+
     private Long popularity = 0l;
 
-    public WordTuple(Long firstWordRelationshipId, Long secondWordRelationshipId) {
-        this.firstWordRelationshipId = firstWordRelationshipId;
+    public WordTuple(Long fWordRelationshipId, Long secondWordRelationshipId) {
+        this.fWordRelationshipId = fWordRelationshipId;
         this.secondWordRelationshipId = secondWordRelationshipId;
     }
 
     public WordTuple() {
+    }
+
+    public Long incrementPopularity(){
+        this.popularity++;
+        return popularity;
     }
 
     public Long getId() {
@@ -31,12 +38,12 @@ public class WordTuple {
         this.id = id;
     }
 
-    public Long getFirstWordRelationshipId() {
-        return firstWordRelationshipId;
+    public Long getfWordRelationshipId() {
+        return fWordRelationshipId;
     }
 
-    public void setFirstWordRelationshipId(Long firstWordRelationshipId) {
-        this.firstWordRelationshipId = firstWordRelationshipId;
+    public void setfWordRelationshipId(Long fWordRelationshipId) {
+        this.fWordRelationshipId = fWordRelationshipId;
     }
 
     public Long getSecondWordRelationshipId() {
@@ -76,7 +83,7 @@ public class WordTuple {
     public String toString() {
         return "WordTuple{" +
                 "id=" + id +
-                ", firstWordRelationshipId=" + firstWordRelationshipId +
+                ", fWordRelationshipId=" + fWordRelationshipId +
                 ", secondWordRelationshipId=" + secondWordRelationshipId +
                 ", popularity=" + popularity +
                 '}';

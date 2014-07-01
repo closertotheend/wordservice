@@ -3,9 +3,12 @@ package com.wordservice.mvc.service.wordsaver;
 import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
+import com.wordservice.mvc.model.WordTuple;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
+
+import java.util.Iterator;
 
 import static junit.framework.Assert.*;
 
@@ -63,21 +66,13 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
         assertEquals(1, wordTupleRepository.count());
     }
 
-    @Test
-    @Rollback
-    public void tupleShouldBeContainCorrectInfo() {
-        textSaverService.saveToRepo("Hello gatsby the great. What is the great?");
-        assertEquals(4, wordTupleRepository.count());
-        assertTrue(wordTupleRepository.findOne(2l).getSecondWordRelationshipId()
-                == wordTupleRepository.findOne(4l).getSecondWordRelationshipId());
-    }
 
     @Test
     @Rollback
     public void tupleShouldNotContainDuplicates() {
         textSaverService.saveToRepo("Lenin the great. Lenin the great?");
         assertEquals(1, wordTupleRepository.count());
-        assertEquals(new Long(1), wordTupleRepository.findOne(1l).getPopularity());
+        assertEquals(new Long(1), wordTupleRepository.findAll().single().getPopularity());
     }
 
     @Test

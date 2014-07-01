@@ -2,7 +2,6 @@ package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.model.WordTuple;
 import com.wordservice.mvc.repository.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,7 +63,7 @@ public class TextSaverServiceTest {
 
         verify(saverService, times(numberOfWords)).getOrCreateWordEntity(anyString());
         verify(saverService, times(numberOfRelationsBetween2Words)).createOrIncrementPopularityOfRelationship(any(WordEntity.class), any(WordEntity.class));
-        verify(wordTupleRepository, times(numberOfRelationsBetween2Words/2)).save(any(WordTuple.class));
+        verify(saverService, times(numberOfRelationsBetween2Words/2)).createOrIncrementPopularityOfWordTuple(any(WordRelationship.class), any(WordRelationship.class));
     }
 
 

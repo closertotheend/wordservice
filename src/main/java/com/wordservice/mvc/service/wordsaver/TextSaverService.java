@@ -3,7 +3,6 @@ package com.wordservice.mvc.service.wordsaver;
 import com.wordservice.mvc.model.Sentence;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.model.WordTuple;
 import com.wordservice.mvc.repository.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -60,7 +59,7 @@ public class TextSaverService {
 
     private void saveWordTuples(List<WordRelationship> wordRelationships) {
         for (int i = 0; i < wordRelationships.size() - 1; i++) {
-            wordTupleRepository.save(new WordTuple(wordRelationships.get(i).getId(), wordRelationships.get(i + 1).getId()));
+            saverService.createOrIncrementPopularityOfWordTuple(wordRelationships.get(i), wordRelationships.get(i));
         }
     }
 
