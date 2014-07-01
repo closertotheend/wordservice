@@ -8,8 +8,37 @@ import com.wordservice.mvc.model.WordTuple;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class WordTriTupleRepositoryIT extends IntegrationTestsBase {
+
+    @Test
+    public void getTupleByRelationships(){
+        WordEntity hello = new WordEntity("Hello");
+        WordEntity ilja = new WordEntity("Ilja");
+        WordEntity familyname = new WordEntity("Guzhovski");
+        WordEntity junior = new WordEntity("Junior");
+
+        wordRepository.save(hello);
+        wordRepository.save(ilja);
+        wordRepository.save(familyname);
+        wordRepository.save(junior);
+
+        WordRelationship helloIlja = new WordRelationship(hello, ilja);
+        WordRelationship iljaGuzovski = new WordRelationship(ilja, familyname);
+        WordRelationship guzovskiJunior = new WordRelationship(familyname, junior);
+        wordRelationshipRepository.save(helloIlja);
+        wordRelationshipRepository.save(iljaGuzovski);
+        wordRelationshipRepository.save(guzovskiJunior);
+
+
+        WordTriTuple wordTriTuple = new WordTriTuple(helloIlja.getId(), iljaGuzovski.getId(), guzovskiJunior.getId());
+        wordTriTupleRepository.save(wordTriTuple);
+
+        assertEquals(wordTriTuple, wordTriTupleRepository.getWithRelationShipIds(helloIlja.getId(), iljaGuzovski.getId(), guzovskiJunior.getId()));
+        assertNull(wordTriTupleRepository.getWithRelationShipIds(iljaGuzovski.getId(), helloIlja.getId(), guzovskiJunior.getId()));
+
+    }
 
     @Test
     public void getTuple() throws Exception {

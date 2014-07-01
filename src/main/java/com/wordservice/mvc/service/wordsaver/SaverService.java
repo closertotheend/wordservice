@@ -3,6 +3,7 @@ package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
+import com.wordservice.mvc.model.WordTriTuple;
 import com.wordservice.mvc.model.WordTuple;
 import com.wordservice.mvc.repository.*;
 import org.apache.log4j.LogManager;
@@ -29,6 +30,9 @@ public class SaverService {
     @Autowired
     private WordTupleRepository wordTupleRepository;
 
+    @Autowired
+    private WordTriTupleRepository wordTriTupleRepository;
+
     WordTuple createOrIncrementPopularityOfWordTuple(WordRelationship wordRelationship1, WordRelationship wordRelationship2) {
         WordTuple wordTuple;
         wordTuple = wordTupleRepository.getTupleWithRelationShipIds(wordRelationship1.getId(), wordRelationship2.getId());
@@ -39,6 +43,18 @@ public class SaverService {
             wordTupleRepository.save(wordTuple);
         }
         return wordTuple;
+    }
+
+    WordTriTuple createOrIncrementPopularityOfWordTriTuple(WordRelationship wordRelationship1, WordRelationship wordRelationship2, WordRelationship wordRelationship3) {
+        WordTriTuple wordTriTuple;
+        wordTriTuple = wordTriTupleRepository.getWithRelationShipIds(wordRelationship1.getId(), wordRelationship2.getId(), wordRelationship3.getId());
+        if(wordTriTuple == null) {
+            wordTriTuple = wordTriTupleRepository.save(new WordTriTuple(wordRelationship1.getId(), wordRelationship2.getId(), wordRelationship3.getId()));
+        }else {
+            wordTriTuple.incrementPopularity();
+            wordTriTupleRepository.save(wordTriTuple);
+        }
+        return wordTriTuple;
     }
 
     WordEntity getOrCreateWordEntity(String word) {

@@ -19,6 +19,11 @@ public class WordTriTuple {
         this.thirdWordRelationshipId = thirdWordRelationshipId;
     }
 
+    public Long incrementPopularity(){
+        this.popularity++;
+        return popularity;
+    }
+
     public WordTriTuple() {
     }
 
