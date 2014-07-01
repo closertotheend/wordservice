@@ -77,6 +77,14 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
 
     @Test
     @Rollback
+    public void savedTupleShouldBeOk() {
+        textSaverService.saveToRepo("Lenin the great.");
+        WordTuple single = wordTupleRepository.findAll().single();
+        assertTrue(single.getfWordRelationshipId()< single.getSecondWordRelationshipId());
+    }
+
+    @Test
+    @Rollback
     public void shouldSaveWordsFromDifferentSenteces() {
         textSaverService.saveToRepo("Hello Ilja! My name is neo4j, and I am confused.");
         assertTrue(wordRepository.count() == 10);

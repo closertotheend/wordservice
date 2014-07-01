@@ -59,7 +59,7 @@ public class TextSaverService {
 
     private void saveWordTuples(List<WordRelationship> wordRelationships) {
         for (int i = 0; i < wordRelationships.size() - 1; i++) {
-            saverService.createOrIncrementPopularityOfWordTuple(wordRelationships.get(i), wordRelationships.get(i));
+            saverService.createOrIncrementPopularityOfWordTuple(wordRelationships.get(i), wordRelationships.get(i+1));
         }
     }
 
