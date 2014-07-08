@@ -74,9 +74,8 @@ public class WordTriTuple {
 
         WordTriTuple wordTuple = (WordTriTuple) o;
 
-        if (id != null ? !id.equals(wordTuple.id) : wordTuple.id != null) return false;
+        return !(id != null ? !id.equals(wordTuple.id) : wordTuple.id != null);
 
-        return true;
     }
 
     @Override

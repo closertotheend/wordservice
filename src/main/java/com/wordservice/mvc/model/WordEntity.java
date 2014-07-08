@@ -58,9 +58,8 @@ public class WordEntity {
 
         WordEntity that = (WordEntity) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        return !(id != null ? !id.equals(that.id) : that.id != null);
 
-        return true;
     }
 
     @Override

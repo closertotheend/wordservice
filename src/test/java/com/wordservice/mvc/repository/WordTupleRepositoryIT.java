@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class WordTupleRepositoryIT extends IntegrationTestsBase {
 
@@ -63,4 +64,10 @@ public class WordTupleRepositoryIT extends IntegrationTestsBase {
         assertEquals(wordTuple,tupleWithRelationShipIds);
     }
 
+    @Test
+    public void tupleFinding() throws Exception {
+        textSaverService.saveToRepo("Red is black. Red is human.");
+        assertEquals(2, wordTupleRepository.count());
+        assertEquals(2, wordTupleRepository.getTuplesWithRelationShipIds(0l).size());
+    }
 }

@@ -35,7 +35,7 @@ public class SentenceContextWordFinderService {
         if (firstWord == null) return Collections.emptyList();
         WordEntity secondWord = wordRepositoryFixedIndexesSearch.findByWord(word2);
         if (secondWord == null) return Collections.emptyList();
-        WordRelationship relationshipBetween1and2 = wordRelationshipRepository.getRelationshipBetween(firstWord, secondWord);;
+        WordRelationship relationshipBetween1and2 = wordRelationshipRepository.getRelationshipBetween(firstWord, secondWord);
         if (relationshipBetween1and2 == null) return Collections.emptyList();
 
         List<Sentence> sentencesWithRelationshipId = sentenceRepository.getSentencesWithRelationshipId(relationshipBetween1and2.getId());

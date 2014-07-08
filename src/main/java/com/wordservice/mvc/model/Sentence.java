@@ -42,9 +42,8 @@ public class Sentence {
 
         Sentence sentence = (Sentence) o;
 
-        if (id != null ? !id.equals(sentence.id) : sentence.id != null) return false;
+        return !(id != null ? !id.equals(sentence.id) : sentence.id != null);
 
-        return true;
     }
 
     @Override

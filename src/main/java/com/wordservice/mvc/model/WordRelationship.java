@@ -8,7 +8,7 @@ import org.springframework.data.neo4j.annotation.StartNode;
 
 @RelationshipEntity(type = "IS_FOLLOWED_BY")
 public class WordRelationship {
-    public static String relationshipType = "IS_FOLLOWED_BY";
+    public static final String relationshipType = "IS_FOLLOWED_BY";
 
     @GraphId
     private Long id;
@@ -71,9 +71,8 @@ public class WordRelationship {
 
         WordRelationship that = (WordRelationship) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        return !(id != null ? !id.equals(that.id) : that.id != null);
 
-        return true;
     }
 
     @Override
