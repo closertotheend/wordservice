@@ -3,7 +3,6 @@ package com.wordservice.mvc.controller;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.repository.WordRepository;
 import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
-import com.wordservice.mvc.service.wordfinder.SentenceContextWordFinderService;
 import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import com.wordservice.mvc.util.WordPopularityComparator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ public class WordControllerImpl {
     @Autowired
     private TextSaverService textSaverService;
 
-    @Autowired
-    private SentenceContextWordFinderService sentenceContextWordFinderService;
 
     @RequestMapping(value = "getTopFor/{word}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
@@ -40,11 +37,6 @@ public class WordControllerImpl {
         return wordRepository.getTop10WordsAfter(clean(previous), clean(last));
     }
 
-    @RequestMapping(value = "getSentence/{previous}/{last}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public List<WordEntity> getSentence(@PathVariable String previous, @PathVariable String last) {
-        return sentenceContextWordFinderService.getNextWords(clean(previous), clean(last));
-    }
 
     @RequestMapping(value = "getWordStartingWith/{wordStart}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody

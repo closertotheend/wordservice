@@ -1,9 +1,7 @@
 package com.wordservice.mvc.service.wordsaver;
 
-import com.wordservice.mvc.model.Sentence;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.repository.SentenceRepository;
 import com.wordservice.mvc.repository.WordTupleRepository;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -24,8 +22,7 @@ public class TextSaverService {
     @Autowired
     private SaverService saverService;
 
-    @Autowired
-    private SentenceRepository sentenceRepository;
+
 
     @Autowired
     private WordTupleRepository wordTupleRepository;
@@ -45,19 +42,10 @@ public class TextSaverService {
         List<WordRelationship> wordRelationships = saveWordRelationships(wordEntities);
         saveWordTuples(wordRelationships);
         saveWordTriTuples(wordRelationships);
-        saveSentence(wordRelationships);
         return true;
     }
 
-    private void saveSentence(List<WordRelationship> wordRelationships) {
-        if( wordRelationships.size()>0) {
-            Sentence sentence = new Sentence();
-            for (WordRelationship wordRelationship : wordRelationships) {
-                sentence.getWordRelationships().add(wordRelationship.getId());
-            }
-            sentenceRepository.save(sentence);
-        }
-    }
+
 
     private void saveWordTuples(List<WordRelationship> wordRelationships) {
         for (int i = 0; i < wordRelationships.size() - 1; i++) {

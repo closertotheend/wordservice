@@ -1,7 +1,6 @@
 package com.wordservice.mvc;
 
 import com.wordservice.mvc.repository.*;
-import com.wordservice.mvc.service.wordfinder.SentenceContextWordFinderService;
 import com.wordservice.mvc.service.wordfinder.WordTupleFinderService;
 import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import org.junit.runner.RunWith;
@@ -32,13 +31,7 @@ public abstract class IntegrationTestsBase {
     public WordRelationshipRepository wordRelationshipRepository;
 
     @Autowired
-    public SentenceRepository sentenceRepository;
-
-    @Autowired
     public TextSaverService textSaverService;
-
-    @Autowired
-    public SentenceContextWordFinderService sentenceContextWordFinderService;
 
     @Autowired
     public WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;

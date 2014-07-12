@@ -1,7 +1,6 @@
 package com.wordservice.mvc.repository;
 
 import com.wordservice.mvc.IntegrationTestsBase;
-import com.wordservice.mvc.model.Sentence;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.model.WordTuple;

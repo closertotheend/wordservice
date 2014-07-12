@@ -57,7 +57,6 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     public void shouldReturnCorrectTupleAmountForOneWord() {
         textSaverService.saveToRepo("Hello");
         assertEquals(0, wordTupleRepository.count());
-        assertEquals(0, sentenceRepository.count());
     }
 
     @Test

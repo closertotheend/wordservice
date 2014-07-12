@@ -2,7 +2,6 @@ package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.repository.SentenceRepository;
 import com.wordservice.mvc.repository.WordRelationshipRepository;
 import com.wordservice.mvc.repository.WordRepository;
 import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
@@ -25,9 +24,6 @@ public class SaverServiceTest {
 
     @Mock
     WordRepository wordRepository;
-
-    @Mock
-    SentenceRepository sentenceRepository;
 
     @Mock
     WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;

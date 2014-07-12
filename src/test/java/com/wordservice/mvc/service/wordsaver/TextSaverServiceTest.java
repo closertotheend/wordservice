@@ -24,9 +24,6 @@ public class TextSaverServiceTest {
     WordRepository wordRepository;
 
     @Mock
-    SentenceRepository sentenceRepository;
-
-    @Mock
     WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
 
     @Mock
