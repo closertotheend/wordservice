@@ -4,7 +4,6 @@ import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.model.WordTriTuple;
-import com.wordservice.mvc.model.WordTuple;
 import org.junit.Test;
 
 import java.util.List;

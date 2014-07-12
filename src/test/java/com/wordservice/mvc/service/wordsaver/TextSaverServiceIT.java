@@ -9,8 +9,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
-import java.util.Iterator;
-
 import static junit.framework.Assert.*;
 
 public class TextSaverServiceIT extends IntegrationTestsBase {

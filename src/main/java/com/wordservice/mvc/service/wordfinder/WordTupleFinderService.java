@@ -1,6 +1,9 @@
 package com.wordservice.mvc.service.wordfinder;
 
-import com.wordservice.mvc.model.*;
+import com.wordservice.mvc.model.WordEntity;
+import com.wordservice.mvc.model.WordRelationship;
+import com.wordservice.mvc.model.WordTriTuple;
+import com.wordservice.mvc.model.WordTuple;
 import com.wordservice.mvc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
