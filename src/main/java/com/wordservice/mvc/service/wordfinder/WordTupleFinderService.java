@@ -1,11 +1,13 @@
 package com.wordservice.mvc.service.wordfinder;
 
-import com.wordservice.mvc.model.Sentence;
-import com.wordservice.mvc.repository.WordRelationshipRepository;
-import com.wordservice.mvc.repository.WordRepository;
-import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
+import com.wordservice.mvc.model.*;
+import com.wordservice.mvc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class WordTupleFinderService {
@@ -14,38 +16,67 @@ public class WordTupleFinderService {
     private WordRelationshipRepository wordRelationshipRepository;
 
     @Autowired
-    private WordRepository wordRepository;
+    private WordTupleRepository wordTupleRepository;
+
+    @Autowired
+    private WordTriTupleRepository wordTriTupleRepository;
 
     @Autowired
     private WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
 
+    @Autowired
+    private WordRepository wordRepository;
 
-//    public List<WordEntity> getNextWords(String word1, String word2){
-//        WordEntity firstWord = wordRepositoryFixedIndexesSearch.findByWord(word1);
-//        if (firstWord == null) return Collections.emptyList();
-//        WordEntity secondWord = wordRepositoryFixedIndexesSearch.findByWord(word2);
-//        if (secondWord == null) return Collections.emptyList();
-//        WordRelationship relationshipBetween1and2 = wordRelationshipRepository.getRelationshipBetween(firstWord, secondWord);
-//        if (relationshipBetween1and2 == null) return Collections.emptyList();
-//
-//        List<Sentence> sentencesWithRelationshipId = sentenceRepository.getSentencesWithRelationshipId(relationshipBetween1and2.getId());
-//
-//        List<WordEntity> words = new ArrayList<>();
-//        for (Sentence sentence : sentencesWithRelationshipId) {
-//            int indexOfRelationship = sentence.getWordRelationships().indexOf(relationshipBetween1and2.getId());
-//            if (relationshipIsNotLastInSentece(sentence, indexOfRelationship)){
-//                Long idOfNextRelationship = sentence.getWordRelationships().get(indexOfRelationship + 1);
-//                WordRelationship nextWordRelationship = wordRelationshipRepository.findOne(idOfNextRelationship);
-//                words.add(wordRepository.findOne(
-//                        nextWordRelationship.getSecondWord().getId()
-//                ));
-//            }
-//        }
-//
-//        return words;
-//    }
 
-    private boolean relationshipIsNotLastInSentece(Sentence sentence, int indexOfRelationship) {
-        return sentence.getWordRelationships().size() > indexOfRelationship + 1;
+    public List<WordEntity> getNextWords(String word1, String word2) {
+
+        WordEntity firstWord = wordRepositoryFixedIndexesSearch.findByWord(word1);
+        if (firstWord == null) return Collections.emptyList();
+        WordEntity secondWord = wordRepositoryFixedIndexesSearch.findByWord(word2);
+        if (secondWord == null) return Collections.emptyList();
+        WordRelationship relationshipBetween = wordRelationshipRepository.getRelationshipBetween(firstWord, secondWord);
+        if (relationshipBetween == null) return Collections.emptyList();
+
+        List<WordTuple> tuplesWithRelationShipIds = wordTupleRepository.getTuplesWithRelationShipIds(relationshipBetween.getId());
+
+        List<WordEntity> words = new ArrayList<>();
+        for (WordTuple tuplesWithRelationShipId : tuplesWithRelationShipIds) {
+            WordRelationship nextWordRelationship = wordRelationshipRepository.findOne(tuplesWithRelationShipId.getSecondWordRelationshipId());
+            words.add(wordRepository.findOne(
+                    nextWordRelationship.getSecondWord().getId()
+            ));
+        }
+
+        return words;
     }
+
+    public List<WordEntity> getNextWords(String word1, String word2, String word3) {
+
+        WordEntity firstWord = wordRepositoryFixedIndexesSearch.findByWord(word1);
+        if (firstWord == null) return Collections.emptyList();
+        WordEntity secondWord = wordRepositoryFixedIndexesSearch.findByWord(word2);
+        if (secondWord == null) return Collections.emptyList();
+        WordEntity thirdWord = wordRepositoryFixedIndexesSearch.findByWord(word3);
+        if (thirdWord == null) return Collections.emptyList();
+
+        WordRelationship relationshipBetween1 = wordRelationshipRepository.getRelationshipBetween(firstWord, secondWord);
+        if (relationshipBetween1 == null) return Collections.emptyList();
+
+        WordRelationship relationshipBetween2 = wordRelationshipRepository.getRelationshipBetween(secondWord, thirdWord);
+        if (relationshipBetween2 == null) return Collections.emptyList();
+
+        List<WordTriTuple> tuplesWithRelationShipIds =
+                wordTriTupleRepository.getWithRelationShipIds(relationshipBetween1.getId(), relationshipBetween2.getId());
+
+        List<WordEntity> words = new ArrayList<>();
+        for (WordTriTuple tuplesWithRelationShipId : tuplesWithRelationShipIds) {
+            WordRelationship nextWordRelationship = wordRelationshipRepository.findOne(tuplesWithRelationShipId.getThirdWordRelationshipId());
+            words.add(wordRepository.findOne(
+                    nextWordRelationship.getSecondWord().getId()
+            ));
+        }
+
+        return words;
+    }
+
 }

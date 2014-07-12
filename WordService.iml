@@ -95,6 +95,15 @@
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:4.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:r09" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/annotations.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
