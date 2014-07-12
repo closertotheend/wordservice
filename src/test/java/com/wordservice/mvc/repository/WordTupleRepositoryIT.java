@@ -64,6 +64,5 @@ public class WordTupleRepositoryIT extends IntegrationTestsBase {
     public void tupleFinding() throws Exception {
         textSaverService.saveToRepo("Red is black. Red is human.");
         assertEquals(2, wordTupleRepository.count());
-        assertEquals(2, wordTupleRepository.getTuplesWithRelationShipIds(0l).size());
     }
 }
