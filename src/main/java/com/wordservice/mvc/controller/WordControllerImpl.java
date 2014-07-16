@@ -6,10 +6,17 @@ import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
 import com.wordservice.mvc.service.wordfinder.WordTupleFinderService;
 import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import com.wordservice.mvc.util.WordPopularityComparator;
+import junit.framework.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
@@ -75,6 +82,20 @@ public class WordControllerImpl {
     @ResponseBody
     public void save(@RequestBody String text) {
         textSaverService.saveToRepo(clean(text));
+    }
+
+    @RequestMapping(value = "saveFromFile", method = RequestMethod.GET)
+    @ResponseBody
+    public void saveFromFile() throws IOException {
+        System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));
+        textSaverService.saveToRepo(readFile("big.txt", StandardCharsets.UTF_8));
+    }
+
+    static String readFile(String path, Charset encoding)
+            throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
     }
 
     private static String clean(String word) {

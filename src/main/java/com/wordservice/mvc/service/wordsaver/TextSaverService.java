@@ -14,18 +14,12 @@ import java.util.List;
 
 
 @Service
-@Transactional
 public class TextSaverService {
     private static final Logger logger = LogManager
             .getLogger(TextSaverService.class.getName());
 
     @Autowired
     private SaverService saverService;
-
-
-
-    @Autowired
-    private WordTupleRepository wordTupleRepository;
 
     public void saveToRepo(String text) {
         List<String> sentences = TextToSentences.transform(text);

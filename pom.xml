@@ -11,6 +11,7 @@
         <spring.version>3.2.4.RELEASE</spring.version>
         <spring.data>2.2.3.RELEASE</spring.data>
         <querydsl.version>2.9.0</querydsl.version>
+        <querydsl.version>2.9.0</querydsl.version>
     </properties>
 
     <dependencies>
