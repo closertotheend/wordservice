@@ -22,11 +22,6 @@ public class TextSaverService {
     @Autowired
     private SaverService saverService;
 
-
-
-    @Autowired
-    private WordTupleRepository wordTupleRepository;
-
     public void saveToRepo(String text) {
         List<String> sentences = TextToSentences.transform(text);
         for (String sentence : sentences) {
@@ -37,7 +32,7 @@ public class TextSaverService {
     }
 
 
-    boolean saveToRepo(List<String> words) {
+    public boolean saveToRepo(List<String> words) {
         List<WordEntity> wordEntities = saveWordEntities(words);
         List<WordRelationship> wordRelationships = saveWordRelationships(wordEntities);
         saveWordTuples(wordRelationships);

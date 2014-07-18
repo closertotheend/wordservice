@@ -3,11 +3,12 @@
 var CTRL_KEY_CODE = 17;
 var SPACE_KEY_CODE = 32;
 var TEXTCOMPLETE_FIELD_ID = '.graphcomplete-textfield';
+var SEVERITY_BLUE = "blue";
 var SEVERITY_GREEN = "green";
 var SEVERITY_YELLOW = "yellow";
 var SEVERITY_RED = "red";
 
-var strategyIsBlocked= false;
+var strategyIsBlocked = false;
 
 
 (function triggerAutocompletion() {
@@ -16,11 +17,12 @@ var strategyIsBlocked= false;
 
 function templateFunction(value) {
     return '<img style="height: 20px; width: 20px;" src="/resources/modules/graphcomplete/indicators/' + value.severity + '.png"/>'
-        + "  " + "<b>" + value.word + "</b>" + " (" + value.popularity + ")" ;
+        + "  " + "<b>" + value.word + "</b>" + " (" + value.popularity + ")";
 }
 
 function turnOnAutocompletion() {
-    $(TEXTCOMPLETE_FIELD_ID).textcomplete([{
+    $(TEXTCOMPLETE_FIELD_ID).textcomplete([
+        {
             match: /\b(\w{1,})$/,
             maxCount: 15,
             index: 1,
@@ -79,117 +81,157 @@ function turnOnAutocompletion() {
                 }
 
             },
+
             replace: function (value) {
                 console.error("Block strategy no one");
-                strategyIsBlocked=true;
+                strategyIsBlocked = true;
 
                 setTimeout(function () {
                     console.error("Release");
-                    strategyIsBlocked=false;
+                    strategyIsBlocked = false;
                 }, 300);
 
                 return value.word;
             },
+
             template: function (value) {
                 return templateFunction(value);
             }
         }
     ]);
 
-    $(TEXTCOMPLETE_FIELD_ID).textcomplete([{
-        match: /\s+$/,
-        maxCount: 15,
-        index: 1,
-        header: '&nbsp;&nbsp;<i>Next Word Prediction</i>&nbsp;&nbsp;&nbsp;',
-        search: function (term, callback) {
+    $(TEXTCOMPLETE_FIELD_ID).textcomplete([
+        {
+            match: /\s+$/,
+            maxCount: 15,
+            index: 1,
+            header: '&nbsp;&nbsp;<i>Next Word Prediction</i>&nbsp;&nbsp;&nbsp;',
+            search: function (term, callback) {
 
-            (function doSearch() {
-                try {
-                    console.log("Next word completion strategy executed");
-                    var textAsArray = $.trim($('.graphcomplete-textfield').val()).split(' ');
-                    var previousWord = textAsArray[textAsArray.length - 2];
-                    var lastWord = textAsArray[textAsArray.length - 1];
-                    var wordsResult = [];
-                    if (previousWord !== '' && previousWord !== null && previousWord !== undefined &&
-                        lastWord !== '' && lastWord !== null && lastWord !== undefined) {
-                            performContextualSearch(previousWord, lastWord, wordsResult);
-                    }else{
+                (function doSearch() {
+                    try {
+                        console.log("Next word completion strategy executed");
+                        var textAsArray = $.trim($('.graphcomplete-textfield').val()).split(' ');
+
+                        var first = textAsArray[textAsArray.length - 3];
+                        var second = textAsArray[textAsArray.length - 2];
+                        var last = textAsArray[textAsArray.length - 1];
+
+
+                        var wordsResult = [];
+
+                        if (checkIfPresent(first) && checkIfPresent(second) && checkIfPresent(last)) {
+
+                            performFullContextualSearch(first,second,last,wordsResult)
+
+                        } else if (checkIfPresent(second) && checkIfPresent(last)) {
+
+                            performContextualSearch(second, last, wordsResult);
+
+                        } else if (checkIfPresent(last)) {
+
+                            addOneWordResults(last, wordsResult);
+
+                        } else {
+                            callback(wordsResult);
+                        }
+
+                    } catch (e) {
+                        console.error(e);
+                        callback([]);
+                    }
+
+                    function checkIfPresent(word){
+                        return word !== '' && word !== null && word !== undefined
+                    }
+
+                })();
+
+                function performFullContextualSearch(first, second, third, wordsResult) {
+                    $.getJSON('/context/' + first + '/' + second + '/' + third).done(function (resp) {
+                        $.each(resp, function (index, value) {
+                            value.severity = SEVERITY_BLUE;
+                            wordsResult.push(value);
+                        });
                         callback(wordsResult);
-                    }
-                } catch (e) {
-                    console.error(e);
-                    callback([]);
+
+                        if (wordsResult.length < 10) {
+                            addNextWordResults(second, third, wordsResult, callback);
+                        }
+
+                    }).fail(function () {
+                        console.error("FAIL DURING SENTENCE CONTEXT");
+                    });
                 }
-            })();
 
-            function performContextualSearch(previousWord, lastWord, wordsResult) {
-                $.getJSON('/getSentence/' + previousWord + '/' + lastWord).done(function (resp) {
-                    $.each(resp, function (index, value) {
-                        value.severity = SEVERITY_GREEN;
-                        wordsResult.push(value);
+                function performContextualSearch(previousWord, lastWord, wordsResult) {
+                    $.getJSON('/context/' + previousWord + '/' + lastWord).done(function (resp) {
+                        $.each(resp, function (index, value) {
+                            value.severity = SEVERITY_GREEN;
+                            wordsResult.push(value);
+                        });
+                        callback(wordsResult);
+
+                        if (wordsResult.length < 10) {
+                            addNextWordResults(previousWord, lastWord, wordsResult, callback);
+                        }
+
+                    }).fail(function () {
+                        console.error("FAIL DURING SENTENCE CONTEXT");
                     });
-                    callback(wordsResult);
+                }
 
-                    if (wordsResult.length < 10) {
-                        addNextWordResults(previousWord, lastWord, wordsResult, callback);
-                    }
+                function addNextWordResults(previousWord, lastWord, wordsResult) {
+                    $.getJSON('/getTopFor/' + previousWord + '/' + lastWord).done(function (resp) {
+                        $.each(resp, function (index, value) {
+                            value.severity = SEVERITY_YELLOW;
+                            pushIfNotPresent(wordsResult, value);
+                        });
+                        callback(wordsResult);
 
-                }).fail(function () {
-                    console.error("FAIL DURING SENTENCE CONTEXT");
-                });
-            }
+                        if (wordsResult.length < 10) {
+                            addOneWordResults(lastWord, wordsResult, callback);
+                        }
 
-            function addNextWordResults(previousWord, lastWord, wordsResult) {
-                $.getJSON('/getTopFor/' + previousWord + '/' + lastWord).done(function (resp) {
-                    $.each(resp, function (index, value) {
-                        value.severity = SEVERITY_YELLOW;
-                        pushIfNotPresent(wordsResult, value);
+                    }).fail(function () {
+                        console.log("FAIL DURING NEXT 2 WORD CONTEXT");
                     });
-                    callback(wordsResult);
+                }
 
-                    if (wordsResult.length < 10) {
-                        addOneWordResults(lastWord, wordsResult, callback);
-                    }
+                function addOneWordResults(lastWord, wordsResult) {
+                    $.getJSON('/getTopFor/' + lastWord).done(function (resp) {
+                        $.each(resp, function (index, value) {
+                            value.severity = SEVERITY_RED;
+                            pushIfNotPresent(wordsResult, value);
+                        });
+                        callback(wordsResult);
 
-                }).fail(function () {
-                    console.log("FAIL DURING NEXT 2 WORD CONTEXT");
-                });
-            }
 
-            function addOneWordResults(lastWord, wordsResult) {
-                $.getJSON('/getTopFor/' + lastWord).done(function (resp) {
-                    $.each(resp, function (index, value) {
-                        value.severity = SEVERITY_RED;
-                        pushIfNotPresent(wordsResult, value);
+                    }).fail(function () {
+                        console.log("FAIL DURING NEXT WORD CONTEXT");
                     });
-                    callback(wordsResult);
+                }
 
 
-                }).fail(function () {
-                    console.log("FAIL DURING NEXT WORD CONTEXT");
-                });
+            },
+
+            replace: function (value) {
+                console.log("Block strategy no one");
+                strategyIsBlocked = true;
+
+                setTimeout(function () {
+                    console.log("Release");
+                    strategyIsBlocked = false;
+                }, 300);
+
+                return " " + value.word;
+            },
+
+            template: function (value) {
+                return templateFunction(value);
             }
-
-
-        },
-
-        replace: function (value) {
-            console.error("Block strategy no one");
-            strategyIsBlocked=true;
-
-            setTimeout(function () {
-                console.error("Release");
-                strategyIsBlocked=false;
-            }, 300);
-
-            return " " + value.word;
-        },
-
-        template: function (value) {
-            return templateFunction(value);
         }
-    }]);
-
+    ]);
 
 
     function pushIfNotPresent(wordsResult, value) {
@@ -215,21 +257,21 @@ function turnOffAutocompletion() {
     $(TEXTCOMPLETE_FIELD_ID).textcomplete('destroy');
 }
 
-(function addShutDownListeners(){
+(function addShutDownListeners() {
     var firstKeyIsPressed = false;
     $(".graphcomplete-textfield").keyup(function (e) {
         if (e.which === CTRL_KEY_CODE) firstKeyIsPressed = false;
     }).keydown(function (e) {
         if (e.which === CTRL_KEY_CODE) firstKeyIsPressed = true;
         if (e.which === SPACE_KEY_CODE && firstKeyIsPressed === true) {
-                turnOffAutocompletion();
+            turnOffAutocompletion();
         }
     });
 })();
 
-$(document).ready(function(){
+$(document).ready(function () {
     console.error("Exec");
-    var  $textarea =    $(TEXTCOMPLETE_FIELD_ID);
+    var $textarea = $(TEXTCOMPLETE_FIELD_ID);
     var textarea = $textarea.get(0);
     $textarea.focus();
     if (typeof textarea.selectionStart === 'number') {
