@@ -15,7 +15,7 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
 
 
     @Test
-    @Ignore
+    @Rollback
     public void shouldSaveBigAmountOfWordsWithoutFailing() {
         long startTime = System.currentTimeMillis();
 
