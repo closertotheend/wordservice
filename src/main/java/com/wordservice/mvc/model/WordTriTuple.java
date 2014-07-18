@@ -1,6 +1,7 @@
 package com.wordservice.mvc.model;
 
 import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
 @NodeEntity
@@ -8,9 +9,15 @@ public class WordTriTuple {
     @GraphId
     private Long id;
 
+    @Indexed
     private Long firstWordRelationshipId;
+
+    @Indexed
     private Long secondWordRelationshipId;
+
+    @Indexed
     private Long thirdWordRelationshipId;
+
     private Long popularity = 0l;
 
     public WordTriTuple(Long firstWordRelationshipId, Long secondWordRelationshipId, Long thirdWordRelationshipId) {
