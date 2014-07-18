@@ -78,13 +78,5 @@ public class WordTuple {
         return id != null ? id.hashCode() : 0;
     }
 
-    @Override
-    public String toString() {
-        return "WordTuple{" +
-                "id=" + id +
-                ", fWordRelationshipId=" + fWordRelationshipId +
-                ", secondWordRelationshipId=" + secondWordRelationshipId +
-                ", popularity=" + popularity +
-                '}';
-    }
+
 }

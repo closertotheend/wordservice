@@ -7,6 +7,7 @@ import com.wordservice.mvc.service.wordfinder.WordTupleFinderService;
 import com.wordservice.mvc.service.wordsaver.SentencesToWords;
 import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import com.wordservice.mvc.service.wordsaver.TextToSentences;
+import com.wordservice.mvc.util.CleanUtil;
 import com.wordservice.mvc.util.WordPopularityComparator;
 import junit.framework.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,13 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
+import static com.wordservice.mvc.util.CleanUtil.*;
+
 @Controller
 public class WordControllerImpl {
 
     @Autowired
     private WordRepository wordRepository;
-
-    @Autowired
-    private WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
-
-    @Autowired
-    private TextSaverService textSaverService;
 
     @Autowired
     private WordTupleFinderService wordTupleFinderService;
@@ -63,52 +60,4 @@ public class WordControllerImpl {
         return wordTupleFinderService.getNextWords(clean(f), clean(s), clean(t));
     }
 
-
-    @RequestMapping(value = "getWordStartingWith/{wordStart}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public List<WordEntity> getWordStartingWith(@PathVariable String wordStart) {
-        List<WordEntity> startingWords = wordRepositoryFixedIndexesSearch.findByWordStartingWith(clean(wordStart));
-        Collections.sort(startingWords, new WordPopularityComparator());
-        return startingWords;
-    }
-
-    @RequestMapping(value = "getWordContaining/{sequence}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public List<WordEntity> getWordContaining(@PathVariable String sequence) {
-        List<WordEntity> containingWords = wordRepositoryFixedIndexesSearch.findByWordContaining(clean(sequence));
-        Collections.sort(containingWords, new WordPopularityComparator());
-        return containingWords;
-    }
-
-    @RequestMapping(value = "wordApi", method = RequestMethod.POST)
-    @ResponseBody
-    public void save(@RequestBody String text) {
-        saveWithShortTransaction(text);
-    }
-
-    @RequestMapping(value = "saveFromFile", method = RequestMethod.GET)
-    @ResponseBody
-    public void saveFromFile() throws IOException {
-        System.out.println("Working Directory = " +
-                System.getProperty("user.dir"));
-        saveWithShortTransaction(readFile("martin-eden.txt", StandardCharsets.UTF_8));
-    }
-
-    private void saveWithShortTransaction(String text) {
-        List<String> sentences = TextToSentences.transform(text);
-        for (String sentence : sentences) {
-            List<String> words = SentencesToWords.transform(sentence);
-            textSaverService.saveToRepo(words);
-        }
-    }
-
-    static String readFile(String path, Charset encoding)
-            throws IOException {
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
-        return new String(encoded, encoding);
-    }
-
-    private static String clean(String word) {
-        return word.replaceAll("/[^A-Za-z0-9 ]/", "").trim();
-    }
 }

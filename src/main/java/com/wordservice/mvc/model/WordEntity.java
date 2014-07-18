@@ -70,7 +70,6 @@ public class WordEntity {
     @Override
     public String toString() {
         return "WordEntity{" +
-                "id=" + id +
                 ", word='" + word + '\'' +
                 '}';
     }

@@ -90,14 +90,4 @@ public class WordTriTuple {
         return id != null ? id.hashCode() : 0;
     }
 
-    @Override
-    public String toString() {
-        return "WordTriTuple{" +
-                "id=" + id +
-                ", firstWordRelationshipId=" + firstWordRelationshipId +
-                ", secondWordRelationshipId=" + secondWordRelationshipId +
-                ", thirdWordRelationshipId=" + thirdWordRelationshipId +
-                ", popularity=" + popularity +
-                '}';
-    }
 }

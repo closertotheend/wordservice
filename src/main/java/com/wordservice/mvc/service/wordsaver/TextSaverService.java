@@ -67,10 +67,14 @@ public class TextSaverService {
     private List<WordEntity> saveWordEntities(List<String> words) {
         List<WordEntity> wordEntities = new ArrayList<>();
         for (String word : words) {
-            WordEntity wordEntity = saverService.getOrCreateWordEntity(word);
+            WordEntity wordEntity = saverService.getOrCreateWordEntity(clean(word));
             wordEntities.add(wordEntity);
         }
         return wordEntities;
+    }
+
+    private static String clean(String word) {
+        return word.replaceAll("/[^A-Za-z0-9 ]/", "").trim();
     }
 
 
