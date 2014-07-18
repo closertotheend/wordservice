@@ -86,20 +86,20 @@ public class WordControllerImpl {
         saveWithShortTransaction(text);
     }
 
+    @RequestMapping(value = "saveFromFile", method = RequestMethod.GET)
+    @ResponseBody
+    public void saveFromFile() throws IOException {
+        System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));
+        saveWithShortTransaction(readFile("martin-eden.txt", StandardCharsets.UTF_8));
+    }
+
     private void saveWithShortTransaction(String text) {
         List<String> sentences = TextToSentences.transform(text);
         for (String sentence : sentences) {
             List<String> words = SentencesToWords.transform(sentence);
             textSaverService.saveToRepo(words);
         }
-    }
-
-    @RequestMapping(value = "saveFromFile", method = RequestMethod.GET)
-    @ResponseBody
-    public void saveFromFile() throws IOException {
-        System.out.println("Working Directory = " +
-                System.getProperty("user.dir"));
-        saveWithShortTransaction(readFile("big.txt", StandardCharsets.UTF_8));
     }
 
     static String readFile(String path, Charset encoding)
