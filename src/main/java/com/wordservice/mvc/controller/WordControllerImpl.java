@@ -26,6 +26,7 @@ import java.util.List;
 import static com.wordservice.mvc.util.CleanUtil.*;
 
 @Controller
+@RequestMapping("/")
 public class WordControllerImpl {
 
     @Autowired

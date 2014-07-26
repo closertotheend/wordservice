@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
+@RequestMapping("/")
 public class TextSaveController {
 
     @Autowired
