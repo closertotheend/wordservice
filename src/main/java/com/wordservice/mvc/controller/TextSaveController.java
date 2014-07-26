@@ -4,6 +4,7 @@ import com.wordservice.mvc.service.wordsaver.SentencesToWords;
 import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import com.wordservice.mvc.service.wordsaver.TextToSentences;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+@Controller
 public class TextSaveController {
 
     @Autowired
