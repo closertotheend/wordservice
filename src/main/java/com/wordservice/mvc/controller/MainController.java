@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/")
-public class HelloController {
+public class MainController {
 
     @Autowired
     private Neo4jTemplate neo4jTemplatel;
