@@ -12,17 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/")
 public class MainController {
 
-    @Autowired
-    private Neo4jTemplate neo4jTemplatel;
-
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         return "hello";
     }
 
-    @RequestMapping(value = "shutdb", method = RequestMethod.GET)
-    @ResponseBody
-    public void shutdb() {
-        neo4jTemplatel.getGraphDatabaseService().shutdown();
-    }
 }
