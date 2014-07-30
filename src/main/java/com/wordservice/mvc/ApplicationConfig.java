@@ -37,11 +37,11 @@ class ApplicationConfig {
     @Bean(destroyMethod = "shutdown")
     public GraphDatabaseService graphDatabaseService() {
 //        return new SpringRestGraphDatabase("http://localhost:7474/db/data");
-        try {
-            FileUtils.deleteRecursively(new File("target/real-db"));
-            return new GraphDatabaseFactory().newEmbeddedDatabase("target/real-db");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            FileUtils.deleteRecursively(new File("real-db"));
+            return new GraphDatabaseFactory().newEmbeddedDatabase("real-db");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }

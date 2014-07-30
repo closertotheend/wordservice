@@ -27,7 +27,7 @@ import static com.wordservice.mvc.util.CleanUtil.*;
 
 @Controller
 @RequestMapping("/")
-public class WordControllerImpl {
+public class WordController {
 
     @Autowired
     private WordRepository wordRepository;

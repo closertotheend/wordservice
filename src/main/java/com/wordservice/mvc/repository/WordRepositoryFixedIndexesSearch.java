@@ -4,12 +4,14 @@ package com.wordservice.mvc.repository;
 import com.wordservice.mvc.model.WordEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Service
+@Transactional
 public class WordRepositoryFixedIndexesSearch {
 
     @Autowired
@@ -20,7 +22,7 @@ public class WordRepositoryFixedIndexesSearch {
 
         if (!word.trim().isEmpty()) {
             try {
-                allCaseWords = wordRepository.findByWord(word);
+                allCaseWords = wordRepository.findByWordRegexOrderByPopularity(word);
             } catch (Exception e) {
                 e.printStackTrace();
                 allCaseWords = Collections.emptyList();
