@@ -27,7 +27,7 @@ public class SentencesToWords {
     }
 
     static String cleanWord(String dirtyWord) {
-         return dirtyWord.replaceAll("[^\\p{L}\\p{Nd}]", "");
+        return dirtyWord.trim().replaceAll("(^[\\W_]*)|([\\W_]*$)", "");
     }
 
 }
