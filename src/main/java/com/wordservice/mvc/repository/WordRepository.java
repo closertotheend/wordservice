@@ -10,6 +10,10 @@ import java.util.List;
 
 @Transactional
 public interface WordRepository extends GraphRepository<WordEntity> {
+
+    /**
+     * Uses indexes, but sometimes does not work
+     * */
     List<WordEntity> findByWord(String word);
 
     @Query("START wordEntity=node:word(word={word}) " +

@@ -22,7 +22,10 @@ public class WordRepositoryFixedIndexesSearch {
 
         if (!word.trim().isEmpty()) {
             try {
-                allCaseWords = wordRepository.findByWordRegexOrderByPopularity(word);
+                allCaseWords = wordRepository.findByWord(word);
+                if(allCaseWords.size()==0){
+                    allCaseWords = wordRepository.findByWordRegexOrderByPopularity(word);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 allCaseWords = Collections.emptyList();
