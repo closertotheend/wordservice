@@ -4,6 +4,7 @@ import com.wordservice.mvc.model.NullWordEntity;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.model.WordRelationshipTuple;
+import com.wordservice.mvc.repository.WordRelationshipTupleDAO;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class TextSaverService {
 
     @Autowired
     private SaverService saverService;
+
+    @Autowired
+    private WordRelationshipTupleDAO wordRelationshipTupleDAO;
 
     public void saveToRepo(String text) {
         List<String> sentences = TextToSentences.transform(text);
@@ -45,24 +49,32 @@ public class TextSaverService {
     private List<WordRelationshipTuple> saveWordRelationshipTuples(List<WordEntity> wordEntities) {
         List<WordRelationshipTuple> wordRelationships = new ArrayList<>();
 
-        if(wordEntities.size()>1) {
-            WordRelationshipTuple first = saverService
-                    .createOrIncrementPopularityOfWordRelationshipTuple(
-                            new NullWordEntity(), new NullWordEntity(), wordEntities.get(0), wordEntities.get(1));
-            wordRelationships.add(first);
-        }
+        for (int i = 0; i < wordEntities.size()  ; i++) {
+            WordRelationshipTuple wordRelationship = null;
 
-        if(wordEntities.size()>2) {
-            WordRelationshipTuple second = saverService
-                    .createOrIncrementPopularityOfWordRelationshipTuple(
-                            new NullWordEntity(), wordEntities.get(0), wordEntities.get(1), wordEntities.get(2));
-            wordRelationships.add(second);
-        }
+            if(wordEntities.size()-i == 1){
+                break;
+            }
 
-        for (int i = 3; i < wordEntities.size()  ; i++) {
-            WordRelationshipTuple wordRelationship = saverService
-                    .createOrIncrementPopularityOfWordRelationshipTuple(
-                            wordEntities.get(i - 3), wordEntities.get(i - 2), wordEntities.get(i - 1), wordEntities.get(i));
+            if (wordEntities.size() - i == 2) {
+                wordRelationship = wordRelationshipTupleDAO
+                        .createOrIncrementPopularityOfWordRelationshipTuple(
+                                wordEntities.get(i), wordEntities.get(i + 1), new NullWordEntity(), new NullWordEntity());
+            }
+
+            if (wordEntities.size()-i == 3) {
+                wordRelationship = wordRelationshipTupleDAO
+                        .createOrIncrementPopularityOfWordRelationshipTuple(
+                                wordEntities.get(i), wordEntities.get(i + 1), wordEntities.get(i + 2), new NullWordEntity());
+            }
+
+            if(wordEntities.size()-i > 3) {
+                wordRelationship = wordRelationshipTupleDAO
+                        .createOrIncrementPopularityOfWordRelationshipTuple(
+                                wordEntities.get(i), wordEntities.get(i + 1), wordEntities.get(i + 2), wordEntities.get(i + 3));
+
+            }
+
             wordRelationships.add(wordRelationship);
         }
         return wordRelationships;

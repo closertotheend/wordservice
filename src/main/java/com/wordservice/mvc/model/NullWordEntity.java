@@ -4,6 +4,6 @@ public class NullWordEntity extends WordEntity {
 
     @Override
     public Long getId() {
-        return null;
+        return 0l;
     }
 }

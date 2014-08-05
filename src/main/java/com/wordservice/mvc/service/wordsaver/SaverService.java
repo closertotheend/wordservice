@@ -31,15 +31,15 @@ public class SaverService {
     private WordTriTupleRepository wordTriTupleRepository;
 
     @Autowired
-    private WordRelationshipTupleRepository wordRelationshipTupleRepository ;
+    private WordRelationshipTupleDAO wordRelationshipTupleDAO;
 
     WordTuple createOrIncrementPopularityOfWordTuple(WordRelationship wordRelationship1, WordRelationship wordRelationship2) {
         long startTime = System.currentTimeMillis();
 
         WordTuple wordTuple = wordTupleRepository.getTupleWithRelationShipIds(wordRelationship1.getId(), wordRelationship2.getId());
-        if(wordTuple == null) {
+        if (wordTuple == null) {
             wordTuple = wordTupleRepository.save(new WordTuple(wordRelationship1.getId(), wordRelationship2.getId()));
-        }else {
+        } else {
             wordTuple.incrementPopularity();
             wordTupleRepository.save(wordTuple);
         }
@@ -53,9 +53,9 @@ public class SaverService {
         long startTime = System.currentTimeMillis();
 
         WordTriTuple wordTriTuple = wordTriTupleRepository.getWithRelationShipIds(wordRelationship1.getId(), wordRelationship2.getId(), wordRelationship3.getId());
-        if(wordTriTuple == null) {
+        if (wordTriTuple == null) {
             wordTriTuple = wordTriTupleRepository.save(new WordTriTuple(wordRelationship1.getId(), wordRelationship2.getId(), wordRelationship3.getId()));
-        }else {
+        } else {
             wordTriTuple.incrementPopularity();
             wordTriTupleRepository.save(wordTriTuple);
         }
@@ -81,21 +81,6 @@ public class SaverService {
         return wordEntity;
     }
 
-    WordRelationshipTuple createOrIncrementPopularityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
-        long startTime = System.currentTimeMillis();
-
-        WordRelationshipTuple wordRelationshipTuple = wordRelationshipTupleRepository.getRelationshipBetween(third, fourth);
-        if (wordRelationshipTuple == null) {
-            wordRelationshipTuple = new WordRelationshipTuple(first,second,third,fourth);
-        } else {
-            wordRelationshipTuple.incrementPopularity();
-        }
-        wordRelationshipTuple = wordRelationshipTupleRepository.save(wordRelationshipTuple);
-
-        logger.info("Elapsed time for wordRelationshipTuple " + wordRelationshipTuple + " operations is " + (System.currentTimeMillis() - startTime));
-
-        return wordRelationshipTuple;
-    }
 
     WordRelationship createOrIncrementPopularityOfRelationship(WordEntity wordEntity1, WordEntity wordEntity2) {
         long startTime = System.currentTimeMillis();

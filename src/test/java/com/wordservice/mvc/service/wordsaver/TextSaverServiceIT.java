@@ -6,6 +6,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.List;
+
 import static junit.framework.Assert.*;
 import static junit.framework.Assert.assertNotNull;
 
@@ -133,12 +135,15 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
         assertNotNull(my);
         assertNotNull(sad);
         assertNotNull(world);
-        WordRelationshipTuple relationshipBetweenSadAndHello = wordRelationshipTupleRepository.getRelationshipBetween(sad,world);
-        WordRelationshipTuple relationshipBetweenHelloAndMy = wordRelationshipTupleRepository.getRelationshipBetween(hello,my);
-        WordRelationshipTuple relationshipBetweenMyAndSad = wordRelationshipTupleRepository.getRelationshipBetween(my,sad);
-        assertNotNull(relationshipBetweenSadAndHello);
-        assertNotNull(relationshipBetweenHelloAndMy);
+
+        List<WordRelationshipTuple> relationshipBetweenHelloAndMy = wordRelationshipTupleDAO.getRelationshipsBetweenAsList(hello, my);
+        assertEquals(1, relationshipBetweenHelloAndMy.size());
+
+        WordRelationshipTuple relationshipBetweenMyAndSad = wordRelationshipTupleDAO.getRelationshipBetween(my,sad);
         assertNotNull(relationshipBetweenMyAndSad);
+
+        WordRelationshipTuple relationshipBetweenSadAndHello = wordRelationshipTupleDAO.getRelationshipBetween(sad,world);
+        assertNotNull(relationshipBetweenSadAndHello);
     }
 
     @Test

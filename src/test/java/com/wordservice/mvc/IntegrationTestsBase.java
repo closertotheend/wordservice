@@ -31,7 +31,7 @@ public abstract class IntegrationTestsBase {
     public WordRelationshipRepository wordRelationshipRepository;
 
     @Autowired
-    public  WordRelationshipTupleRepository wordRelationshipTupleRepository;
+    public WordRelationshipTupleDAO wordRelationshipTupleDAO;
 
     @Autowired
     public TextSaverService textSaverService;

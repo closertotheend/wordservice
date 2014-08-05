@@ -10,28 +10,28 @@ public class WordRelationshipTuple {
     @GraphId
     private Long id;
 
-    private Long first;
-
-    private Long second;
-
     @JsonIgnore
     @StartNode
-    private WordEntity prelast;
+    private WordEntity first;
 
     @JsonIgnore
     @EndNode
-    private WordEntity last;
+    private WordEntity second;
+
+    private long third;
+
+    private long fourth;
 
     private long popularity;
 
     public WordRelationshipTuple() {
     }
 
-    public WordRelationshipTuple(WordEntity first, WordEntity second, WordEntity prelast, WordEntity last) {
-        this.first = first.getId();
-        this.second = second.getId();
-        this.prelast = prelast;
-        this.last = last;
+    public WordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
+        this.first = first;
+        this.second = second;
+        this.third = third.getId();
+        this.fourth = fourth.getId();
     }
 
     public void incrementPopularity() {
@@ -51,40 +51,40 @@ public class WordRelationshipTuple {
         return popularity;
     }
 
-    public WordEntity getPrelast() {
-        return prelast;
+    public WordEntity getFirst() {
+        return first;
     }
 
-    public WordEntity getLast() {
-        return last;
+    public WordEntity getSecond() {
+        return second;
     }
 
-    public void setLast(WordEntity last) {
-        this.last = last;
+    public void setSecond(WordEntity second) {
+        this.second = second;
     }
 
-    public void setPrelast(WordEntity prelast) {
-        this.prelast = prelast;
+    public void setFirst(WordEntity first) {
+        this.first = first;
     }
 
     public static String getRelationshipType() {
         return relationshipType;
     }
 
-    public long getFirst() {
-        return first;
+    public long getThird() {
+        return third;
     }
 
-    public void setFirst(long first) {
-        this.first = first;
+    public void setThird(long third) {
+        this.third = third;
     }
 
-    public long getSecond() {
-        return second;
+    public long getFourth() {
+        return fourth;
     }
 
-    public void setSecond(long second) {
-        this.second = second;
+    public void setFourth(long fourth) {
+        this.fourth = fourth;
     }
 
     public void setPopularity(long popularity) {

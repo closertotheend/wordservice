@@ -27,6 +27,9 @@ public class WordTupleFinderService {
     private WordTriTupleRepository wordTriTupleRepository;
 
     @Autowired
+    private WordRelationshipTupleDAO wordRelationshipTupleDAO;
+
+    @Autowired
     private WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
 
     @Autowired
@@ -83,5 +86,35 @@ public class WordTupleFinderService {
 
         return words;
     }
+
+    public List<WordEntity> getNextWordsViaTuple(String word1, String word2, String word3) {
+
+        WordEntity firstWord = wordRepositoryFixedIndexesSearch.findByWord(word1);
+        if (firstWord == null) return Collections.emptyList();
+        WordEntity secondWord = wordRepositoryFixedIndexesSearch.findByWord(word2);
+        if (secondWord == null) return Collections.emptyList();
+        WordEntity thirdWord = wordRepositoryFixedIndexesSearch.findByWord(word3);
+        if (thirdWord == null) return Collections.emptyList();
+
+        WordRelationship relationshipBetween1 = wordRelationshipRepository.getRelationshipBetween(firstWord, secondWord);
+        if (relationshipBetween1 == null) return Collections.emptyList();
+
+        WordRelationship relationshipBetween2 = wordRelationshipRepository.getRelationshipBetween(secondWord, thirdWord);
+        if (relationshipBetween2 == null) return Collections.emptyList();
+
+        List<WordTriTuple> tuplesWithRelationShipIds =
+                wordTriTupleRepository.getWithRelationShipIds(relationshipBetween1.getId(), relationshipBetween2.getId());
+
+        List<WordEntity> words = new ArrayList<>();
+        for (WordTriTuple tuplesWithRelationShipId : tuplesWithRelationShipIds) {
+            WordRelationship nextWordRelationship = wordRelationshipRepository.findOne(tuplesWithRelationShipId.getThirdWordRelationshipId());
+            words.add(wordRepository.findOne(
+                    nextWordRelationship.getSecondWord().getId()
+            ));
+        }
+
+        return words;
+    }
+
 
 }
