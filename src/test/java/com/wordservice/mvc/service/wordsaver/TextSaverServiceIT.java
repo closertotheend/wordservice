@@ -1,15 +1,13 @@
 package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.IntegrationTestsBase;
-import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.model.WordTriTuple;
-import com.wordservice.mvc.model.WordTuple;
+import com.wordservice.mvc.model.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
 import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertNotNull;
 
 public class TextSaverServiceIT extends IntegrationTestsBase {
 
@@ -121,6 +119,18 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
         assertNotNull(hahaha);
         WordEntity a = wordRepositoryFixedIndexesSearch.findByWord("a");
         assertNull(a);
+    }
+
+    @Test
+    @Rollback
+    public void shouldCheckThatRelationshipTupleShouldBeRetrievable() {
+        textSaverService.saveToRepo("Hello my sad world");
+        WordEntity sad = wordRepositoryFixedIndexesSearch.findByWord("sad");
+        WordEntity world = wordRepositoryFixedIndexesSearch.findByWord("world");
+        assertNotNull(sad);
+        assertNotNull(world);
+        WordRelationshipTuple relationshipBetween = wordRelationshipTupleRepository.getRelationshipBetween(sad,world);
+        assertNotNull(relationshipBetween);
     }
 
     @Test

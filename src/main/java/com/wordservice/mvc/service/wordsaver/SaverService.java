@@ -1,10 +1,7 @@
 package com.wordservice.mvc.service.wordsaver;
 
 
-import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.model.WordTriTuple;
-import com.wordservice.mvc.model.WordTuple;
+import com.wordservice.mvc.model.*;
 import com.wordservice.mvc.repository.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -32,6 +29,9 @@ public class SaverService {
 
     @Autowired
     private WordTriTupleRepository wordTriTupleRepository;
+
+    @Autowired
+    private WordRelationshipTupleRepository wordRelationshipTupleRepository ;
 
     WordTuple createOrIncrementPopularityOfWordTuple(WordRelationship wordRelationship1, WordRelationship wordRelationship2) {
         long startTime = System.currentTimeMillis();
@@ -79,6 +79,22 @@ public class SaverService {
         logger.info("Elapsed time for word " + word + " operations is " + (System.currentTimeMillis() - startTime));
 
         return wordEntity;
+    }
+
+    WordRelationshipTuple createOrIncrementPoplarityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
+        long startTime = System.currentTimeMillis();
+
+        WordRelationshipTuple wordRelationshipTuple = wordRelationshipTupleRepository.getRelationshipBetween(third, fourth);
+        if (wordRelationshipTuple == null) {
+            wordRelationshipTuple = new WordRelationshipTuple(first,second,third,fourth);
+        } else {
+            wordRelationshipTuple.incrementPopularity();
+        }
+        wordRelationshipTuple = wordRelationshipTupleRepository.save(wordRelationshipTuple);
+
+        logger.info("Elapsed time for wordRelationshipTuple " + wordRelationshipTuple + " operations is " + (System.currentTimeMillis() - startTime));
+
+        return wordRelationshipTuple;
     }
 
     WordRelationship createOrIncrementPopularityOfRelationship(WordEntity wordEntity1, WordEntity wordEntity2) {
