@@ -16,6 +16,7 @@ public class WordEntity {
     @Indexed(indexType = IndexType.FULLTEXT, numeric = false,  unique = true, indexName = "word")
     private String word;
 
+    @Indexed(indexName = "popularity")
     private Long popularity = 0l;
 
     public WordEntity() {

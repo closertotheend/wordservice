@@ -27,7 +27,7 @@ public class TextSaveController {
     @RequestMapping(value = "wordApi", method = RequestMethod.POST)
     @ResponseBody
     public void save(@RequestBody String text) {
-        saveWithShortTransaction(text);
+        textSaverService.saveToRepo(text);
     }
 
     @RequestMapping(value = "saveFromFile", method = RequestMethod.GET)
@@ -35,15 +35,7 @@ public class TextSaveController {
     public void saveFromFile() throws IOException {
         System.out.println("Working Directory = " +
                 System.getProperty("user.dir"));
-        saveWithShortTransaction(readFile("martin-eden.txt", StandardCharsets.UTF_8));
-    }
-
-    private void saveWithShortTransaction(String text) {
-        List<String> sentences = TextToSentences.transform(text);
-        for (String sentence : sentences) {
-            List<String> words = SentencesToWords.transform(sentence);
-            textSaverService.saveToRepo(words);
-        }
+        textSaverService.saveToRepo(readFile("martin-eden.txt", StandardCharsets.UTF_8));
     }
 
     static String readFile(String path, Charset encoding)

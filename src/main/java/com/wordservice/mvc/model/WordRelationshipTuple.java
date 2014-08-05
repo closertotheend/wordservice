@@ -10,9 +10,9 @@ public class WordRelationshipTuple {
     @GraphId
     private Long id;
 
-    private long first;
+    private Long first;
 
-    private long second;
+    private Long second;
 
     @JsonIgnore
     @StartNode

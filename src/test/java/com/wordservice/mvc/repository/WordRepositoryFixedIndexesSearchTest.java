@@ -28,6 +28,7 @@ public class WordRepositoryFixedIndexesSearchTest {
     }
 
     @Test
+//    @Ignore
     public void testFindByWord() throws Exception {
         WordEntity small = new WordEntity("ilja");
         small.setId(1l);

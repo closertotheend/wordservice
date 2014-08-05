@@ -81,7 +81,7 @@ public class SaverService {
         return wordEntity;
     }
 
-    WordRelationshipTuple createOrIncrementPoplarityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
+    WordRelationshipTuple createOrIncrementPopularityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
         long startTime = System.currentTimeMillis();
 
         WordRelationshipTuple wordRelationshipTuple = wordRelationshipTupleRepository.getRelationshipBetween(third, fourth);
