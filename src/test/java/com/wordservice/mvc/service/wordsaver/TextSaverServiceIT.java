@@ -124,13 +124,21 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     @Test
     @Rollback
     public void shouldCheckThatRelationshipTupleShouldBeRetrievable() {
-        textSaverService.saveToRepo("Hello my sad world");
+        textSaverService.saveToRepo("Hello my sad world.");
+        WordEntity hello = wordRepositoryFixedIndexesSearch.findByWord("Hello");
+        WordEntity my = wordRepositoryFixedIndexesSearch.findByWord("my");
         WordEntity sad = wordRepositoryFixedIndexesSearch.findByWord("sad");
         WordEntity world = wordRepositoryFixedIndexesSearch.findByWord("world");
+        assertNotNull(hello);
+        assertNotNull(my);
         assertNotNull(sad);
         assertNotNull(world);
-        WordRelationshipTuple relationshipBetween = wordRelationshipTupleRepository.getRelationshipBetween(sad,world);
-        assertNotNull(relationshipBetween);
+        WordRelationshipTuple relationshipBetweenSadAndHello = wordRelationshipTupleRepository.getRelationshipBetween(sad,world);
+        WordRelationshipTuple relationshipBetweenHelloAndMy = wordRelationshipTupleRepository.getRelationshipBetween(hello,my);
+        WordRelationshipTuple relationshipBetweenMyAndSad = wordRelationshipTupleRepository.getRelationshipBetween(my,sad);
+        assertNotNull(relationshipBetweenSadAndHello);
+        assertNotNull(relationshipBetweenHelloAndMy);
+        assertNotNull(relationshipBetweenMyAndSad);
     }
 
     @Test
