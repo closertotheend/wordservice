@@ -9,7 +9,7 @@ import java.util.List;
 
 import static junit.framework.Assert.*;
 
-public class WordRepositoryIT extends IntegrationTestsBase {
+public class WordEntityRepositoryIT extends IntegrationTestsBase {
 
 
     @Test

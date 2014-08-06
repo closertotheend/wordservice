@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 import static com.wordservice.mvc.util.CleanUtil.*;
 
@@ -24,13 +25,13 @@ public class WordController {
 
     @RequestMapping(value = "getTopFor/{word}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<WordEntity> get10TopWordsAfter(@PathVariable String word) {
+    public Set<WordEntity> get10TopWordsAfter(@PathVariable String word) {
         return wordEntityRepository.getTop10WordsAfter(clean(word));
     }
 
     @RequestMapping(value = "getTopFor/{previous}/{last}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<WordEntity> get10TopWordsAfter(@PathVariable String previous, @PathVariable String last) {
+    public Set<WordEntity> get10TopWordsAfter(@PathVariable String previous, @PathVariable String last) {
         return wordEntityRepository.getTop10WordsAfter(clean(previous), clean(last));
     }
 
