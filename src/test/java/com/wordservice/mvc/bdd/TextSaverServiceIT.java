@@ -22,8 +22,6 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
 
         textSaverService.saveToRepo(dickensText);
         assertTrue(wordEntityRepository.count() > 300);
-        assertNull(template.getRelationshipBetween(new WordEntity("zxc"), new WordEntity("ds"),
-                WordRelationship.class, WordRelationship.relationshipType));
 
         long estimatedTime = System.currentTimeMillis() - startTime;
         System.err.println(estimatedTime);
@@ -90,15 +88,7 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
         assertNotNull(relationshipBetweenSadAndHello);
     }
 
-    @Test
-    @Rollback
-    public void shouldCreateCorrectAmountOfRelationshipsAndCorrectlyIncrementPopularityOfThem() {
-        textSaverService.saveToRepo("Hello Ilja, I am neo4j, I am slow and ugly! I am happy, I am happy.");
-        WordRelationship relationshipBetweenAmAndHappy = template.getRelationshipBetween(
-                wordEntityDAO.findByWord("am"), wordEntityDAO.findByWord("happy"),
-                WordRelationship.class, WordRelationship.relationshipType);
-        assertEquals(1, relationshipBetweenAmAndHappy.getPopularity());
-    }
+
 
     @Test
     @Rollback

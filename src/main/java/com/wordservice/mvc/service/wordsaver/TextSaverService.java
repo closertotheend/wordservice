@@ -2,7 +2,6 @@ package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.model.NullWordEntity;
 import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.model.WordRelationshipTuple;
 import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
 import org.apache.log4j.LogManager;
@@ -39,21 +38,10 @@ public class TextSaverService {
 
     public boolean saveToRepo(List<String> words) {
         List<WordEntity> wordEntities = saveWordEntities(words);
-        List<WordRelationship> wordRelationships = saveWordRelationships(wordEntities);
         wordRelationshipTupleDAO.saveWordRelationshipTuples(wordEntities);
         return true;
     }
 
-
-    private List<WordRelationship> saveWordRelationships(List<WordEntity> wordEntities) {
-        List<WordRelationship> wordRelationships = new ArrayList<>();
-        for (int i = 0; i < wordEntities.size() - 1; i++) {
-            WordRelationship wordRelationship = saverService
-                    .createOrIncrementPopularityOfRelationship(wordEntities.get(i), wordEntities.get(i + 1));
-            wordRelationships.add(wordRelationship);
-        }
-        return wordRelationships;
-    }
 
     private List<WordEntity> saveWordEntities(List<String> words) {
         List<WordEntity> wordEntities = new ArrayList<>();

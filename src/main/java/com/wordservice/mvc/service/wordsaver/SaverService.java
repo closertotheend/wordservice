@@ -2,7 +2,6 @@ package com.wordservice.mvc.service.wordsaver;
 
 
 import com.wordservice.mvc.dao.WordEntityDAO;
-import com.wordservice.mvc.dao.WordRelationshipDAO;
 import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
 import com.wordservice.mvc.model.*;
 import com.wordservice.mvc.repository.*;
@@ -17,9 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class SaverService {
     private static final Logger logger = LogManager
             .getLogger(TextSaverService.class.getName());
-
-    @Autowired
-    private WordRelationshipDAO wordRelationshipDAO;
 
     @Autowired
     private WordEntityRepository wordEntityRepository;
@@ -46,21 +42,4 @@ public class SaverService {
         return wordEntity;
     }
 
-
-    WordRelationship createOrIncrementPopularityOfRelationship(WordEntity wordEntity1, WordEntity wordEntity2) {
-        long startTime = System.currentTimeMillis();
-
-        WordRelationship relationshipBetween = wordRelationshipDAO.getRelationshipBetween(wordEntity1, wordEntity2);
-        if (relationshipBetween == null) {
-            WordRelationship wordRelationship = new WordRelationship(wordEntity1, wordEntity2);
-            relationshipBetween = wordRelationshipDAO.save(wordRelationship);
-        } else {
-            relationshipBetween.incrementPopularity();
-            relationshipBetween = wordRelationshipDAO.save(relationshipBetween);
-        }
-
-        logger.info("Elapsed time for relationship  operations is " + (System.currentTimeMillis() - startTime));
-
-        return relationshipBetween;
-    }
 }

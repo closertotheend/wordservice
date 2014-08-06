@@ -1,8 +1,6 @@
 package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.dao.WordRelationshipDAO;
 import com.wordservice.mvc.repository.WordEntityRepository;
 import com.wordservice.mvc.dao.WordEntityDAO;
 import org.junit.Before;
@@ -18,9 +16,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class SaverServiceTest {
-    @Mock
-    WordRelationshipDAO wordRelationshipDAO;
-
     @Mock
     WordEntityRepository wordEntityRepository;
 
@@ -44,20 +39,4 @@ public class SaverServiceTest {
         assertEquals("saving twice enforces incrementation of popularity",1,existingWordEntity.getPopularity());
     }
 
-    @Test
-    public void testCreateOrIncrementPopularityOfRelationship() throws Exception {
-        saverService.createOrIncrementPopularityOfRelationship(new WordEntity(),new WordEntity());
-        verify(wordRelationshipDAO).getRelationshipBetween(any(WordEntity.class), any(WordEntity.class));
-        verify(wordRelationshipDAO).save(any(WordRelationship.class));
-    }
-
-    @Test
-    public void testCreateOrIncrementPopularityOfRelationship2() throws Exception {
-        WordRelationship wordRelationship = new WordRelationship();
-        when(wordRelationshipDAO.getRelationshipBetween(any(WordEntity.class), any(WordEntity.class))).thenReturn(wordRelationship);
-        saverService.createOrIncrementPopularityOfRelationship(new WordEntity(), new WordEntity());
-        verify(wordRelationshipDAO).getRelationshipBetween(any(WordEntity.class), any(WordEntity.class));
-        verify(wordRelationshipDAO).save(any(WordRelationship.class));
-        assertEquals("wordrelationship existed so saving twice increases popularity",1,wordRelationship.getPopularity());
-    }
 }

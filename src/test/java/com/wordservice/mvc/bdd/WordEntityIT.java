@@ -2,7 +2,6 @@ package com.wordservice.mvc.bdd;
 
 import com.wordservice.mvc.TestApplicationConfig;
 import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.repository.WordEntityRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,14 +31,10 @@ public class WordEntityIT {
         WordEntity gump = new WordEntity("Gump");
         WordEntity forrest = new WordEntity("Forrest");
         WordEntity lump = new WordEntity("Lump");
-        WordRelationship wordRelationship = new WordRelationship(forrest, gump);
-        WordRelationship wordRelationship2 = new WordRelationship(forrest, lump);
 
         wordEntityRepositoryImpl.save(gump);
         wordEntityRepositoryImpl.save(forrest);
         wordEntityRepositoryImpl.save(lump);
-        template.save(wordRelationship);
-        template.save(wordRelationship2);
 
         assertEquals("retrieved id matches persisted one", gump, wordEntityRepositoryImpl.findOne(gump.getId()));
         assertEquals("retrieved word matches persisted one", gump.getWord(), wordEntityRepositoryImpl.findOne(gump.getId()).getWord());

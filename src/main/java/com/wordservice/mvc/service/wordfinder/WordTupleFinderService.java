@@ -1,7 +1,6 @@
 package com.wordservice.mvc.service.wordfinder;
 
 import com.wordservice.mvc.dao.WordEntityDAO;
-import com.wordservice.mvc.dao.WordRelationshipDAO;
 import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
 import com.wordservice.mvc.model.*;
 import com.wordservice.mvc.repository.*;
@@ -16,9 +15,6 @@ import java.util.List;
 @Service
 @Transactional
 public class WordTupleFinderService {
-
-    @Autowired
-    private WordRelationshipDAO wordRelationshipDAO;
 
     @Autowired
     private WordRelationshipTupleDAO wordRelationshipTupleDAO;
