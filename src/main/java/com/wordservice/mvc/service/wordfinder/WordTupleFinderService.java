@@ -37,7 +37,10 @@ public class WordTupleFinderService {
 
         List<WordEntity> nextWords = new ArrayList<>();
         for (WordRelationshipTuple relationship : relationships) {
-            nextWords.add(wordEntityDAO.findById(relationship.getThird()));
+            long third = relationship.getThird();
+            if(third != 0) {
+                nextWords.add(wordEntityDAO.findById(third));
+            }
         }
 
         return nextWords;
@@ -57,7 +60,10 @@ public class WordTupleFinderService {
 
         List<WordEntity> nextWords = new ArrayList<>();
         for (WordRelationshipTuple relationship : relationships) {
-            nextWords.add(wordEntityDAO.findById(relationship.getFourth()));
+            long fourth = relationship.getFourth();
+            if(fourth != 0) {
+                nextWords.add(wordEntityDAO.findById(fourth));
+            }
         }
 
         return nextWords;

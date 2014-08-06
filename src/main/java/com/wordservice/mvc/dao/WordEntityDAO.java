@@ -3,6 +3,8 @@ package com.wordservice.mvc.dao;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.repository.WordEntityRepository;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,9 @@ import java.util.List;
 @Service
 @Transactional
 public class WordEntityDAO {
+
+    private static final Logger logger = LogManager
+            .getLogger(WordEntityDAO.class.getName());
 
     @Autowired
     private WordEntityRepository wordEntityRepository;
@@ -28,11 +33,10 @@ public class WordEntityDAO {
         if (!word.trim().isEmpty()) {
             try {
                 allCaseWords = wordEntityRepository.findByWord(word);
-                if(allCaseWords.size()==0){
-                    allCaseWords = wordEntityRepository.findByWordRegexOrderByPopularity(word);
-                }
+//                if(allCaseWords.size()==0){
+//                    allCaseWords = wordEntityRepository.findByWordRegexOrderByPopularity(word);
+//                }
             } catch (Exception e) {
-                e.printStackTrace();
                 allCaseWords = Collections.emptyList();
             }
         }
@@ -64,5 +68,21 @@ public class WordEntityDAO {
 
     public List<WordEntity> findByWordContaining(String sequence){
         return wordEntityRepository.findByWordRegexOrderByPopularity(".*" + sequence + ".*");
+    }
+
+    public WordEntity getOrCreateWordEntity(String word) {
+        long startTime = System.currentTimeMillis();
+
+        WordEntity wordEntity = findByWord(word);
+        if (wordEntity == null) {
+            wordEntity = new WordEntity(word);
+        } else {
+            wordEntity.incrementPopularity();
+        }
+        wordEntity = wordEntityRepository.save(wordEntity);
+
+        logger.info("Elapsed time for word " + word + " operations is " + (System.currentTimeMillis() - startTime));
+
+        return wordEntity;
     }
 }

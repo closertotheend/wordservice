@@ -3,6 +3,7 @@ package com.wordservice.mvc.dao;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.repository.WordEntityRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -28,7 +29,7 @@ public class WordEntityDAOTest {
     }
 
     @Test
-//    @Ignore
+    @Ignore
     public void testFindByWord() throws Exception {
         WordEntity small = new WordEntity("ilja");
         small.setId(1l);

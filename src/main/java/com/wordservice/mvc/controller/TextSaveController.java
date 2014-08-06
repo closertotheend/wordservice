@@ -5,6 +5,7 @@ import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import com.wordservice.mvc.service.wordsaver.TextToSentences;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,15 +28,17 @@ public class TextSaveController {
     @RequestMapping(value = "wordApi", method = RequestMethod.POST)
     @ResponseBody
     public void save(@RequestBody String text) {
-        textSaverService.saveToRepo(text);
+        List<String> sentences = TextToSentences.transform(text);
+        for (String sentence : sentences) {
+            List<String> words = SentencesToWords.transform(sentence);
+            textSaverService.saveToRepo(words);
+        }
     }
 
     @RequestMapping(value = "saveFromFile", method = RequestMethod.GET)
     @ResponseBody
     public void saveFromFile() throws IOException {
-        System.out.println("Working Directory = " +
-                System.getProperty("user.dir"));
-        textSaverService.saveToRepo(readFile("martin-eden.txt", StandardCharsets.UTF_8));
+        save(readFile("martin-eden.txt", StandardCharsets.UTF_8));
     }
 
     static String readFile(String path, Charset encoding)
