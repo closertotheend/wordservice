@@ -4,7 +4,7 @@ import com.wordservice.mvc.model.NullWordEntity;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.model.WordRelationshipTuple;
-import com.wordservice.mvc.repository.WordRelationshipTupleDAO;
+import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

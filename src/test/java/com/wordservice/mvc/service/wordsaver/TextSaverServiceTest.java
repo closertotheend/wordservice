@@ -2,9 +2,9 @@ package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.repository.WordRelationshipRepository;
+import com.wordservice.mvc.dao.WordRelationshipDAO;
 import com.wordservice.mvc.repository.WordRepository;
-import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
+import com.wordservice.mvc.dao.WordEntityDAO;
 import com.wordservice.mvc.repository.WordTupleRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,13 +20,13 @@ import static org.mockito.Mockito.*;
 public class TextSaverServiceTest {
 
     @Mock
-    WordRelationshipRepository wordRelationshipRepository;
+    WordRelationshipDAO wordRelationshipDAO;
 
     @Mock
     WordRepository wordRepository;
 
     @Mock
-    WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
+    WordEntityDAO wordEntityDAO;
 
     @Mock
     SaverService saverService;

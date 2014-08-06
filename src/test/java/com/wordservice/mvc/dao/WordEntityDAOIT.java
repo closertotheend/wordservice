@@ -1,4 +1,4 @@
-package com.wordservice.mvc.repository;
+package com.wordservice.mvc.dao;
 
 import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.WordEntity;
@@ -9,15 +9,15 @@ import java.util.List;
 
 import static junit.framework.Assert.*;
 
-public class WordRepositoryFixedIndexesSearchIT extends IntegrationTestsBase{
+public class WordEntityDAOIT extends IntegrationTestsBase{
 
     @Test
     @Rollback
     public void testFindByWordCheckCase() throws Exception {
         textSaverService.saveToRepo("Hello Ilja! hello martin");
-        WordEntity bigLetterHello = wordRepositoryFixedIndexesSearch.findByWord("Hello");
+        WordEntity bigLetterHello = wordEntityDAO.findByWord("Hello");
         assertNotNull(bigLetterHello);
-        WordEntity smallLetterHello = wordRepositoryFixedIndexesSearch.findByWord("hello");
+        WordEntity smallLetterHello = wordEntityDAO.findByWord("hello");
         assertNotNull(smallLetterHello);
         assertFalse(bigLetterHello.equals(smallLetterHello));
         assertEquals("Hello",bigLetterHello.getWord());
@@ -28,7 +28,7 @@ public class WordRepositoryFixedIndexesSearchIT extends IntegrationTestsBase{
     @Rollback
     public void testFindByWordStartingWith() throws Exception {
         textSaverService.saveToRepo("Hello Ilja! hello martin");
-        List<WordEntity> bigLetterHello = wordRepositoryFixedIndexesSearch.findByWordStartingWith("Hello");
+        List<WordEntity> bigLetterHello = wordEntityDAO.findByWordStartingWith("Hello");
         assertEquals(1,bigLetterHello.size());
     }
 

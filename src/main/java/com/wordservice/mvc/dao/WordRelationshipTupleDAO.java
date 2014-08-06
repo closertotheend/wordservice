@@ -1,9 +1,7 @@
-package com.wordservice.mvc.repository;
+package com.wordservice.mvc.dao;
 
 import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.model.WordRelationshipTuple;
-import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

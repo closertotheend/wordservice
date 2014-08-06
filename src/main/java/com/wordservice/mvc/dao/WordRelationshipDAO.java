@@ -1,4 +1,4 @@
-package com.wordservice.mvc.repository;
+package com.wordservice.mvc.dao;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class WordRelationshipRepository {
+public class WordRelationshipDAO {
 
     @Autowired
     private Neo4jTemplate template;

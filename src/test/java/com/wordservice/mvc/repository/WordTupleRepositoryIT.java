@@ -22,8 +22,8 @@ public class WordTupleRepositoryIT extends IntegrationTestsBase {
 
         WordRelationship helloIlja = new WordRelationship(hello, ilja);
         WordRelationship iljaGuzovski = new WordRelationship(ilja, familyname);
-        wordRelationshipRepository.save(helloIlja);
-        wordRelationshipRepository.save(iljaGuzovski);
+        wordRelationshipDAO.save(helloIlja);
+        wordRelationshipDAO.save(iljaGuzovski);
 
 
         WordTuple wordTuple = new WordTuple(helloIlja.getId(), iljaGuzovski.getId());
@@ -48,8 +48,8 @@ public class WordTupleRepositoryIT extends IntegrationTestsBase {
 
         WordRelationship helloIlja = new WordRelationship(hello, ilja);
         WordRelationship iljaGuzovski = new WordRelationship(ilja, familyname);
-        wordRelationshipRepository.save(helloIlja);
-        wordRelationshipRepository.save(iljaGuzovski);
+        wordRelationshipDAO.save(helloIlja);
+        wordRelationshipDAO.save(iljaGuzovski);
 
 
         WordTuple wordTuple = new WordTuple(helloIlja.getId(), iljaGuzovski.getId());

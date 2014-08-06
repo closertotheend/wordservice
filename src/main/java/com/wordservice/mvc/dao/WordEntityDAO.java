@@ -1,7 +1,8 @@
-package com.wordservice.mvc.repository;
+package com.wordservice.mvc.dao;
 
 
 import com.wordservice.mvc.model.WordEntity;
+import com.wordservice.mvc.repository.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class WordRepositoryFixedIndexesSearch {
+public class WordEntityDAO {
 
     @Autowired
     private WordRepository wordRepository;

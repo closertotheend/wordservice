@@ -2,25 +2,11 @@ package com.wordservice.mvc.controller;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.repository.WordRepository;
-import com.wordservice.mvc.repository.WordRepositoryFixedIndexesSearch;
 import com.wordservice.mvc.service.wordfinder.WordTupleFinderService;
-import com.wordservice.mvc.service.wordsaver.SentencesToWords;
-import com.wordservice.mvc.service.wordsaver.TextSaverService;
-import com.wordservice.mvc.service.wordsaver.TextToSentences;
-import com.wordservice.mvc.util.CleanUtil;
-import com.wordservice.mvc.util.WordPopularityComparator;
-import junit.framework.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.List;
 
 import static com.wordservice.mvc.util.CleanUtil.*;

@@ -28,9 +28,9 @@ public class WordTriTupleRepositoryIT extends IntegrationTestsBase {
         WordRelationship helloIlja = new WordRelationship(hello, ilja);
         WordRelationship iljaGuzovski = new WordRelationship(ilja, familyname);
         WordRelationship guzovskiJunior = new WordRelationship(familyname, junior);
-        wordRelationshipRepository.save(helloIlja);
-        wordRelationshipRepository.save(iljaGuzovski);
-        wordRelationshipRepository.save(guzovskiJunior);
+        wordRelationshipDAO.save(helloIlja);
+        wordRelationshipDAO.save(iljaGuzovski);
+        wordRelationshipDAO.save(guzovskiJunior);
 
 
         WordTriTuple wordTriTuple = new WordTriTuple(helloIlja.getId(), iljaGuzovski.getId(), guzovskiJunior.getId());
@@ -56,9 +56,9 @@ public class WordTriTupleRepositoryIT extends IntegrationTestsBase {
         WordRelationship helloIlja = new WordRelationship(hello, ilja);
         WordRelationship iljaGuzovski = new WordRelationship(ilja, familyname);
         WordRelationship guzovskiJunior = new WordRelationship(familyname, junior);
-        wordRelationshipRepository.save(helloIlja);
-        wordRelationshipRepository.save(iljaGuzovski);
-        wordRelationshipRepository.save(guzovskiJunior);
+        wordRelationshipDAO.save(helloIlja);
+        wordRelationshipDAO.save(iljaGuzovski);
+        wordRelationshipDAO.save(guzovskiJunior);
 
 
         WordTriTuple wordTriTuple = new WordTriTuple(helloIlja.getId(), iljaGuzovski.getId(), guzovskiJunior.getId());
@@ -77,12 +77,12 @@ public class WordTriTupleRepositoryIT extends IntegrationTestsBase {
         textSaverService.saveToRepo("This is yellow car. This is yellow bus. This is black ledbetter.");
 
         WordRelationship thisIs =
-                wordRelationshipRepository.getRelationshipBetween(wordRepositoryFixedIndexesSearch.findByWord("This"),
-                wordRepositoryFixedIndexesSearch.findByWord("is"));
+                wordRelationshipDAO.getRelationshipBetween(wordEntityDAO.findByWord("This"),
+                wordEntityDAO.findByWord("is"));
 
         WordRelationship isYellow =
-                wordRelationshipRepository.getRelationshipBetween(wordRepositoryFixedIndexesSearch.findByWord("is"),
-                wordRepositoryFixedIndexesSearch.findByWord("yellow"));
+                wordRelationshipDAO.getRelationshipBetween(wordEntityDAO.findByWord("is"),
+                wordEntityDAO.findByWord("yellow"));
 
 
         List<WordTriTuple> withRelationShipIds =

@@ -1,6 +1,9 @@
 package com.wordservice.mvc.service.wordsaver;
 
 
+import com.wordservice.mvc.dao.WordEntityDAO;
+import com.wordservice.mvc.dao.WordRelationshipDAO;
+import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
 import com.wordservice.mvc.model.*;
 import com.wordservice.mvc.repository.*;
 import org.apache.log4j.LogManager;
@@ -16,13 +19,13 @@ public class SaverService {
             .getLogger(TextSaverService.class.getName());
 
     @Autowired
-    private WordRelationshipRepository wordRelationshipRepository;
+    private WordRelationshipDAO wordRelationshipDAO;
 
     @Autowired
     private WordRepository wordRepository;
 
     @Autowired
-    private WordRepositoryFixedIndexesSearch wordRepositoryFixedIndexesSearch;
+    private WordEntityDAO wordEntityDAO;
 
     @Autowired
     private WordTupleRepository wordTupleRepository;
@@ -68,7 +71,7 @@ public class SaverService {
     WordEntity getOrCreateWordEntity(String word) {
         long startTime = System.currentTimeMillis();
 
-        WordEntity wordEntity = wordRepositoryFixedIndexesSearch.findByWord(word);
+        WordEntity wordEntity = wordEntityDAO.findByWord(word);
         if (wordEntity == null) {
             wordEntity = new WordEntity(word);
         } else {
@@ -85,13 +88,13 @@ public class SaverService {
     WordRelationship createOrIncrementPopularityOfRelationship(WordEntity wordEntity1, WordEntity wordEntity2) {
         long startTime = System.currentTimeMillis();
 
-        WordRelationship relationshipBetween = wordRelationshipRepository.getRelationshipBetween(wordEntity1, wordEntity2);
+        WordRelationship relationshipBetween = wordRelationshipDAO.getRelationshipBetween(wordEntity1, wordEntity2);
         if (relationshipBetween == null) {
             WordRelationship wordRelationship = new WordRelationship(wordEntity1, wordEntity2);
-            relationshipBetween = wordRelationshipRepository.save(wordRelationship);
+            relationshipBetween = wordRelationshipDAO.save(wordRelationship);
         } else {
             relationshipBetween.incrementPopularity();
-            relationshipBetween = wordRelationshipRepository.save(relationshipBetween);
+            relationshipBetween = wordRelationshipDAO.save(relationshipBetween);
         }
 
         logger.info("Elapsed time for relationship  operations is " + (System.currentTimeMillis() - startTime));

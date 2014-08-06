@@ -47,7 +47,7 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldReturnCorrectPopularityOfSavedWord() {
         textSaverService.saveToRepo("Hello Hello Hello");
-        assertEquals(2, wordRepositoryFixedIndexesSearch.findByWord("Hello").getPopularity());
+        assertEquals(2, wordEntityDAO.findByWord("Hello").getPopularity());
         assertEquals(1, wordTupleRepository.count());
     }
 
@@ -117,9 +117,9 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldCheckThatSavedWordsShouldBeRetrivable() {
         textSaverService.saveToRepo("tralala hahaha.");
-        WordEntity hahaha = wordRepositoryFixedIndexesSearch.findByWord("hahaha");
+        WordEntity hahaha = wordEntityDAO.findByWord("hahaha");
         assertNotNull(hahaha);
-        WordEntity a = wordRepositoryFixedIndexesSearch.findByWord("a");
+        WordEntity a = wordEntityDAO.findByWord("a");
         assertNull(a);
     }
 
@@ -127,10 +127,10 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldCheckThatRelationshipTupleShouldBeRetrievable() {
         textSaverService.saveToRepo("Hello my sad world.");
-        WordEntity hello = wordRepositoryFixedIndexesSearch.findByWord("Hello");
-        WordEntity my = wordRepositoryFixedIndexesSearch.findByWord("my");
-        WordEntity sad = wordRepositoryFixedIndexesSearch.findByWord("sad");
-        WordEntity world = wordRepositoryFixedIndexesSearch.findByWord("world");
+        WordEntity hello = wordEntityDAO.findByWord("Hello");
+        WordEntity my = wordEntityDAO.findByWord("my");
+        WordEntity sad = wordEntityDAO.findByWord("sad");
+        WordEntity world = wordEntityDAO.findByWord("world");
         assertNotNull(hello);
         assertNotNull(my);
         assertNotNull(sad);
@@ -151,7 +151,7 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     public void shouldCreateCorrectAmountOfRelationshipsAndCorrectlyIncrementPopularityOfThem() {
         textSaverService.saveToRepo("Hello Ilja, I am neo4j, I am slow and ugly! I am happy, I am happy.");
         WordRelationship relationshipBetweenAmAndHappy = template.getRelationshipBetween(
-                wordRepositoryFixedIndexesSearch.findByWord("am"), wordRepositoryFixedIndexesSearch.findByWord("happy"),
+                wordEntityDAO.findByWord("am"), wordEntityDAO.findByWord("happy"),
                 WordRelationship.class, WordRelationship.relationshipType);
         assertEquals(1, relationshipBetweenAmAndHappy.getPopularity());
     }

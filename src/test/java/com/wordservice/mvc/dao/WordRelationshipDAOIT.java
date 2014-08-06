@@ -1,4 +1,4 @@
-package com.wordservice.mvc.repository;
+package com.wordservice.mvc.dao;
 
 import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.WordEntity;
@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.fail;
 
-public class WordRelationshipRepositoryIT extends IntegrationTestsBase {
+public class WordRelationshipDAOIT extends IntegrationTestsBase {
 
     @Test
     @Rollback
@@ -24,9 +24,9 @@ public class WordRelationshipRepositoryIT extends IntegrationTestsBase {
         wordRepository.save(ilja);
 
         WordRelationship relationship = new WordRelationship(hello, ilja);
-        wordRelationshipRepository.save(relationship);
+        wordRelationshipDAO.save(relationship);
 
-        Iterator<WordRelationship> iterator = wordRelationshipRepository.findAll().iterator();
+        Iterator<WordRelationship> iterator = wordRelationshipDAO.findAll().iterator();
         assertNotNull(iterator.next());
         try {
             iterator.next();
@@ -46,9 +46,9 @@ public class WordRelationshipRepositoryIT extends IntegrationTestsBase {
         wordRepository.save(ilja);
 
         WordRelationship relationship = new WordRelationship(hello, ilja);
-        wordRelationshipRepository.save(relationship);
+        wordRelationshipDAO.save(relationship);
 
-        assertNotNull(wordRelationshipRepository.getRelationshipBetween(hello, ilja));
+        assertNotNull(wordRelationshipDAO.getRelationshipBetween(hello, ilja));
     }
 
 }

@@ -17,8 +17,8 @@ public class WordTupleFinderServiceIT extends IntegrationTestsBase {
     public void testGetNextWords() throws Exception {
         textSaverService.saveToRepo("This is text. This is cat. This string should be easy. This is.");
 
-        WordEntity text = wordRepositoryFixedIndexesSearch.findByWord("text");
-        WordEntity cat = wordRepositoryFixedIndexesSearch.findByWord("cat");
+        WordEntity text = wordEntityDAO.findByWord("text");
+        WordEntity cat = wordEntityDAO.findByWord("cat");
 
         List<WordEntity> nextWords = wordTupleFinderService.getNextWords("This", "is");
 
@@ -33,8 +33,8 @@ public class WordTupleFinderServiceIT extends IntegrationTestsBase {
     public void testGetNextWords3Words() throws Exception {
         textSaverService.saveToRepo("This is yellow car. This is yellow bus. This is black ledbetter");
 
-        WordEntity car = wordRepositoryFixedIndexesSearch.findByWord("car");
-        WordEntity bus = wordRepositoryFixedIndexesSearch.findByWord("bus");
+        WordEntity car = wordEntityDAO.findByWord("car");
+        WordEntity bus = wordEntityDAO.findByWord("bus");
 
         List<WordEntity> nextWords = wordTupleFinderService.getNextWords("This", "is", "yellow");
 

@@ -1,4 +1,4 @@
-package com.wordservice.mvc.repository;
+package com.wordservice.mvc.dao;
 
 import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.WordEntity;
