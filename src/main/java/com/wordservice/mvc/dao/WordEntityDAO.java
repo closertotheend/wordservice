@@ -18,6 +18,10 @@ public class WordEntityDAO {
     @Autowired
     private WordRepository wordRepository;
 
+    public WordEntity findById(long id) {
+        return wordRepository.findOne(id);
+    }
+
     public WordEntity findByWord(String word) {
         List<WordEntity> allCaseWords = Collections.emptyList();
 
