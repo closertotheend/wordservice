@@ -1,8 +1,10 @@
 package com.wordservice.mvc.service.wordsaver;
 
+import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.dao.WordRelationshipDAO;
+import com.wordservice.mvc.model.WordRelationshipTuple;
 import com.wordservice.mvc.repository.WordRepository;
 import com.wordservice.mvc.dao.WordEntityDAO;
 import com.wordservice.mvc.repository.WordTupleRepository;
@@ -33,6 +35,9 @@ public class TextSaverServiceTest {
 
     @Mock
     WordTupleRepository wordTupleRepository;
+
+    @Mock
+    WordRelationshipTupleDAO WordRelationshipTupleDAO;
 
     @InjectMocks
     TextSaverService textSaverService;
