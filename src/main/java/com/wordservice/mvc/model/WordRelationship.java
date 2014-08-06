@@ -81,4 +81,13 @@ public class WordRelationship {
     }
 
 
+    @Override
+    public String toString() {
+        return "WordRelationship{" +
+                "secondWord=" + secondWord +
+                ", startWord=" + startWord +
+                ", id=" + id +
+                ", popularity=" + popularity +
+                '}';
+    }
 }

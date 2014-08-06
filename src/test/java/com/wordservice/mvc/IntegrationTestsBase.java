@@ -19,12 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class IntegrationTestsBase {
 
     @Autowired
-    public WordTupleRepository wordTupleRepository;
-
-    @Autowired
-    public WordTriTupleRepository wordTriTupleRepository;
-
-    @Autowired
     public Neo4jTemplate template;
 
     @Autowired

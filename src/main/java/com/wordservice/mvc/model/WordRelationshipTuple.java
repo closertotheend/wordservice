@@ -107,4 +107,15 @@ public class WordRelationshipTuple {
     }
 
 
+    @Override
+    public String toString() {
+        return "WordRelationshipTuple{" +
+                "id=" + id +
+                ", first=" + first +
+                ", second=" + second +
+                ", third=" + third +
+                ", fourth=" + fourth +
+                ", popularity=" + popularity +
+                '}';
+    }
 }

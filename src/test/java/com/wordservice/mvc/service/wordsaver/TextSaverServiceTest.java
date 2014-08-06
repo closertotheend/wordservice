@@ -7,7 +7,6 @@ import com.wordservice.mvc.dao.WordRelationshipDAO;
 import com.wordservice.mvc.model.WordRelationshipTuple;
 import com.wordservice.mvc.repository.WordRepository;
 import com.wordservice.mvc.dao.WordEntityDAO;
-import com.wordservice.mvc.repository.WordTupleRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -32,9 +31,6 @@ public class TextSaverServiceTest {
 
     @Mock
     SaverService saverService;
-
-    @Mock
-    WordTupleRepository wordTupleRepository;
 
     @Mock
     WordRelationshipTupleDAO WordRelationshipTupleDAO;
@@ -67,7 +63,6 @@ public class TextSaverServiceTest {
 
         verify(saverService, times(numberOfWords)).getOrCreateWordEntity(anyString());
         verify(saverService, times(numberOfRelationsBetween2Words)).createOrIncrementPopularityOfRelationship(any(WordEntity.class), any(WordEntity.class));
-        verify(saverService, times(numberOfRelationsBetween2Words/2)).createOrIncrementPopularityOfWordTuple(any(WordRelationship.class), any(WordRelationship.class));
     }
 
 

@@ -40,23 +40,10 @@ public class TextSaverService {
     public boolean saveToRepo(List<String> words) {
         List<WordEntity> wordEntities = saveWordEntities(words);
         List<WordRelationship> wordRelationships = saveWordRelationships(wordEntities);
-        saveWordTuples(wordRelationships);
-        saveWordTriTuples(wordRelationships);
         wordRelationshipTupleDAO.saveWordRelationshipTuples(wordEntities);
         return true;
     }
 
-    private void saveWordTuples(List<WordRelationship> wordRelationships) {
-        for (int i = 0; i < wordRelationships.size() - 1; i++) {
-            saverService.createOrIncrementPopularityOfWordTuple(wordRelationships.get(i), wordRelationships.get(i+1));
-        }
-    }
-
-    private void saveWordTriTuples(List<WordRelationship> wordRelationships) {
-        for (int i = 0; i < wordRelationships.size() - 2; i++) {
-            saverService.createOrIncrementPopularityOfWordTriTuple(wordRelationships.get(i), wordRelationships.get(i+1), wordRelationships.get(i+2));
-        }
-    }
 
     private List<WordRelationship> saveWordRelationships(List<WordEntity> wordEntities) {
         List<WordRelationship> wordRelationships = new ArrayList<>();

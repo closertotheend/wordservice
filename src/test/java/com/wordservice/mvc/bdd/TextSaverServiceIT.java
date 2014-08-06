@@ -1,4 +1,4 @@
-package com.wordservice.mvc.service.wordsaver;
+package com.wordservice.mvc.bdd;
 
 import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.*;
@@ -48,62 +48,6 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     public void shouldReturnCorrectPopularityOfSavedWord() {
         textSaverService.saveToRepo("Hello Hello Hello");
         assertEquals(2, wordEntityDAO.findByWord("Hello").getPopularity());
-        assertEquals(1, wordTupleRepository.count());
-    }
-
-    @Test
-    @Rollback
-    public void shouldReturnCorrectTupleAmountForOneWord() {
-        textSaverService.saveToRepo("Hello");
-        assertEquals(0, wordTupleRepository.count());
-    }
-
-    @Test
-    @Rollback
-    public void shouldReturnCorrectTupleAmountForTwoWords() {
-        textSaverService.saveToRepo("Hello Great World");
-        assertEquals(1, wordTupleRepository.count());
-    }
-
-
-    @Test
-    @Rollback
-    public void tupleShouldNotContainDuplicates() {
-        textSaverService.saveToRepo("Lenin the great. Lenin the great?");
-        assertEquals(1, wordTupleRepository.count());
-        assertEquals(new Long(1), wordTupleRepository.findAll().single().getPopularity());
-    }
-
-    @Test
-    @Rollback
-    public void savedTriTupleShouldBeOk() {
-        textSaverService.saveToRepo("Heil to the great.");
-        assertEquals(1, wordTriTupleRepository.count());
-        WordTriTuple single = wordTriTupleRepository.findAll().single();
-        assertTrue(single.getFirstWordRelationshipId()<single.getSecondWordRelationshipId());
-        assertTrue(single.getSecondWordRelationshipId()<single.getThirdWordRelationshipId());
-    }
-
-    @Test
-    @Rollback
-    public void savedTriTupleShouldHaveCorrectCount() {
-        textSaverService.saveToRepo("Heil to the great leader.");
-        assertEquals(2, wordTriTupleRepository.count());
-    }
-
-    @Test
-    @Rollback
-    public void savedTriTupleAmountShouldBeNull() {
-        textSaverService.saveToRepo("Heil to the.");
-        assertEquals(0, wordTriTupleRepository.count());
-    }
-
-    @Test
-    @Rollback
-    public void savedTupleShouldBeOk() {
-        textSaverService.saveToRepo("Lenin the great.");
-        WordTuple single = wordTupleRepository.findAll().single();
-        assertTrue(single.getfWordRelationshipId() < single.getSecondWordRelationshipId());
     }
 
     @Test

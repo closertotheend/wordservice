@@ -28,45 +28,7 @@ public class SaverService {
     private WordEntityDAO wordEntityDAO;
 
     @Autowired
-    private WordTupleRepository wordTupleRepository;
-
-    @Autowired
-    private WordTriTupleRepository wordTriTupleRepository;
-
-    @Autowired
     private WordRelationshipTupleDAO wordRelationshipTupleDAO;
-
-    WordTuple createOrIncrementPopularityOfWordTuple(WordRelationship wordRelationship1, WordRelationship wordRelationship2) {
-        long startTime = System.currentTimeMillis();
-
-        WordTuple wordTuple = wordTupleRepository.getTupleWithRelationShipIds(wordRelationship1.getId(), wordRelationship2.getId());
-        if (wordTuple == null) {
-            wordTuple = wordTupleRepository.save(new WordTuple(wordRelationship1.getId(), wordRelationship2.getId()));
-        } else {
-            wordTuple.incrementPopularity();
-            wordTupleRepository.save(wordTuple);
-        }
-
-        logger.info("Elapsed time for tuple " + wordTuple + " operations is " + (System.currentTimeMillis() - startTime));
-
-        return wordTuple;
-    }
-
-    WordTriTuple createOrIncrementPopularityOfWordTriTuple(WordRelationship wordRelationship1, WordRelationship wordRelationship2, WordRelationship wordRelationship3) {
-        long startTime = System.currentTimeMillis();
-
-        WordTriTuple wordTriTuple = wordTriTupleRepository.getWithRelationShipIds(wordRelationship1.getId(), wordRelationship2.getId(), wordRelationship3.getId());
-        if (wordTriTuple == null) {
-            wordTriTuple = wordTriTupleRepository.save(new WordTriTuple(wordRelationship1.getId(), wordRelationship2.getId(), wordRelationship3.getId()));
-        } else {
-            wordTriTuple.incrementPopularity();
-            wordTriTupleRepository.save(wordTriTuple);
-        }
-
-        logger.info("Elapsed time for trituple " + wordTriTuple + " operations is " + (System.currentTimeMillis() - startTime));
-
-        return wordTriTuple;
-    }
 
     WordEntity getOrCreateWordEntity(String word) {
         long startTime = System.currentTimeMillis();
