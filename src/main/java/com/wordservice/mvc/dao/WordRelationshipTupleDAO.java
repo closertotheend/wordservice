@@ -7,6 +7,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.conversion.EndResult;
+import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.List;
 public class WordRelationshipTupleDAO {
     private static final Logger logger = LogManager
             .getLogger(WordRelationshipTupleDAO.class.getName());
+    private static final int SIZE_OF_RESULT = 10;
 
     @Autowired
     private Neo4jTemplate template;
@@ -47,18 +49,16 @@ public class WordRelationshipTupleDAO {
     }
 
     public List<WordRelationshipTuple> getRelationshipsBetweenAsList(WordEntity prelast, WordEntity last) {
-        Iterable<WordRelationshipTuple> relationshipsBetweenAsIterable = getRelationshipsBetweenAsIterable(prelast, last);
         List<WordRelationshipTuple> wordRelationshipTuples = new ArrayList<>();
-        for (WordRelationshipTuple wordRelationshipTuple : relationshipsBetweenAsIterable) {
+        for (WordRelationshipTuple wordRelationshipTuple : getRelationshipsBetweenAsIterable(prelast, last)) {
             wordRelationshipTuples.add(wordRelationshipTuple);
         }
         return wordRelationshipTuples;
     }
 
     public List<WordRelationshipTuple> getRelationshipsBetweenAsList(WordEntity preprelast, WordEntity prelast, WordEntity last) {
-        List<WordRelationshipTuple> relationshipsBetweenAsList = getRelationshipsBetweenAsList(preprelast, prelast);
         List<WordRelationshipTuple> tuples = new ArrayList<>();
-        for (WordRelationshipTuple relationshipTuple : relationshipsBetweenAsList) {
+        for (WordRelationshipTuple relationshipTuple : getRelationshipsBetweenAsIterable(preprelast, prelast)) {
             if (relationshipTuple.getThird() == last.getId()) {
                 tuples.add(relationshipTuple);
             }
@@ -67,8 +67,7 @@ public class WordRelationshipTupleDAO {
     }
 
     public WordRelationshipTuple getRelationshipsBetweenAsList(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
-        List<WordRelationshipTuple> relationshipsBetweenAsList = getRelationshipsBetweenAsList(first, second);
-        for (WordRelationshipTuple relationshipTuple : relationshipsBetweenAsList) {
+        for (WordRelationshipTuple relationshipTuple : getRelationshipsBetweenAsIterable(first, second)) {
             if (relationshipTuple.getThird() == third.getId() && relationshipTuple.getFourth() == fourth.getId()) {
                 return relationshipTuple;
             }
@@ -79,7 +78,6 @@ public class WordRelationshipTupleDAO {
     public WordRelationshipTuple createOrIncrementPopularityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
         long startTime = System.currentTimeMillis();
 
-        List<WordRelationshipTuple> wordRelationshipTuple = getRelationshipsBetweenAsList(first, second);
 
         WordRelationshipTuple exactTuple = getRelationshipsBetweenAsList(first, second, third, fourth);
 
@@ -91,7 +89,7 @@ public class WordRelationshipTupleDAO {
 
         exactTuple = save(exactTuple);
 
-        logger.info("Elapsed time for wordRelationshipTuple " + wordRelationshipTuple + " operations is " + (System.currentTimeMillis() - startTime));
+        logger.info("Elapsed time for wordRelationshipTuple " + exactTuple + " operations is " + (System.currentTimeMillis() - startTime));
 
         return exactTuple;
     }
