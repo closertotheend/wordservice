@@ -34,7 +34,7 @@ public class WordRelationshipTupleDAO {
                 WordRelationshipTuple.class, WordRelationshipTuple.relationshipType);
     }
 
-    public Iterable<WordRelationshipTuple> getRelationshipsBetweenAsIterable(WordEntity prelast, WordEntity last) {
+    private Iterable<WordRelationshipTuple> getRelationshipsBetweenAsIterable(WordEntity prelast, WordEntity last) {
         Iterable<WordRelationshipTuple> relationshipsBetween = template.getRelationshipsBetween(prelast, last,
                 WordRelationshipTuple.class, WordRelationshipTuple.relationshipType);
         if (relationshipsBetween == null) {
@@ -63,18 +63,22 @@ public class WordRelationshipTupleDAO {
         return tuples;
     }
 
+    public WordRelationshipTuple getRelationshipsBetweenAsList(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
+        List<WordRelationshipTuple> relationshipsBetweenAsList = getRelationshipsBetweenAsList(first, second);
+        for (WordRelationshipTuple relationshipTuple : relationshipsBetweenAsList) {
+            if (relationshipTuple.getThird() == third.getId() && relationshipTuple.getFourth() == fourth.getId()) {
+                return relationshipTuple;
+            }
+        }
+        return null;
+    }
+
     public WordRelationshipTuple createOrIncrementPopularityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
         long startTime = System.currentTimeMillis();
 
         List<WordRelationshipTuple> wordRelationshipTuple = getRelationshipsBetweenAsList(first, second);
 
-        WordRelationshipTuple exactTuple = null;
-        for (WordRelationshipTuple relationshipTuple : wordRelationshipTuple) {
-            if (relationshipTuple.getThird() == third.getId() || relationshipTuple.getFourth() == fourth.getId()) {
-                exactTuple = relationshipTuple;
-                break;
-            }
-        }
+        WordRelationshipTuple exactTuple = getRelationshipsBetweenAsList(first, second, third, fourth);
 
         if (exactTuple == null) {
             exactTuple = new WordRelationshipTuple(first, second, third, fourth);

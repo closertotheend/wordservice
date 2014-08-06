@@ -55,15 +55,15 @@ public class WordRelationshipTupleDAOIT extends IntegrationTestsBase {
 
     @Test
     @Rollback
-    public void getRelationshipsBetweenAsIterable() {
+    public void getRelationshipsBetweenAsListNoResults() {
         wordRelationshipTupleDAO.save(new WordRelationshipTuple(hello, my, sad, world));
 
-        Iterable<WordRelationshipTuple> relationshipsBetweenAsList = wordRelationshipTupleDAO.getRelationshipsBetweenAsIterable(hello, my);
+        Iterable<WordRelationshipTuple> relationshipsBetweenAsList = wordRelationshipTupleDAO.getRelationshipsBetweenAsList(hello, my);
         Iterator<WordRelationshipTuple> iterator = relationshipsBetweenAsList.iterator();
         assertTrue(iterator.hasNext());
         iterator.next();
         assertFalse(iterator.hasNext());
-        assertFalse(wordRelationshipTupleDAO.getRelationshipsBetweenAsIterable(hello, world).iterator().hasNext());
+        assertFalse(wordRelationshipTupleDAO.getRelationshipsBetweenAsList(hello, world).iterator().hasNext());
     }
 
     @Test
@@ -111,6 +111,15 @@ public class WordRelationshipTupleDAOIT extends IntegrationTestsBase {
         List<WordRelationshipTuple> relationshipsBetweenAsList
                 = wordRelationshipTupleDAO.getRelationshipsBetweenAsList(hello, my, sad);
         assertEquals(2,relationshipsBetweenAsList.size());
+    }
+
+    @Test
+    @Rollback
+    public void getRelationshipsBetweenAsList4args() {
+        WordRelationshipTuple helloMySadWorld = new WordRelationshipTuple(hello, my, sad, world);
+        wordRelationshipTupleDAO.save(helloMySadWorld);
+        wordRelationshipTupleDAO.save(new WordRelationshipTuple(hello, my, sad, elephant));
+        assertEquals(helloMySadWorld,wordRelationshipTupleDAO.getRelationshipsBetweenAsList(hello, my, sad, world));
     }
 
 }
