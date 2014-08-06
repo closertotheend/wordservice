@@ -33,7 +33,7 @@ public class WordEntityDAO {
         if (!word.trim().isEmpty()) {
             try {
                 if (!CleanUtil.hasNonWordCharacter(word)) {
-                    allCaseWords = wordEntityRepository.findByWord(CleanUtil.clean(word));
+                    allCaseWords = wordEntityRepository.findByWord(word);
                 }
             } catch (Exception e) {
                 System.err.println("WORD WAS " + word);
