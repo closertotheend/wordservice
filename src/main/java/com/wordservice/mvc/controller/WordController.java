@@ -38,13 +38,13 @@ public class WordController {
     @RequestMapping(value = "context/{f}/{s}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<WordEntity> getByFirstTwo(@PathVariable String f, @PathVariable String s) {
-        return wordTupleFinderService.getNextWords(clean(f), clean(s));
+        return wordTupleFinderService.getNextWordsViaTuple(clean(f), clean(s));
     }
 
     @RequestMapping(value = "context/{f}/{s}/{t}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<WordEntity> getByFirstTwo(@PathVariable String f, @PathVariable String s, @PathVariable String t) {
-        return wordTupleFinderService.getNextWords(clean(f), clean(s), clean(t));
+        return wordTupleFinderService.getNextWordsViaTuple(clean(f), clean(s), clean(t));
     }
 
 }
