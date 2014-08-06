@@ -2,7 +2,7 @@ package com.wordservice.mvc.dao;
 
 
 import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +16,10 @@ import java.util.List;
 public class WordEntityDAO {
 
     @Autowired
-    private WordRepository wordRepository;
+    private WordEntityRepository wordEntityRepository;
 
     public WordEntity findById(long id) {
-        return wordRepository.findOne(id);
+        return wordEntityRepository.findOne(id);
     }
 
     public WordEntity findByWord(String word) {
@@ -27,9 +27,9 @@ public class WordEntityDAO {
 
         if (!word.trim().isEmpty()) {
             try {
-                allCaseWords = wordRepository.findByWord(word);
+                allCaseWords = wordEntityRepository.findByWord(word);
                 if(allCaseWords.size()==0){
-                    allCaseWords = wordRepository.findByWordRegexOrderByPopularity(word);
+                    allCaseWords = wordEntityRepository.findByWordRegexOrderByPopularity(word);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -48,7 +48,7 @@ public class WordEntityDAO {
 
     public List<WordEntity> findByWordStartingWith(String sequence){
         try {
-            List<WordEntity> allCaseWords = wordRepository.findByWordRegexOrderByPopularity(sequence + ".*");
+            List<WordEntity> allCaseWords = wordEntityRepository.findByWordRegexOrderByPopularity(sequence + ".*");
             List<WordEntity> result = new ArrayList<>(allCaseWords.size());
             for (WordEntity someWord : allCaseWords) {
                 if(someWord.getWord().contains(sequence)){
@@ -63,6 +63,6 @@ public class WordEntityDAO {
     }
 
     public List<WordEntity> findByWordContaining(String sequence){
-        return wordRepository.findByWordRegexOrderByPopularity(".*" + sequence + ".*");
+        return wordEntityRepository.findByWordRegexOrderByPopularity(".*" + sequence + ".*");
     }
 }

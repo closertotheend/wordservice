@@ -27,7 +27,7 @@ public class WordTupleFinderService {
     private WordEntityDAO wordEntityDAO;
 
     @Autowired
-    private WordRepository wordRepository;
+    private WordEntityRepository wordEntityRepository;
 
     public List<WordEntity> getNextWordsViaTuple(String first, String second) {
 

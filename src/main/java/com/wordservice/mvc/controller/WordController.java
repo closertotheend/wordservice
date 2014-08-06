@@ -1,7 +1,7 @@
 package com.wordservice.mvc.controller;
 
 import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordEntityRepository;
 import com.wordservice.mvc.service.wordfinder.WordTupleFinderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import static com.wordservice.mvc.util.CleanUtil.*;
 public class WordController {
 
     @Autowired
-    private WordRepository wordRepository;
+    private WordEntityRepository wordEntityRepository;
 
     @Autowired
     private WordTupleFinderService wordTupleFinderService;
@@ -25,13 +25,13 @@ public class WordController {
     @RequestMapping(value = "getTopFor/{word}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<WordEntity> get10TopWordsAfter(@PathVariable String word) {
-        return wordRepository.getTop10WordsAfter(clean(word));
+        return wordEntityRepository.getTop10WordsAfter(clean(word));
     }
 
     @RequestMapping(value = "getTopFor/{previous}/{last}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<WordEntity> get10TopWordsAfter(@PathVariable String previous, @PathVariable String last) {
-        return wordRepository.getTop10WordsAfter(clean(previous), clean(last));
+        return wordEntityRepository.getTop10WordsAfter(clean(previous), clean(last));
     }
 
 

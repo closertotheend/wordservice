@@ -22,7 +22,7 @@ public abstract class IntegrationTestsBase {
     public Neo4jTemplate template;
 
     @Autowired
-    public WordRepository wordRepository;
+    public WordEntityRepository wordEntityRepository;
 
     @Autowired
     public WordRelationshipDAO wordRelationshipDAO;

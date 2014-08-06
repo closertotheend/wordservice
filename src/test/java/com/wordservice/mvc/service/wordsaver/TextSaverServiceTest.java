@@ -4,8 +4,7 @@ import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.dao.WordRelationshipDAO;
-import com.wordservice.mvc.model.WordRelationshipTuple;
-import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordEntityRepository;
 import com.wordservice.mvc.dao.WordEntityDAO;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +23,7 @@ public class TextSaverServiceTest {
     WordRelationshipDAO wordRelationshipDAO;
 
     @Mock
-    WordRepository wordRepository;
+    WordEntityRepository wordEntityRepository;
 
     @Mock
     WordEntityDAO wordEntityDAO;

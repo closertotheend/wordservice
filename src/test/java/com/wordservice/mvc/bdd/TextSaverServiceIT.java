@@ -21,7 +21,7 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
         long startTime = System.currentTimeMillis();
 
         textSaverService.saveToRepo(dickensText);
-        assertTrue(wordRepository.count() > 300);
+        assertTrue(wordEntityRepository.count() > 300);
         assertNull(template.getRelationshipBetween(new WordEntity("zxc"), new WordEntity("ds"),
                 WordRelationship.class, WordRelationship.relationshipType));
 
@@ -33,14 +33,14 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldReturnCorrectAmountOfWords() {
         textSaverService.saveToRepo("Hello Ilja!");
-        assertEquals(2, wordRepository.count());
+        assertEquals(2, wordEntityRepository.count());
     }
 
     @Test
     @Rollback
     public void shouldSaveOneWord() {
         textSaverService.saveToRepo("Hello");
-        assertEquals(1, wordRepository.count());
+        assertEquals(1, wordEntityRepository.count());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldSaveWordsFromDifferentSenteces() {
         textSaverService.saveToRepo("Hello Ilja! My name is neo4j, and I am confused.");
-        assertTrue(wordRepository.count() == 10);
+        assertTrue(wordEntityRepository.count() == 10);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     public void checkInjection() {
         assertNotNull(textSaverService);
         assertNotNull(template);
-        assertNotNull(wordRepository);
+        assertNotNull(wordEntityRepository);
     }
 
 

@@ -3,7 +3,7 @@ package com.wordservice.mvc.bdd;
 import com.wordservice.mvc.TestApplicationConfig;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
-import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordEntityRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class WordEntityIT {
     Neo4jTemplate template;
 
     @Autowired
-    WordRepository wordRepositoryImpl;
+    WordEntityRepository wordEntityRepositoryImpl;
 
     @Test
     @Rollback
@@ -35,18 +35,18 @@ public class WordEntityIT {
         WordRelationship wordRelationship = new WordRelationship(forrest, gump);
         WordRelationship wordRelationship2 = new WordRelationship(forrest, lump);
 
-        wordRepositoryImpl.save(gump);
-        wordRepositoryImpl.save(forrest);
-        wordRepositoryImpl.save(lump);
+        wordEntityRepositoryImpl.save(gump);
+        wordEntityRepositoryImpl.save(forrest);
+        wordEntityRepositoryImpl.save(lump);
         template.save(wordRelationship);
         template.save(wordRelationship2);
 
-        assertEquals("retrieved id matches persisted one", gump, wordRepositoryImpl.findOne(gump.getId()));
-        assertEquals("retrieved word matches persisted one", gump.getWord(), wordRepositoryImpl.findOne(gump.getId()).getWord());
-        assertEquals("retrieved id matches persisted one", forrest, wordRepositoryImpl.findOne(forrest.getId()));
-        assertEquals("retrieved word matches persisted one", forrest.getWord(), wordRepositoryImpl.findOne(forrest.getId()).getWord());
+        assertEquals("retrieved id matches persisted one", gump, wordEntityRepositoryImpl.findOne(gump.getId()));
+        assertEquals("retrieved word matches persisted one", gump.getWord(), wordEntityRepositoryImpl.findOne(gump.getId()).getWord());
+        assertEquals("retrieved id matches persisted one", forrest, wordEntityRepositoryImpl.findOne(forrest.getId()));
+        assertEquals("retrieved word matches persisted one", forrest.getWord(), wordEntityRepositoryImpl.findOne(forrest.getId()).getWord());
 
-        assertEquals(gump, wordRepositoryImpl.findAllByPropertyValue("word", "Gump").single());
+        assertEquals(gump, wordEntityRepositoryImpl.findAllByPropertyValue("word", "Gump").single());
     }
 
 }

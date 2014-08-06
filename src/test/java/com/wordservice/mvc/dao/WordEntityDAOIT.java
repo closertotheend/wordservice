@@ -21,12 +21,12 @@ public class WordEntityDAOIT extends IntegrationTestsBase{
 
     @Before
     public void init() {
-        wordRepository.save(hello);
-        wordRepository.save(grey);
-        wordRepository.save(my);
-        wordRepository.save(sad);
-        wordRepository.save(world);
-        wordRepository.save(elephant);
+        wordEntityRepository.save(hello);
+        wordEntityRepository.save(grey);
+        wordEntityRepository.save(my);
+        wordEntityRepository.save(sad);
+        wordEntityRepository.save(world);
+        wordEntityRepository.save(elephant);
     }
 
     @Test

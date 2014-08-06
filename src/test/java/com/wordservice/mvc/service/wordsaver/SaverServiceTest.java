@@ -3,7 +3,7 @@ package com.wordservice.mvc.service.wordsaver;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.dao.WordRelationshipDAO;
-import com.wordservice.mvc.repository.WordRepository;
+import com.wordservice.mvc.repository.WordEntityRepository;
 import com.wordservice.mvc.dao.WordEntityDAO;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class SaverServiceTest {
     WordRelationshipDAO wordRelationshipDAO;
 
     @Mock
-    WordRepository wordRepository;
+    WordEntityRepository wordEntityRepository;
 
     @Mock
     WordEntityDAO wordEntityDAO;
@@ -40,7 +40,7 @@ public class SaverServiceTest {
         WordEntity existingWordEntity = new WordEntity();
         when(wordEntityDAO.findByWord(anyString())).thenReturn(existingWordEntity);
         saverService.getOrCreateWordEntity(anyString());
-        verify(wordRepository).save(existingWordEntity);
+        verify(wordEntityRepository).save(existingWordEntity);
         assertEquals("saving twice enforces incrementation of popularity",1,existingWordEntity.getPopularity());
     }
 

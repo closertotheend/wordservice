@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public interface WordRepository extends GraphRepository<WordEntity> {
+public interface WordEntityRepository extends GraphRepository<WordEntity> {
 
     /**
      * Uses indexes, but sometimes does not work

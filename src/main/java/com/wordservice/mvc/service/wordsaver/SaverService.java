@@ -22,7 +22,7 @@ public class SaverService {
     private WordRelationshipDAO wordRelationshipDAO;
 
     @Autowired
-    private WordRepository wordRepository;
+    private WordEntityRepository wordEntityRepository;
 
     @Autowired
     private WordEntityDAO wordEntityDAO;
@@ -39,7 +39,7 @@ public class SaverService {
         } else {
             wordEntity.incrementPopularity();
         }
-        wordEntity = wordRepository.save(wordEntity);
+        wordEntity = wordEntityRepository.save(wordEntity);
 
         logger.info("Elapsed time for word " + word + " operations is " + (System.currentTimeMillis() - startTime));
 

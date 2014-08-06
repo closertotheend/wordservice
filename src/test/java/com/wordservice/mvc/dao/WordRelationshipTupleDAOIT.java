@@ -1,6 +1,5 @@
 package com.wordservice.mvc.dao;
 
-import com.google.common.collect.Lists;
 import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationshipTuple;
@@ -26,12 +25,12 @@ public class WordRelationshipTupleDAOIT extends IntegrationTestsBase {
 
     @Before
     public void init() {
-        wordRepository.save(hello);
-        wordRepository.save(grey);
-        wordRepository.save(my);
-        wordRepository.save(sad);
-        wordRepository.save(world);
-        wordRepository.save(elephant);
+        wordEntityRepository.save(hello);
+        wordEntityRepository.save(grey);
+        wordEntityRepository.save(my);
+        wordEntityRepository.save(sad);
+        wordEntityRepository.save(world);
+        wordEntityRepository.save(elephant);
     }
 
     @Test

@@ -20,8 +20,8 @@ public class WordRelationshipDAOIT extends IntegrationTestsBase {
         WordEntity hello = new WordEntity("Hello");
         WordEntity ilja = new WordEntity("Ilja");
 
-        wordRepository.save(hello);
-        wordRepository.save(ilja);
+        wordEntityRepository.save(hello);
+        wordEntityRepository.save(ilja);
 
         WordRelationship relationship = new WordRelationship(hello, ilja);
         wordRelationshipDAO.save(relationship);
@@ -42,8 +42,8 @@ public class WordRelationshipDAOIT extends IntegrationTestsBase {
         WordEntity hello = new WordEntity("Hello");
         WordEntity ilja = new WordEntity("Ilja");
 
-        wordRepository.save(hello);
-        wordRepository.save(ilja);
+        wordEntityRepository.save(hello);
+        wordEntityRepository.save(ilja);
 
         WordRelationship relationship = new WordRelationship(hello, ilja);
         wordRelationshipDAO.save(relationship);
