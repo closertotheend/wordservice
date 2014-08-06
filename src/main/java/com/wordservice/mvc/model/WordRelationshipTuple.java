@@ -39,7 +39,7 @@ public class WordRelationshipTuple {
     }
 
     // GETTERS SETTERS
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

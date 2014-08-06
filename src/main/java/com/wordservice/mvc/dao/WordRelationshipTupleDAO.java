@@ -1,5 +1,6 @@
 package com.wordservice.mvc.dao;
 
+import com.wordservice.mvc.model.NullWordEntity;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationshipTuple;
 import org.apache.log4j.LogManager;
@@ -75,6 +76,37 @@ public class WordRelationshipTupleDAO {
         logger.info("Elapsed time for wordRelationshipTuple " + wordRelationshipTuple + " operations is " + (System.currentTimeMillis() - startTime));
 
         return exactTuple;
+    }
+
+    public List<WordRelationshipTuple> saveWordRelationshipTuples(List<WordEntity> wordEntities) {
+        List<WordRelationshipTuple> wordRelationships = new ArrayList<>();
+
+        for (int i = 0; i < wordEntities.size()  ; i++) {
+            WordRelationshipTuple wordRelationship = null;
+
+            if(wordEntities.size()-i == 1){
+                break;
+            }
+
+            if (wordEntities.size() - i == 2) {
+                wordRelationship = createOrIncrementPopularityOfWordRelationshipTuple(
+                                wordEntities.get(i), wordEntities.get(i + 1), new NullWordEntity(), new NullWordEntity());
+            }
+
+            if (wordEntities.size()-i == 3) {
+                wordRelationship = createOrIncrementPopularityOfWordRelationshipTuple(
+                                wordEntities.get(i), wordEntities.get(i + 1), wordEntities.get(i + 2), new NullWordEntity());
+            }
+
+            if(wordEntities.size()-i > 3) {
+                wordRelationship = createOrIncrementPopularityOfWordRelationshipTuple(
+                                wordEntities.get(i), wordEntities.get(i + 1), wordEntities.get(i + 2), wordEntities.get(i + 3));
+
+            }
+
+            wordRelationships.add(wordRelationship);
+        }
+        return wordRelationships;
     }
 
 
