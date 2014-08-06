@@ -22,7 +22,7 @@ public class WordRelationshipTuple {
 
     private long fourth;
 
-    private long popularity;
+    private long popularity = 1;
 
     public WordRelationshipTuple() {
     }

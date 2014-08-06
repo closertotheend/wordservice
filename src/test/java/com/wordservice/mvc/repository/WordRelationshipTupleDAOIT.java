@@ -6,10 +6,10 @@ import com.wordservice.mvc.model.WordRelationshipTuple;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class WordRelationshipTupleDAOIT extends IntegrationTestsBase {
 
@@ -21,7 +21,7 @@ public class WordRelationshipTupleDAOIT extends IntegrationTestsBase {
 
     @Test
     @Rollback
-    public void testGetRelationshipBetween() throws Exception {
+    public void getRelationshipBetween() throws Exception {
         wordRepository.save(hello);
         wordRepository.save(my);
         wordRepository.save(sad);
@@ -54,8 +54,38 @@ public class WordRelationshipTupleDAOIT extends IntegrationTestsBase {
 
     @Test
     @Rollback
-    public void createOrIncrementPopularityOfWordRelationshipTuple(){
+    public void getRelationshipsBetweenAsIterable() {
+        wordRepository.save(hello);
+        wordRepository.save(grey);
+        wordRepository.save(my);
+        wordRepository.save(sad);
+        wordRepository.save(world);
 
+        WordRelationshipTuple relationship1 = new WordRelationshipTuple(hello,my,sad,world);
+        wordRelationshipTupleDAO.save(relationship1);
+
+        Iterable<WordRelationshipTuple> relationshipsBetweenAsList = wordRelationshipTupleDAO.getRelationshipsBetweenAsIterable(hello, my);
+        Iterator<WordRelationshipTuple> iterator = relationshipsBetweenAsList.iterator();
+        assertTrue(iterator.hasNext());
+        iterator.next();
+        assertFalse(iterator.hasNext());
+        assertFalse(wordRelationshipTupleDAO.getRelationshipsBetweenAsIterable(hello, world).iterator().hasNext());
+    }
+
+    @Test
+    @Rollback
+    public void createOrIncrementPopularityOfWordRelationshipTuple(){
+        wordRepository.save(hello);
+        wordRepository.save(my);
+        wordRepository.save(sad);
+        wordRepository.save(world);
+
+        wordRelationshipTupleDAO.createOrIncrementPopularityOfWordRelationshipTuple(hello, my, sad, world);
+        wordRelationshipTupleDAO.createOrIncrementPopularityOfWordRelationshipTuple(hello, my, sad, world);
+
+        List<WordRelationshipTuple> relationshipsBetweenAsList = wordRelationshipTupleDAO.getRelationshipsBetweenAsList(hello, my);
+        assertEquals(1, relationshipsBetweenAsList.size());
+        assertEquals(2, relationshipsBetweenAsList.get(0).getPopularity());
     }
 
 }

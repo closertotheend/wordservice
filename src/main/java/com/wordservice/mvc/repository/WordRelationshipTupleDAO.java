@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -35,17 +36,21 @@ public class WordRelationshipTupleDAO {
     }
 
     public Iterable<WordRelationshipTuple> getRelationshipsBetweenAsIterable(WordEntity prelast, WordEntity last) {
-        return template.getRelationshipsBetween(prelast, last,
+        Iterable<WordRelationshipTuple> relationshipsBetween = template.getRelationshipsBetween(prelast, last,
                 WordRelationshipTuple.class, WordRelationshipTuple.relationshipType);
+        if (relationshipsBetween == null) {
+            return Collections.emptyList();
+        }
+        return relationshipsBetween;
     }
 
     public List<WordRelationshipTuple> getRelationshipsBetweenAsList(WordEntity prelast, WordEntity last) {
         Iterable<WordRelationshipTuple> relationshipsBetweenAsIterable = getRelationshipsBetweenAsIterable(prelast, last);
-        List<WordRelationshipTuple> wordRelationshipTuples = new ArrayList<WordRelationshipTuple>();
+        List<WordRelationshipTuple> wordRelationshipTuples = new ArrayList<>();
         for (WordRelationshipTuple wordRelationshipTuple : relationshipsBetweenAsIterable) {
             wordRelationshipTuples.add(wordRelationshipTuple);
         }
-        return  wordRelationshipTuples;
+        return wordRelationshipTuples;
     }
 
     public WordRelationshipTuple createOrIncrementPopularityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
@@ -53,34 +58,34 @@ public class WordRelationshipTupleDAO {
 
         List<WordRelationshipTuple> wordRelationshipTuple = getRelationshipsBetweenAsList(first, second);
 
-        WordRelationshipTuple exactRelationshipTupleIsFound = null;
+        WordRelationshipTuple exactTuple = null;
         for (WordRelationshipTuple relationshipTuple : wordRelationshipTuple) {
-            if(relationshipTuple.getThird() == third.getId() || relationshipTuple.getFourth() == fourth.getId()){
-                exactRelationshipTupleIsFound = relationshipTuple;
+            if (relationshipTuple.getThird() == third.getId() || relationshipTuple.getFourth() == fourth.getId()) {
+                exactTuple = relationshipTuple;
                 break;
             }
         }
 
-        if (exactRelationshipTupleIsFound == null) {
-            exactRelationshipTupleIsFound = new WordRelationshipTuple(first, second, third, fourth);
+        if (exactTuple == null) {
+            exactTuple = new WordRelationshipTuple(first, second, third, fourth);
         } else {
-            exactRelationshipTupleIsFound.incrementPopularity();
+            exactTuple.incrementPopularity();
         }
 
-        exactRelationshipTupleIsFound = save(exactRelationshipTupleIsFound);
+        exactTuple = save(exactTuple);
 
         logger.info("Elapsed time for wordRelationshipTuple " + wordRelationshipTuple + " operations is " + (System.currentTimeMillis() - startTime));
 
-        return exactRelationshipTupleIsFound;
+        return exactTuple;
     }
 
 
-    public WordRelationship findOne(Long id) {
-        return template.findOne(id, WordRelationship.class);
+    public WordRelationshipTuple findOne(Long id) {
+        return template.findOne(id, WordRelationshipTuple.class);
     }
 
-    public EndResult<WordRelationship> findAll(){
-        return template.findAll(WordRelationship.class);
+    public EndResult<WordRelationshipTuple> findAll() {
+        return template.findAll(WordRelationshipTuple.class);
     }
 
 }
