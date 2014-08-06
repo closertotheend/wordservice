@@ -3,6 +3,7 @@ package com.wordservice.mvc.dao;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.repository.WordEntityRepository;
+import com.wordservice.mvc.util.CleanUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-@Transactional
 public class WordEntityDAO {
 
     private static final Logger logger = LogManager
@@ -32,13 +32,25 @@ public class WordEntityDAO {
 
         if (!word.trim().isEmpty()) {
             try {
-                allCaseWords = wordEntityRepository.findByWord(word);
+                if (!word.contains(":") && !word.contains("\n")) {
+                    allCaseWords = wordEntityRepository.findByWord(CleanUtil.clean(word));
+                }
+            } catch (Exception e) {
+                System.err.println("WORD WAS " + word);
+                e.printStackTrace();
+                allCaseWords = Collections.emptyList();
+            }
+
+//            try {
 //                if(allCaseWords.size()==0){
 //                    allCaseWords = wordEntityRepository.findByWordRegexOrderByPopularity(word);
 //                }
-            } catch (Exception e) {
-                allCaseWords = Collections.emptyList();
-            }
+//            } catch (Exception e) {
+//                System.err.println("WORD WAS " + word);
+//                e.printStackTrace();
+//                allCaseWords = Collections.emptyList();
+//            }
+
         }
 
         for (WordEntity someWord : allCaseWords) {
@@ -50,23 +62,23 @@ public class WordEntityDAO {
     }
 
 
-    public List<WordEntity> findByWordStartingWith(String sequence){
+    public List<WordEntity> findByWordStartingWith(String sequence) {
         try {
             List<WordEntity> allCaseWords = wordEntityRepository.findByWordRegexOrderByPopularity(sequence + ".*");
             List<WordEntity> result = new ArrayList<>(allCaseWords.size());
             for (WordEntity someWord : allCaseWords) {
-                if(someWord.getWord().contains(sequence)){
+                if (someWord.getWord().contains(sequence)) {
                     result.add(someWord);
                 }
             }
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();
         }
     }
 
-    public List<WordEntity> findByWordContaining(String sequence){
+    public List<WordEntity> findByWordContaining(String sequence) {
         return wordEntityRepository.findByWordRegexOrderByPopularity(".*" + sequence + ".*");
     }
 

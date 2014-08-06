@@ -16,6 +16,7 @@ import java.util.List;
 
 
 @Service
+@Transactional
 public class TextSaverService {
     private static final Logger logger = LogManager
             .getLogger(TextSaverService.class.getName());

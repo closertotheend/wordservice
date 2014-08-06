@@ -4,16 +4,18 @@ import com.wordservice.mvc.model.WordEntity;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
 
 @Transactional
+@Service
 public interface WordEntityRepository extends GraphRepository<WordEntity> {
 
     /**
-     * Uses indexes, but sometimes does not work
+     * Uses indexes, but sometimes does not work, also falls if word(any other sign is executed)word
      * */
     List<WordEntity> findByWord(String word);
 

@@ -39,7 +39,7 @@ public class WordRelationshipTupleDAO {
     /*
     * Maybe caching could help a lot?
     * **/
-    private Iterable<WordRelationshipTuple> getRelationshipsBetweenAsIterable(WordEntity prelast, WordEntity last) {
+    public Iterable<WordRelationshipTuple> getRelationshipsBetweenAsIterable(WordEntity prelast, WordEntity last) {
         Iterable<WordRelationshipTuple> relationshipsBetween = template.getRelationshipsBetween(prelast, last,
                 WordRelationshipTuple.class, WordRelationshipTuple.relationshipType);
         if (relationshipsBetween == null) {

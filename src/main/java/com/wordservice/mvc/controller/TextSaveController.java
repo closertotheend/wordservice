@@ -21,18 +21,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class TextSaveController {
-//test 12
     @Autowired
     private TextSaverService textSaverService;
 
     @RequestMapping(value = "wordApi", method = RequestMethod.POST)
     @ResponseBody
     public void save(@RequestBody String text) {
-        List<String> sentences = TextToSentences.transform(text);
-        for (String sentence : sentences) {
-            List<String> words = SentencesToWords.transform(sentence);
-            textSaverService.saveToRepo(words);
-        }
+            textSaverService.saveToRepo(text);
     }
 
     @RequestMapping(value = "saveFromFile", method = RequestMethod.GET)
