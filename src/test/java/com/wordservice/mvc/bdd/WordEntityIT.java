@@ -1,6 +1,8 @@
-package com.wordservice.mvc.model;
+package com.wordservice.mvc.bdd;
 
 import com.wordservice.mvc.TestApplicationConfig;
+import com.wordservice.mvc.model.WordEntity;
+import com.wordservice.mvc.model.WordRelationship;
 import com.wordservice.mvc.repository.WordRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

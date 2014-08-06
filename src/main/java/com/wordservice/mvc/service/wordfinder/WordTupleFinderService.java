@@ -90,34 +90,30 @@ public class WordTupleFinderService {
         return words;
     }
 
-    public List<WordEntity> getNextWordsViaTuple(String word1, String word2, String word3) {
-
-        WordEntity firstWord = wordEntityDAO.findByWord(word1);
-        if (firstWord == null) return Collections.emptyList();
-        WordEntity secondWord = wordEntityDAO.findByWord(word2);
-        if (secondWord == null) return Collections.emptyList();
-        WordEntity thirdWord = wordEntityDAO.findByWord(word3);
-        if (thirdWord == null) return Collections.emptyList();
-
-        WordRelationship relationshipBetween1 = wordRelationshipDAO.getRelationshipBetween(firstWord, secondWord);
-        if (relationshipBetween1 == null) return Collections.emptyList();
-
-        WordRelationship relationshipBetween2 = wordRelationshipDAO.getRelationshipBetween(secondWord, thirdWord);
-        if (relationshipBetween2 == null) return Collections.emptyList();
-
-        List<WordTriTuple> tuplesWithRelationShipIds =
-                wordTriTupleRepository.getWithRelationShipIds(relationshipBetween1.getId(), relationshipBetween2.getId());
-
-        List<WordEntity> words = new ArrayList<>();
-        for (WordTriTuple tuplesWithRelationShipId : tuplesWithRelationShipIds) {
-            WordRelationship nextWordRelationship = wordRelationshipDAO.findOne(tuplesWithRelationShipId.getThirdWordRelationshipId());
-            words.add(wordRepository.findOne(
-                    nextWordRelationship.getSecondWord().getId()
-            ));
-        }
-
-        return words;
-    }
+//    public List<WordEntity> getNextWordsViaTuple(String first, String second, String third) {
+//
+//        WordEntity firstWord = wordEntityDAO.findByWord(first);
+//        if (firstWord == null) return Collections.emptyList();
+//        WordEntity secondWord = wordEntityDAO.findByWord(second);
+//        if (secondWord == null) return Collections.emptyList();
+//        WordEntity thirdWord = wordEntityDAO.findByWord(third);
+//        if (thirdWord == null) return Collections.emptyList();
+//
+//        wordRelationshipTupleDAO.getRelationshipsBetweenAsList()
+//
+//        List<WordTriTuple> tuplesWithRelationShipIds =
+//                wordTriTupleRepository.getWithRelationShipIds(relationshipBetween1.getId(), relationshipBetween2.getId());
+//
+//        List<WordEntity> words = new ArrayList<>();
+//        for (WordTriTuple tuplesWithRelationShipId : tuplesWithRelationShipIds) {
+//            WordRelationship nextWordRelationship = wordRelationshipDAO.findOne(tuplesWithRelationShipId.getThirdWordRelationshipId());
+//            words.add(wordRepository.findOne(
+//                    nextWordRelationship.getSecondWord().getId()
+//            ));
+//        }
+//
+//        return words;
+//    }
 
 
 }

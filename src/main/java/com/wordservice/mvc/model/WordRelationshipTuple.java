@@ -38,7 +38,6 @@ public class WordRelationshipTuple {
         this.popularity++;
     }
 
-    // GETTERS SETTERS
     public long getId() {
         return id;
     }

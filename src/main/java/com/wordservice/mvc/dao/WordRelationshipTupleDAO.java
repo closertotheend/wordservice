@@ -52,6 +52,17 @@ public class WordRelationshipTupleDAO {
         return wordRelationshipTuples;
     }
 
+    public List<WordRelationshipTuple> getRelationshipsBetweenAsList(WordEntity preprelast, WordEntity prelast, WordEntity last) {
+        List<WordRelationshipTuple> relationshipsBetweenAsList = getRelationshipsBetweenAsList(preprelast, prelast);
+        List<WordRelationshipTuple> tuples = new ArrayList<>();
+        for (WordRelationshipTuple relationshipTuple : relationshipsBetweenAsList) {
+            if (relationshipTuple.getThird() == last.getId()) {
+                tuples.add(relationshipTuple);
+            }
+        }
+        return tuples;
+    }
+
     public WordRelationshipTuple createOrIncrementPopularityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
         long startTime = System.currentTimeMillis();
 
@@ -81,26 +92,26 @@ public class WordRelationshipTupleDAO {
     public List<WordRelationshipTuple> saveWordRelationshipTuples(List<WordEntity> wordEntities) {
         List<WordRelationshipTuple> wordRelationships = new ArrayList<>();
 
-        for (int i = 0; i < wordEntities.size()  ; i++) {
+        for (int i = 0; i < wordEntities.size(); i++) {
             WordRelationshipTuple wordRelationship = null;
 
-            if(wordEntities.size()-i == 1){
+            if (wordEntities.size() - i == 1) {
                 break;
             }
 
             if (wordEntities.size() - i == 2) {
                 wordRelationship = createOrIncrementPopularityOfWordRelationshipTuple(
-                                wordEntities.get(i), wordEntities.get(i + 1), new NullWordEntity(), new NullWordEntity());
+                        wordEntities.get(i), wordEntities.get(i + 1), new NullWordEntity(), new NullWordEntity());
             }
 
-            if (wordEntities.size()-i == 3) {
+            if (wordEntities.size() - i == 3) {
                 wordRelationship = createOrIncrementPopularityOfWordRelationshipTuple(
-                                wordEntities.get(i), wordEntities.get(i + 1), wordEntities.get(i + 2), new NullWordEntity());
+                        wordEntities.get(i), wordEntities.get(i + 1), wordEntities.get(i + 2), new NullWordEntity());
             }
 
-            if(wordEntities.size()-i > 3) {
+            if (wordEntities.size() - i > 3) {
                 wordRelationship = createOrIncrementPopularityOfWordRelationshipTuple(
-                                wordEntities.get(i), wordEntities.get(i + 1), wordEntities.get(i + 2), wordEntities.get(i + 3));
+                        wordEntities.get(i), wordEntities.get(i + 1), wordEntities.get(i + 2), wordEntities.get(i + 3));
 
             }
 
