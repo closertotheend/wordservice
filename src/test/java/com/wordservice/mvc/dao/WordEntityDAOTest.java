@@ -42,14 +42,15 @@ public class WordEntityDAOTest {
         when(wordEntityRepository.findByWordRegexOrderByPopularity("Ilja")).thenReturn(wordEntitites);
         when(wordEntityRepository.findByWordRegexOrderByPopularity("ilja")).thenReturn(wordEntitites);
 
-        assertEquals(small, wordEntityDAO.findByWord("ilja"));
-        assertEquals(big, wordEntityDAO.findByWord("Ilja"));
+        assertEquals(small, wordEntityDAO.findByWordViaIndexAndRegex("ilja"));
+        assertEquals(big, wordEntityDAO.findByWordViaIndexAndRegex("Ilja"));
     }
 
     @Test
+    @Ignore
     public void testFindByWordException() throws Exception {
         when(wordEntityRepository.findByWord(anyString())).thenThrow(new NullPointerException());
-        assertEquals(null, wordEntityDAO.findByWord("ilja"));
+        assertEquals(null, wordEntityDAO.findByWordViaIndexAndRegex("ilja"));
     }
 
     @Test

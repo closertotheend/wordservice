@@ -33,14 +33,41 @@ public class WordEntityDAOIT extends IntegrationTestsBase{
     @Rollback
     public void testFindByWordCheckCase() throws Exception {
         textSaverService.saveToRepo("Hello Ilja! hello martin");
-        WordEntity bigLetterHello = wordEntityDAO.findByWord("Hello");
+        WordEntity bigLetterHello = wordEntityDAO.findByWordViaIndexAndRegex("Hello");
         assertNotNull(bigLetterHello);
-        WordEntity smallLetterHello = wordEntityDAO.findByWord("hello");
+        WordEntity smallLetterHello = wordEntityDAO.findByWordViaIndexAndRegex("hello");
         assertNotNull(smallLetterHello);
         assertFalse(bigLetterHello.equals(smallLetterHello));
         assertEquals("Hello",bigLetterHello.getWord());
         assertEquals("hello",smallLetterHello.getWord());
     }
+
+
+    @Test
+    @Rollback
+    public void findByWordViaIndex() throws Exception {
+        textSaverService.saveToRepo("Hello Ilja! hello martin");
+        WordEntity bigLetterHello = wordEntityDAO.findByWordViaIndex("Hello");
+        assertNotNull(bigLetterHello);
+        WordEntity smallLetterHello = wordEntityDAO.findByWordViaIndex("hello");
+        assertNotNull(smallLetterHello);
+        assertFalse(bigLetterHello.equals(smallLetterHello));
+        assertEquals("Hello",bigLetterHello.getWord());
+        assertEquals("hello",smallLetterHello.getWord());
+    }
+
+    @Test
+    @Rollback
+    public void getOrCreateWordEntity() throws Exception {
+        WordEntity bigLetterHello = wordEntityDAO.getOrCreateWordEntity("Hello");
+        assertNotNull(bigLetterHello);
+        WordEntity smallLetterHello = wordEntityDAO.getOrCreateWordEntity("hello");
+        assertNotNull(smallLetterHello);
+        assertFalse(bigLetterHello.equals(smallLetterHello));
+        assertEquals("Hello",bigLetterHello.getWord());
+        assertEquals("hello",smallLetterHello.getWord());
+    }
+
 
     @Test
     @Rollback

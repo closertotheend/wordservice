@@ -20,14 +20,11 @@ public class WordTupleFinderService {
     @Autowired
     private WordEntityDAO wordEntityDAO;
 
-    @Autowired
-    private WordEntityRepository wordEntityRepository;
-
     public List<WordEntity> getNextWordsViaTuple(String first, String second) {
 
-        WordEntity firstWord = wordEntityDAO.findByWord(first);
+        WordEntity firstWord = wordEntityDAO.findByWordViaIndexAndRegex(first);
         if (firstWord == null) return Collections.emptyList();
-        WordEntity secondWord = wordEntityDAO.findByWord(second);
+        WordEntity secondWord = wordEntityDAO.findByWordViaIndexAndRegex(second);
         if (secondWord == null) return Collections.emptyList();
 
         List<WordRelationshipTuple> relationships =
@@ -46,11 +43,11 @@ public class WordTupleFinderService {
 
     public List<WordEntity> getNextWordsViaTuple(String first, String second, String third) {
 
-        WordEntity firstWord = wordEntityDAO.findByWord(first);
+        WordEntity firstWord = wordEntityDAO.findByWordViaIndexAndRegex(first);
         if (firstWord == null) return Collections.emptyList();
-        WordEntity secondWord = wordEntityDAO.findByWord(second);
+        WordEntity secondWord = wordEntityDAO.findByWordViaIndexAndRegex(second);
         if (secondWord == null) return Collections.emptyList();
-        WordEntity thirdWord = wordEntityDAO.findByWord(third);
+        WordEntity thirdWord = wordEntityDAO.findByWordViaIndexAndRegex(third);
         if (thirdWord == null) return Collections.emptyList();
 
         List<WordRelationshipTuple> relationships =

@@ -108,4 +108,15 @@ public class WordEntityRepositoryIT extends IntegrationTestsBase {
         assertEquals(2, smallLetterHello.size());
     }
 
+    @Test
+    @Rollback
+    public void  findByWordWithoutFastIndex() throws Exception {
+        textSaverService.saveToRepo("Hello Ilja! hello martin");
+        WordEntity bigLetterHello = wordEntityRepository.findByWordWithoutFastIndex("Hello");
+        WordEntity smallLetterHello = wordEntityRepository.findByWordWithoutFastIndex("hello");
+        assertNotNull(bigLetterHello);
+        assertNotNull(smallLetterHello);
+        assertFalse(bigLetterHello.equals(smallLetterHello));
+    }
+
 }

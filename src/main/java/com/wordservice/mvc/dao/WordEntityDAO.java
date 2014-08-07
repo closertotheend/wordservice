@@ -8,11 +8,12 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static junit.framework.Assert.assertTrue;
 
 @Service
 public class WordEntityDAO {
@@ -27,40 +28,44 @@ public class WordEntityDAO {
         return wordEntityRepository.findOne(id);
     }
 
-    public WordEntity findByWord(String word) {
-        List<WordEntity> allCaseWords = Collections.emptyList();
+    public WordEntity findByWordViaIndexAndRegex(String word) {
 
-        if (!word.trim().isEmpty()) {
+        WordEntity matchViaIndex = findByWordViaIndex(word);
+        if (matchViaIndex == null) {
             try {
-                if (!CleanUtil.hasNonWordCharacter(word)) {
-                    allCaseWords = wordEntityRepository.findByWord(word);
-                }
+                long startTime = System.currentTimeMillis();
+                WordEntity noIndexMatch = wordEntityRepository.findByWordWithoutFastIndex(word);
+                long estimatedTime = System.currentTimeMillis() - startTime;
+                System.err.println("RegexMatch " + estimatedTime);
+
+                return noIndexMatch;
             } catch (Exception e) {
-                System.err.println("WORD WAS " + word);
+                System.err.println("Word which caused fail - " + word);
                 e.printStackTrace();
-                allCaseWords = Collections.emptyList();
             }
 
-//            try {
-//                if(allCaseWords.size()==0){
-//                    allCaseWords = wordEntityRepository.findByWordRegexOrderByPopularity(word);
-//                }
-//            } catch (Exception e) {
-//                System.err.println("WORD WAS " + word);
-//                e.printStackTrace();
-//                allCaseWords = Collections.emptyList();
-//            }
-
         }
+        return matchViaIndex;
+    }
 
-        for (WordEntity someWord : allCaseWords) {
-            if (someWord.getWord().equals(word)) {
-                return someWord;
+    public WordEntity findByWordViaIndex(String word) {
+        if (!word.trim().isEmpty() && !CleanUtil.hasNonWordCharacter(word)) {
+
+            long startTime = System.currentTimeMillis();
+
+            List<WordEntity> allCaseWords = wordEntityRepository.findByWord(word);
+
+            long estimatedTime = System.currentTimeMillis() - startTime;
+            System.err.println("IndexMatch " + estimatedTime);
+
+            for (WordEntity someWord : allCaseWords) {
+                if (someWord.getWord().equals(word)) {
+                    return someWord;
+                }
             }
         }
         return null;
     }
-
 
     public List<WordEntity> findByWordStartingWith(String sequence) {
         try {
@@ -85,7 +90,7 @@ public class WordEntityDAO {
     public WordEntity getOrCreateWordEntity(String word) {
         long startTime = System.currentTimeMillis();
 
-        WordEntity wordEntity = findByWord(word);
+        WordEntity wordEntity = findByWordViaIndex(word);
         if (wordEntity == null) {
             wordEntity = new WordEntity(word);
         } else {

@@ -16,6 +16,7 @@ public interface WordEntityRepository extends GraphRepository<WordEntity> {
 
     /**
      * Uses indexes, but sometimes does not work, also falls if word(any other sign is executed)word
+     * Does not respect case, because of that returns list
      * */
     List<WordEntity> findByWord(String word);
 
@@ -32,5 +33,9 @@ public interface WordEntityRepository extends GraphRepository<WordEntity> {
     @Query("START wordEntity= node(*) WHERE has(wordEntity.word) AND wordEntity.word =~ {word1}" +
             "RETURN wordEntity ORDER BY wordEntity.popularity DESC LIMIT 10")
     List<WordEntity> findByWordRegexOrderByPopularity(@Param("word1") String word1);
+
+    @Query("START wordEntity= node(*) WHERE has(wordEntity.word) AND wordEntity.word = {word1}" +
+            "RETURN wordEntity")
+    WordEntity findByWordWithoutFastIndex(@Param("word1") String word1);
 
 }

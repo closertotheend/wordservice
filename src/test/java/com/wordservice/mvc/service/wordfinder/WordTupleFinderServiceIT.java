@@ -2,12 +2,9 @@ package com.wordservice.mvc.service.wordfinder;
 
 import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.model.WordRelationshipTuple;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -21,8 +18,8 @@ public class WordTupleFinderServiceIT extends IntegrationTestsBase {
     public void getNextWordsViaTuple3args() throws Exception {
         textSaverService.saveToRepo("This is yellow car. This is yellow bus. This is black ledbetter");
 
-        WordEntity car = wordEntityDAO.findByWord("car");
-        WordEntity bus = wordEntityDAO.findByWord("bus");
+        WordEntity car = wordEntityDAO.findByWordViaIndexAndRegex("car");
+        WordEntity bus = wordEntityDAO.findByWordViaIndexAndRegex("bus");
 
         List<WordEntity> nextWords = wordTupleFinderService.getNextWordsViaTuple("This", "is", "yellow");
 
@@ -39,9 +36,9 @@ public class WordTupleFinderServiceIT extends IntegrationTestsBase {
 
         List<WordEntity> nextWords = wordTupleFinderService.getNextWordsViaTuple("This", "is");
 
-        WordEntity grey = wordEntityDAO.findByWord("grey");
-        WordEntity yellow = wordEntityDAO.findByWord("yellow");
-        WordEntity black = wordEntityDAO.findByWord("black");
+        WordEntity grey = wordEntityDAO.findByWordViaIndexAndRegex("grey");
+        WordEntity yellow = wordEntityDAO.findByWordViaIndexAndRegex("yellow");
+        WordEntity black = wordEntityDAO.findByWordViaIndexAndRegex("black");
 
         assertEquals(3, nextWords.size());
 

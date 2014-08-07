@@ -45,7 +45,7 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldReturnCorrectPopularityOfSavedWord() {
         textSaverService.saveToRepo("Hello Hello Hello");
-        assertEquals(2, wordEntityDAO.findByWord("Hello").getPopularity());
+        assertEquals(2, wordEntityDAO.findByWordViaIndexAndRegex("Hello").getPopularity());
     }
 
     @Test
@@ -59,9 +59,9 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldCheckThatSavedWordsShouldBeRetrivable() {
         textSaverService.saveToRepo("tralala hahaha.");
-        WordEntity hahaha = wordEntityDAO.findByWord("hahaha");
+        WordEntity hahaha = wordEntityDAO.findByWordViaIndexAndRegex("hahaha");
         assertNotNull(hahaha);
-        WordEntity a = wordEntityDAO.findByWord("a");
+        WordEntity a = wordEntityDAO.findByWordViaIndexAndRegex("a");
         assertNull(a);
     }
 
@@ -69,10 +69,10 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     @Rollback
     public void shouldCheckThatRelationshipTupleShouldBeRetrievable() {
         textSaverService.saveToRepo("Hello my sad world.");
-        WordEntity hello = wordEntityDAO.findByWord("Hello");
-        WordEntity my = wordEntityDAO.findByWord("my");
-        WordEntity sad = wordEntityDAO.findByWord("sad");
-        WordEntity world = wordEntityDAO.findByWord("world");
+        WordEntity hello = wordEntityDAO.findByWordViaIndexAndRegex("Hello");
+        WordEntity my = wordEntityDAO.findByWordViaIndexAndRegex("my");
+        WordEntity sad = wordEntityDAO.findByWordViaIndexAndRegex("sad");
+        WordEntity world = wordEntityDAO.findByWordViaIndexAndRegex("world");
         assertNotNull(hello);
         assertNotNull(my);
         assertNotNull(sad);
