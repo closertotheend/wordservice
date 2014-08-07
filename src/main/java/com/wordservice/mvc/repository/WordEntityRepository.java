@@ -20,6 +20,10 @@ public interface WordEntityRepository extends GraphRepository<WordEntity> {
      * */
     List<WordEntity> findByWord(String word);
 
+    @Query("START wordEntity=node:word(word={word1}) WHERE has(wordEntity.word) AND wordEntity.word = {word1}" +
+            "RETURN wordEntity")
+    WordEntity findByWordOptimized(@Param("word1") String word1);
+
     @Query("START wordEntity=node:word(word={word}) " +
             "MATCH wordEntity-[r:IS_FOLLOWED_BY_TUPLE]->otherWord" +
             " RETURN otherWord ORDER BY r.popularity DESC LIMIT 10")

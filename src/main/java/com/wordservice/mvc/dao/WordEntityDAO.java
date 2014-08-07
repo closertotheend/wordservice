@@ -53,16 +53,12 @@ public class WordEntityDAO {
 
             long startTime = System.currentTimeMillis();
 
-            List<WordEntity> allCaseWords = wordEntityRepository.findByWord(word);
+            WordEntity wordEntity = wordEntityRepository.findByWordOptimized(word);
 
             long estimatedTime = System.currentTimeMillis() - startTime;
             System.err.println("IndexMatch " + estimatedTime);
 
-            for (WordEntity someWord : allCaseWords) {
-                if (someWord.getWord().equals(word)) {
-                    return someWord;
-                }
-            }
+            return wordEntity;
         }
         return null;
     }
