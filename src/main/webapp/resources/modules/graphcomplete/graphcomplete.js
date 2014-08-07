@@ -117,23 +117,16 @@ function turnOnAutocompletion() {
                         var second = textAsArray[textAsArray.length - 2];
                         var last = textAsArray[textAsArray.length - 1];
 
-
                         var wordsResult = [];
 
                         if (checkIfPresent(first) && checkIfPresent(second) && checkIfPresent(last)) {
-
-                            performFullContextualSearch(first,second,last,wordsResult)
-
-                        } else if (checkIfPresent(second) && checkIfPresent(last)) {
-
-                            performContextualSearch(second, last, wordsResult);
-
-                        } else if (checkIfPresent(last)) {
-
-                            addOneWordResults(last, wordsResult);
-
-                        } else {
-                            callback(wordsResult);
+                            extractPromiseForThreeWords(first, second, last, wordsResult);
+                        }
+                        if (checkIfPresent(second) && checkIfPresent(last) && wordsResult.length<10) {
+                            extractPromiseForTwoWords(second, last, wordsResult);
+                        }
+                        if (checkIfPresent(last) && wordsResult.length<10) {
+                            extractPromiseForOneWord(last, wordsResult);
                         }
 
                     } catch (e) {
@@ -141,75 +134,57 @@ function turnOnAutocompletion() {
                         callback([]);
                     }
 
-                    function checkIfPresent(word){
-                        return word !== '' && word !== null && word !== undefined
-                    }
-
                 })();
 
-                function performFullContextualSearch(first, second, third, wordsResult) {
-                    $.getJSON('/context/' + first + '/' + second + '/' + third).done(function (resp) {
-                        $.each(resp, function (index, value) {
-                            value.severity = SEVERITY_BLUE;
-                            wordsResult.push(value);
-                        });
-                        callback(wordsResult);
-
-                        if (wordsResult.length < 10) {
-                            addNextWordResults(second, third, wordsResult, callback);
-                        }
-
+                function extractPromiseForTwoWords(second, last, wordsResult) {
+                    getTwoWordsContextPromise(second, last).done(function (response) {
+                        pushToWordResults(response, wordsResult, callback, SEVERITY_GREEN);
                     }).fail(function () {
                         console.error("FAIL DURING SENTENCE CONTEXT");
                     });
                 }
 
-                function performContextualSearch(previousWord, lastWord, wordsResult) {
-                    $.getJSON('/context/' + previousWord + '/' + lastWord).done(function (resp) {
-                        $.each(resp, function (index, value) {
-                            value.severity = SEVERITY_GREEN;
-                            wordsResult.push(value);
-                        });
-                        callback(wordsResult);
-
-                        if (wordsResult.length < 10) {
-                            addNextWordResults(previousWord, lastWord, wordsResult, callback);
-                        }
-
-                    }).fail(function () {
-                        console.error("FAIL DURING SENTENCE CONTEXT");
-                    });
-                }
-
-                function addNextWordResults(previousWord, lastWord, wordsResult) {
-                    $.getJSON('/getTopFor/' + previousWord + '/' + lastWord).done(function (resp) {
-                        $.each(resp, function (index, value) {
-                            value.severity = SEVERITY_YELLOW;
-                            pushIfNotPresent(wordsResult, value);
-                        });
-                        callback(wordsResult);
-
-                        if (wordsResult.length < 10) {
-                            addOneWordResults(lastWord, wordsResult, callback);
-                        }
-
-                    }).fail(function () {
-                        console.log("FAIL DURING NEXT 2 WORD CONTEXT");
-                    });
-                }
-
-                function addOneWordResults(lastWord, wordsResult) {
-                    $.getJSON('/getTopFor/' + lastWord).done(function (resp) {
-                        $.each(resp, function (index, value) {
-                            value.severity = SEVERITY_RED;
-                            pushIfNotPresent(wordsResult, value);
-                        });
-                        callback(wordsResult);
-
-
+                function extractPromiseForOneWord(last, wordsResult) {
+                    getNextWordPromise(last).done(function (response) {
+                        pushToWordResults(response, wordsResult, callback, SEVERITY_YELLOW);
                     }).fail(function () {
                         console.log("FAIL DURING NEXT WORD CONTEXT");
                     });
+                }
+
+                function extractPromiseForThreeWords(first, second, last, wordsResult) {
+                    getThreeWordsContextPromise(first, second, last).done(function (response) {
+                        pushToWordResults(response, wordsResult, callback, SEVERITY_BLUE);
+                    }).fail(function () {
+                        console.error("FAIL DURING SENTENCE CONTEXT");
+                    });
+                }
+
+                function pushToWordResults(response, wordsResult, callback, severity) {
+                    $.each(response, function (index, value) {
+                        if (!arrayContainsWord(wordsResult, value)) {
+                            value.severity = severity;
+                            wordsResult.push(value);
+                        }
+                    });
+                    callback(wordsResult);
+                    return wordsResult;
+                }
+
+                function checkIfPresent(word) {
+                    return word !== '' && word !== null && word !== undefined
+                }
+
+                function getThreeWordsContextPromise(first, second, third) {
+                    return $.getJSON('/context/' + first + '/' + second + '/' + third);
+                }
+
+                function getTwoWordsContextPromise(previousWord, lastWord) {
+                    return $.getJSON('/context/' + previousWord + '/' + lastWord);
+                }
+
+                function getNextWordPromise(lastWord) {
+                    return $.getJSON('/getTopFor/' + lastWord);
                 }
 
 
@@ -233,12 +208,6 @@ function turnOnAutocompletion() {
         }
     ]);
 
-
-    function pushIfNotPresent(wordsResult, value) {
-        if (!arrayContainsWord(wordsResult, value)) {
-            wordsResult.push(value);
-        }
-    }
 
     function arrayContainsWord(pureWords, value) {
         var arrayLength = pureWords.length;
