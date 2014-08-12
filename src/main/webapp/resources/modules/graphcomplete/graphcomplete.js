@@ -121,11 +121,18 @@ function turnOnAutocompletion() {
 
                         if (checkIfPresent(first) && checkIfPresent(second) && checkIfPresent(last)) {
                             extractPromiseForThreeWords(first, second, last, wordsResult);
-                        }
-                        if (checkIfPresent(second) && checkIfPresent(last) && wordsResult.length<10) {
+                            if (checkIfPresent(second) && checkIfPresent(last) && wordsResult.length<10) {
+                                extractPromiseForTwoWords(second, last, wordsResult);
+                            }
+                            if (checkIfPresent(last) && wordsResult.length<10) {
+                                extractPromiseForOneWord(last, wordsResult);
+                            }
+                        } else if (checkIfPresent(second) && checkIfPresent(last) && wordsResult.length<10) {
                             extractPromiseForTwoWords(second, last, wordsResult);
-                        }
-                        if (checkIfPresent(last) && wordsResult.length<10) {
+                            if (checkIfPresent(last) && wordsResult.length<10) {
+                                extractPromiseForOneWord(last, wordsResult);
+                            }
+                        } else if (checkIfPresent(last) && wordsResult.length<10) {
                             extractPromiseForOneWord(last, wordsResult);
                         }
 
