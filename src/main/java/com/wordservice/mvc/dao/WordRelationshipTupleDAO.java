@@ -3,6 +3,7 @@ package com.wordservice.mvc.dao;
 import com.wordservice.mvc.model.NullWordEntity;
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.model.WordRelationshipTuple;
+import com.wordservice.mvc.repository.WordRelationshipRepository;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -23,6 +25,9 @@ public class WordRelationshipTupleDAO {
 
     @Autowired
     private Neo4jTemplate template;
+
+    @Autowired
+    private WordRelationshipRepository wordRelationshipRepository;
 
     public WordRelationshipTuple save(WordRelationshipTuple wordRelationship) {
         return template.save(wordRelationship);
@@ -55,22 +60,14 @@ public class WordRelationshipTupleDAO {
     }
 
     public List<WordRelationshipTuple> getRelationshipsBetweenAsList(WordEntity preprelast, WordEntity prelast, WordEntity last) {
-        List<WordRelationshipTuple> tuples = new ArrayList<>();
-        for (WordRelationshipTuple relationshipTuple : getRelationshipsBetweenAsIterable(preprelast, prelast)) {
-            if (relationshipTuple.getThird() == last.getId()) {
-                tuples.add(relationshipTuple);
-            }
-        }
-        return tuples;
+        Set<WordRelationshipTuple> tuple = wordRelationshipRepository.getTuple(preprelast.getId(), prelast.getId(), last.getId());
+        List<WordRelationshipTuple> wordRelationshipTuples = new ArrayList<>(tuple);
+        Collections.sort(wordRelationshipTuples);
+        return wordRelationshipTuples;
     }
 
     public WordRelationshipTuple getRelationshipBetween(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
-        for (WordRelationshipTuple relationshipTuple : getRelationshipsBetweenAsIterable(first, second)) {
-            if (relationshipTuple.getThird() == third.getId() && relationshipTuple.getFourth() == fourth.getId()) {
-                return relationshipTuple;
-            }
-        }
-        return null;
+        return wordRelationshipRepository.getTuple(first.getId(),second.getId(),third.getId(),fourth.getId());
     }
 
     public WordRelationshipTuple createOrIncrementPopularityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {

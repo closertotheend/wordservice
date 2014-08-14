@@ -7,7 +7,7 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.support.index.IndexType;
 
 @NodeEntity
-public class WordEntity {
+public class WordEntity  implements Comparable<WordEntity>{
 
     @JsonIgnore
     @GraphId
@@ -47,6 +47,10 @@ public class WordEntity {
         return popularity;
     }
 
+    public void setPopularity(long popularity) {
+        this.popularity = popularity;
+    }
+
     public void setWord(String word) {
         this.word = word;
     }
@@ -74,5 +78,10 @@ public class WordEntity {
                 ", word='" + word + '\'' +
                 ", popularity=" + popularity +
                 '}';
+    }
+
+    @Override
+    public int compareTo(WordEntity o) {
+        return o.getPopularity() < this.getPopularity() ? -1 : o.getPopularity() == this.getPopularity() ? 0 : 1;
     }
 }

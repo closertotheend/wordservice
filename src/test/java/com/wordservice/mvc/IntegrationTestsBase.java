@@ -24,6 +24,9 @@ public abstract class IntegrationTestsBase {
     public WordEntityRepository wordEntityRepository;
 
     @Autowired
+    public WordRelationshipRepository wordRelationshipRepository;
+
+    @Autowired
     public WordRelationshipTupleDAO wordRelationshipTupleDAO;
 
     @Autowired

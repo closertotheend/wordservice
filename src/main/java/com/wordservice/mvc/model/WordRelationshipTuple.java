@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.neo4j.annotation.*;
 
 @RelationshipEntity(type = "IS_FOLLOWED_BY_TUPLE")
-public class WordRelationshipTuple {
+public class WordRelationshipTuple implements Comparable<WordRelationshipTuple>{
     public static final String relationshipType = "IS_FOLLOWED_BY_TUPLE";
 
     @GraphId
@@ -117,5 +117,10 @@ public class WordRelationshipTuple {
                 ", fourth=" + fourth +
                 ", popularity=" + popularity +
                 '}';
+    }
+
+    @Override
+    public int compareTo(WordRelationshipTuple o) {
+        return this.getPopularity() < o.getPopularity() ? -1 : o.getPopularity() == this.getPopularity() ? 0 : 1;
     }
 }

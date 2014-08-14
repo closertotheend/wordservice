@@ -2,7 +2,6 @@ package com.wordservice.mvc.controller;
 
 import com.wordservice.mvc.model.WordEntity;
 import com.wordservice.mvc.dao.WordEntityDAO;
-import com.wordservice.mvc.util.WordPopularityComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +25,7 @@ public class WordCompletionController {
     @ResponseBody
     public List<WordEntity> getWordStartingWith(@PathVariable String wordStart) {
         List<WordEntity> startingWords = wordEntityDAO.findByWordStartingWith(clean(wordStart));
-        Collections.sort(startingWords, new WordPopularityComparator());
+        Collections.sort(startingWords);
         return startingWords;
     }
 
@@ -34,7 +33,7 @@ public class WordCompletionController {
     @ResponseBody
     public List<WordEntity> getWordContaining(@PathVariable String sequence) {
         List<WordEntity> containingWords = wordEntityDAO.findByWordContaining(clean(sequence));
-        Collections.sort(containingWords, new WordPopularityComparator());
+        Collections.sort(containingWords);
         return containingWords;
     }
 
