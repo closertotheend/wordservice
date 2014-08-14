@@ -27,7 +27,11 @@ public class TextSaveController {
     @RequestMapping(value = "wordApi", method = RequestMethod.POST)
     @ResponseBody
     public void save(@RequestBody String text) {
-            textSaverService.saveToRepo(text);
+        List<String> sentences = TextToSentences.transform(text);
+        for (String sentence : sentences) {
+            List<String> words = SentencesToWords.transform(sentence);
+            textSaverService.saveToRepo(words);
+        }
     }
 
     @RequestMapping(value = "saveFromFile", method = RequestMethod.GET)

@@ -38,8 +38,10 @@ public class TextSaverService {
 
 
     public boolean saveToRepo(List<String> words) {
+        long startTime = System.currentTimeMillis();
         List<WordEntity> wordEntities = saveWordEntities(words);
         wordRelationshipTupleDAO.saveWordRelationshipTuples(wordEntities);
+        logger.info("Sentence save took " + (System.currentTimeMillis() - startTime));
         return true;
     }
 

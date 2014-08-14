@@ -50,15 +50,7 @@ public class WordEntityDAO {
 
     public WordEntity findByWordViaIndex(String word) {
         if (!word.trim().isEmpty() && !CleanUtil.hasNonWordCharacter(word)) {
-
-            long startTime = System.currentTimeMillis();
-
-            WordEntity wordEntity = wordEntityRepository.findByWordOptimized(word);
-
-            long estimatedTime = System.currentTimeMillis() - startTime;
-            System.err.println("IndexMatch " + estimatedTime);
-
-            return wordEntity;
+            return wordEntityRepository.findByWordOptimized(word);
         }
         return null;
     }

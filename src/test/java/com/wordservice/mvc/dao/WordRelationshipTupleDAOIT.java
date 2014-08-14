@@ -118,7 +118,7 @@ public class WordRelationshipTupleDAOIT extends IntegrationTestsBase {
         WordRelationshipTuple helloMySadWorld = new WordRelationshipTuple(hello, my, sad, world);
         wordRelationshipTupleDAO.save(helloMySadWorld);
         wordRelationshipTupleDAO.save(new WordRelationshipTuple(hello, my, sad, elephant));
-        assertEquals(helloMySadWorld,wordRelationshipTupleDAO.getRelationshipsBetweenAsList(hello, my, sad, world));
+        assertEquals(helloMySadWorld,wordRelationshipTupleDAO.getRelationshipBetween(hello, my, sad, world));
     }
 
 }

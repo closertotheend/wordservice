@@ -7,7 +7,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.conversion.EndResult;
-import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +20,6 @@ import java.util.List;
 public class WordRelationshipTupleDAO {
     private static final Logger logger = LogManager
             .getLogger(WordRelationshipTupleDAO.class.getName());
-    private static final int SIZE_OF_RESULT = 10;
 
     @Autowired
     private Neo4jTemplate template;
@@ -66,7 +64,7 @@ public class WordRelationshipTupleDAO {
         return tuples;
     }
 
-    public WordRelationshipTuple getRelationshipsBetweenAsList(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
+    public WordRelationshipTuple getRelationshipBetween(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
         for (WordRelationshipTuple relationshipTuple : getRelationshipsBetweenAsIterable(first, second)) {
             if (relationshipTuple.getThird() == third.getId() && relationshipTuple.getFourth() == fourth.getId()) {
                 return relationshipTuple;
@@ -79,7 +77,7 @@ public class WordRelationshipTupleDAO {
         long startTime = System.currentTimeMillis();
 
 
-        WordRelationshipTuple exactTuple = getRelationshipsBetweenAsList(first, second, third, fourth);
+        WordRelationshipTuple exactTuple = getRelationshipBetween(first, second, third, fourth);
 
         if (exactTuple == null) {
             exactTuple = new WordRelationshipTuple(first, second, third, fourth);
