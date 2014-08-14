@@ -27,11 +27,8 @@ public class WordTupleFinderService {
         WordEntity secondWord = wordEntityDAO.findByWordViaIndexAndRegex(second);
         if (secondWord == null) return Collections.emptyList();
 
-        List<WordRelationshipTuple> relationships =
-                wordRelationshipTupleDAO.getRelationshipsBetweenAsList(firstWord, secondWord);
-
         List<WordEntity> nextWords = new ArrayList<>();
-        for (WordRelationshipTuple relationship : relationships) {
+        for (WordRelationshipTuple relationship : wordRelationshipTupleDAO.getRelationshipsBetweenAsIterable(firstWord, secondWord)) {
             long third = relationship.getThird();
             if(third != 0) {
                 nextWords.add(wordEntityDAO.findById(third));
