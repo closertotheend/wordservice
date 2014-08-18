@@ -20,22 +20,24 @@ public interface WordEntityRepository extends GraphRepository<WordEntity> {
      * */
     List<WordEntity> findByWord(String word);
 
+    List<WordEntity> findByWordContaining(String word);
+
     @Query("START wordEntity=node:word(word={word1}) WHERE has(wordEntity.word) AND wordEntity.word = {word1}" +
             "RETURN wordEntity")
     WordEntity findByWordOptimized(@Param("word1") String word1);
 
     @Query("START wordEntity=node:word(word={word}) " +
             "MATCH wordEntity-[r:IS_FOLLOWED_BY_TUPLE]->otherWord" +
-            " RETURN otherWord ORDER BY r.popularity, otherWord.popularity DESC LIMIT 10")
+            " RETURN DISTINCT otherWord ORDER BY otherWord.popularity DESC LIMIT 20")
     Set<WordEntity> getTop10WordsAfter(@Param("word") String word);
 
     @Query("START wordEntity=node:word(word={word1}), wordEntity2=node:word(word={word2}) " +
             "MATCH wordEntity-[r:IS_FOLLOWED_BY_TUPLE]->wordEntity2-[r2:IS_FOLLOWED_BY_TUPLE]->otherWord" +
-            " RETURN otherWord ORDER BY r.popularity, r2.popularity DESC LIMIT 10")
+            " RETURN otherWord ORDER BY r.popularity, r2.popularity DESC LIMIT 20")
     Set<WordEntity> getTop10WordsAfter(@Param("word1") String word1, @Param("word2") String word2);
 
     @Query("START wordEntity= node(*) WHERE has(wordEntity.word) AND wordEntity.word =~ {word1} " +
-            "RETURN wordEntity ORDER BY wordEntity.popularity DESC LIMIT 10")
+            "RETURN wordEntity ORDER BY wordEntity.popularity DESC LIMIT 20")
     List<WordEntity> findByWordRegexOrderByPopularity(@Param("word1") String word1);
 
     @Query("START wordEntity= node(*) WHERE has(wordEntity.word) AND wordEntity.word = {word1}" +

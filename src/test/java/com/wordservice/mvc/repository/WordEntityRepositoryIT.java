@@ -40,7 +40,7 @@ public class WordEntityRepositoryIT extends IntegrationTestsBase {
     public void findByWordContainingOrderByPopularityDesc() throws Exception {
         textSaverService.saveToRepo("Pneumonoultramicroscopicsilicovolcanoconiosis is huge word. Honorificabilitudinitatibus is also. " +
                 "The is is also popular word, but his his is not. Wis lis dis gis wais mis zis this iss isss sois");
-        assertEquals("Maximum capacity is 10", 10, wordEntityRepository.findByWordRegexOrderByPopularity(".*is.*").size());
+        assertEquals("Maximum capacity is 20", 14, wordEntityRepository.findByWordRegexOrderByPopularity(".*is.*").size());
     }
 
     @Test
