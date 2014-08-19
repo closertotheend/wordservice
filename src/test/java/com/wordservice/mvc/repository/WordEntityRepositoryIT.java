@@ -2,9 +2,12 @@ package com.wordservice.mvc.repository;
 
 import com.wordservice.mvc.IntegrationTestsBase;
 import com.wordservice.mvc.model.WordEntity;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Iterator;
 import java.util.List;
 
 import static junit.framework.Assert.*;
@@ -76,6 +79,7 @@ public class WordEntityRepositoryIT extends IntegrationTestsBase {
 
     @Test
     @Rollback
+    @Ignore
     public void testApacheLuceneIsWorking() throws Exception {
         textSaverService.saveToRepo("Pneumonoultramicroscopicsilicovolcanoconiosis is huge word. Honorificabilitudinitatibus is also.");
         long startTime = System.currentTimeMillis();
@@ -88,6 +92,7 @@ public class WordEntityRepositoryIT extends IntegrationTestsBase {
 
     @Test
     @Rollback
+    @Ignore
     public void testApacheLuceneIsWorking2() throws Exception {
         textSaverService.saveToRepo("Pneumonoultramicroscopicsilicovolcanoconiosis is huge word. Honorificabilitudinitatibus is also.");
         long startTime = System.currentTimeMillis();
@@ -117,6 +122,26 @@ public class WordEntityRepositoryIT extends IntegrationTestsBase {
         assertNotNull(bigLetterHello);
         assertNotNull(smallLetterHello);
         assertFalse(bigLetterHello.equals(smallLetterHello));
+    }
+
+    @Test
+    @Rollback
+    public void  findByWordContaining() throws Exception {
+        textSaverService.saveToRepo("Hello Ilja! Hello martin! hello hell! hell hell");
+        Iterable<WordEntity> hellIterable = wordEntityRepository.findByWordContainingOrderByPopularityDesc("hell");
+        Iterator<WordEntity> hell = hellIterable.iterator();
+        assertEquals(hell.next().getWord(), "hell");
+        assertEquals(hell.next().getWord() , "Hello");
+    }
+
+    @Test
+    @Rollback
+    public void  findByWordStartingWithOrderByPopularityDescFastIndex() throws Exception {
+        textSaverService.saveToRepo("Hello Ilja! Hello martin! Ohello");
+        Iterable<WordEntity> hellIterable = wordEntityRepository.findByWordStartingWithOrderByPopularityDesc("hell");
+        Iterator<WordEntity> hell = hellIterable.iterator();
+        assertEquals(hell.next().getWord(), "Hello");
+        assertFalse(hell.hasNext());
     }
 
 }

@@ -48,12 +48,6 @@ public class WordEntityDAOTest {
 
     @Test
     @Ignore
-    public void testFindByWordException() throws Exception {
-        when(wordEntityRepository.findByWord(anyString())).thenThrow(new NullPointerException());
-        assertEquals(null, wordEntityDAO.findByWordViaIndexAndRegex("ilja"));
-    }
-
-    @Test
     public void testFindByWordStartingWith() throws Exception {
         WordEntity small = new WordEntity("ilja");
         small.setId(1l);
@@ -69,14 +63,14 @@ public class WordEntityDAOTest {
 
         when(wordEntityRepository.findByWordRegexOrderByPopularity("il.*")).thenReturn(wordEntitites);
 
-        assertTrue(wordEntityDAO.findByWordStartingWith("il").contains(small));
-        assertTrue(wordEntityDAO.findByWordStartingWith("il").contains(medium));
-        assertFalse(wordEntityDAO.findByWordStartingWith("il").contains(big));
+        assertTrue(wordEntityDAO.findByWordStartingWithViaIndex("il").contains(small));
+        assertTrue(wordEntityDAO.findByWordStartingWithViaIndex("il").contains(medium));
+        assertFalse(wordEntityDAO.findByWordStartingWithViaIndex("il").contains(big));
     }
 
     @Test
     public void testFindByWordStartingWithThrowException() throws Exception {
         when(wordEntityRepository.findByWordRegexOrderByPopularity(anyString())).thenThrow(new NullPointerException());
-        assertEquals(0, wordEntityDAO.findByWordStartingWith("ilja").size());
+        assertEquals(0, wordEntityDAO.findByWordStartingWithViaIndex("ilja").size());
     }
 }

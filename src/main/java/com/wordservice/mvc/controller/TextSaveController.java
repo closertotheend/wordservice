@@ -30,8 +30,7 @@ public class TextSaveController {
     public void save(@RequestBody String text) {
         List<String> sentences = TextToSentences.transform(text);
         for (String sentence : sentences) {
-            List<String> words = SentencesToWords.transform(CleanUtil.prepareTextForSave(sentence));
-            textSaverService.saveToRepo(words);
+            textSaverService.saveToRepo(SentencesToWords.transform(CleanUtil.prepareTextForSave(sentence)));
         }
     }
 

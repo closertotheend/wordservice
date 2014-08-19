@@ -1,12 +1,14 @@
 package com.wordservice.mvc.repository;
 
 import com.wordservice.mvc.model.WordEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +22,9 @@ public interface WordEntityRepository extends GraphRepository<WordEntity> {
      * */
     List<WordEntity> findByWord(String word);
 
-    List<WordEntity> findByWordContaining(String word);
+    Iterable<WordEntity> findByWordContainingOrderByPopularityDesc(String word);
+
+    Iterable<WordEntity> findByWordStartingWithOrderByPopularityDesc(String word);
 
     @Query("START wordEntity=node:word(word={word1}) WHERE has(wordEntity.word) AND wordEntity.word = {word1}" +
             "RETURN wordEntity")

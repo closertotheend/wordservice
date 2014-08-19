@@ -73,7 +73,7 @@ public class WordEntityDAOIT extends IntegrationTestsBase{
     @Rollback
     public void testFindByWordStartingWith() throws Exception {
         textSaverService.saveToRepo("Hello Ilja! hello martin");
-        List<WordEntity> bigLetterHello = wordEntityDAO.findByWordStartingWith("Hello");
+        List<WordEntity> bigLetterHello = wordEntityDAO.findByWordStartingWithViaIndex("Hello");
         assertEquals(1,bigLetterHello.size());
     }
 

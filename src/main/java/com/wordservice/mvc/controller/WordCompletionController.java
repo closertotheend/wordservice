@@ -24,7 +24,7 @@ public class WordCompletionController {
     @RequestMapping(value = "getWordStartingWith/{wordStart}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<WordEntity> getWordStartingWith(@PathVariable String wordStart) {
-        List<WordEntity> startingWords = wordEntityDAO.findByWordStartingWith(clean(wordStart));
+        List<WordEntity> startingWords = wordEntityDAO.findByWordStartingWithViaIndex(clean(wordStart));
         Collections.sort(startingWords);
         return startingWords;
     }
@@ -32,7 +32,7 @@ public class WordCompletionController {
     @RequestMapping(value = "getWordContaining/{sequence}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<WordEntity> getWordContaining(@PathVariable String sequence) {
-        List<WordEntity> containingWords = wordEntityDAO.findByWordContaining(clean(sequence));
+        List<WordEntity> containingWords = wordEntityDAO.findByWordContainingViaIndex(clean(sequence));
         Collections.sort(containingWords);
         return containingWords;
     }

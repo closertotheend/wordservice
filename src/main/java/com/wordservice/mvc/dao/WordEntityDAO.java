@@ -38,7 +38,6 @@ public class WordEntityDAO {
                 WordEntity noIndexMatch = wordEntityRepository.findByWordWithoutFastIndex(word);
                 long estimatedTime = System.currentTimeMillis() - startTime;
                 System.err.println("RegexMatch " + estimatedTime);
-
                 return noIndexMatch;
             } catch (Exception e) {
                 System.err.println("Word which caused fail - " + word);
@@ -50,18 +49,18 @@ public class WordEntityDAO {
     }
 
     public WordEntity findByWordViaIndex(String word) {
-        if (!word.trim().isEmpty() && !CleanUtil.hasNonWordCharacter(word)) {
+        if (!word.trim().isEmpty() && !word.contains(":")) {
             return wordEntityRepository.findByWordOptimized(word);
         }
         return null;
     }
 
-    public List<WordEntity> findByWordStartingWith(String sequence) {
+    public List<WordEntity> findByWordStartingWithViaIndex(String sequence) {
         try {
-            List<WordEntity> allCaseWords = wordEntityRepository.findByWordRegexOrderByPopularity(sequence + ".*");
-            List<WordEntity> result = new ArrayList<>(allCaseWords.size());
+            Iterable<WordEntity> allCaseWords = wordEntityRepository.findByWordStartingWithOrderByPopularityDesc(sequence);
+            List<WordEntity> result = new ArrayList<>();
             for (WordEntity someWord : allCaseWords) {
-                if (someWord.getWord().contains(sequence)) {
+                if (someWord.getWord().contains(sequence) && result.size() < 20) {
                     result.add(someWord);
                 }
             }
@@ -70,10 +69,20 @@ public class WordEntityDAO {
             e.printStackTrace();
             return Collections.emptyList();
         }
+        //  List<WordEntity> allCaseWords = wordEntityRepository.findByWordRegexOrderByPopularity(sequence + ".*");
+        //  List<WordEntity> result = new ArrayList<>(allCaseWords.size());
     }
 
-    public List<WordEntity> findByWordContaining(String sequence) {
-        return wordEntityRepository.findByWordRegexOrderByPopularity(".*" + sequence + ".*");
+    public List<WordEntity> findByWordContainingViaIndex(String sequence) {
+        Iterable<WordEntity> byWordContainingOrderByPopularityDesc = wordEntityRepository.findByWordContainingOrderByPopularityDesc(sequence);
+        List<WordEntity> result = new ArrayList<>();
+        for (WordEntity someWord : byWordContainingOrderByPopularityDesc) {
+            if (someWord.getWord().contains(sequence) && result.size() < 20) {
+                result.add(someWord);
+            }
+        }
+        return result;
+        // return wordEntityRepository.findByWordRegexOrderByPopularity(".*" + sequence + ".*");
     }
 
     public WordEntity getOrCreateWordEntity(String word) {
