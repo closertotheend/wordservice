@@ -3,6 +3,7 @@ package com.wordservice.mvc.controller;
 import com.wordservice.mvc.service.wordsaver.SentencesToWords;
 import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import com.wordservice.mvc.service.wordsaver.TextToSentences;
+import com.wordservice.mvc.util.CleanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,7 @@ public class TextSaveController {
     public void save(@RequestBody String text) {
         List<String> sentences = TextToSentences.transform(text);
         for (String sentence : sentences) {
-            List<String> words = SentencesToWords.transform(sentence);
+            List<String> words = SentencesToWords.transform(CleanUtil.prepareTextForSave(sentence));
             textSaverService.saveToRepo(words);
         }
     }

@@ -1,5 +1,7 @@
 package com.wordservice.mvc.service.wordsaver;
 
+import com.wordservice.mvc.util.CleanUtil;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,10 @@ public class SentencesToWords {
     private static List<String> splitSentenceToCleanWords(String sentence) {
         List<String> cleanWords = new ArrayList<>();
         for (String dirtyWord : splitSenteceToWords(sentence)) {
-            cleanWords.add(cleanWord(dirtyWord));
+            String cleanWord = cleanWord(dirtyWord);
+            if(!cleanWord.isEmpty()){
+                cleanWords.add(cleanWord);
+            }
         }
         return cleanWords;
     }
@@ -27,7 +32,31 @@ public class SentencesToWords {
     }
 
     static String cleanWord(String dirtyWord) {
-        return dirtyWord.trim().replaceAll("(^[\\W_]*)|([\\W_]*$)", "");
+        String wordToBeCleaned = dirtyWord.trim();
+        wordToBeCleaned = cleanFromLeft(wordToBeCleaned);
+        wordToBeCleaned = cleanFromRight(wordToBeCleaned);
+        return wordToBeCleaned;
     }
+
+    private static String cleanFromLeft(String wordToBeCleaned) {
+        if (wordToBeCleaned.length()>0 &&
+            !Character.isLetter(wordToBeCleaned.charAt(0)) &&
+            !Character.isDigit(wordToBeCleaned.charAt(0))) {
+            wordToBeCleaned = "" + wordToBeCleaned.substring(1);
+            wordToBeCleaned = cleanFromLeft(wordToBeCleaned);
+        }
+        return wordToBeCleaned;
+    }
+
+    private static String cleanFromRight(String wordToBeCleaned) {
+        if (wordToBeCleaned.length()>0 &&
+            !Character.isLetter(wordToBeCleaned.charAt(wordToBeCleaned.length() - 1)) &&
+            !Character.isDigit(wordToBeCleaned.charAt(wordToBeCleaned.length() - 1))) {
+            wordToBeCleaned = wordToBeCleaned.substring(0, wordToBeCleaned.length() - 1) + "";
+            wordToBeCleaned = cleanFromRight(wordToBeCleaned);
+        }
+        return wordToBeCleaned;
+    }
+
 
 }

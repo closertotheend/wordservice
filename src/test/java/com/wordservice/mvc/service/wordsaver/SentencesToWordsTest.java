@@ -28,9 +28,9 @@ public class SentencesToWordsTest {
         assertEquals("Badword", SentencesToWords.cleanWord("Badword?"));
         assertEquals("Badword", SentencesToWords.cleanWord("Badword!"));
         assertEquals("Badword", SentencesToWords.cleanWord("Badword-"));
-       assertEquals("Badword", SentencesToWords.cleanWord("Badword,-"));
-//        assertEquals("üüüüööö", SentencesToWords.cleanWord("üüüüööö"));
-//        assertEquals("Эйты", SentencesToWords.cleanWord("Эйты!"));
+        assertEquals("Badword", SentencesToWords.cleanWord("Badword,-"));
+        assertEquals("üüüüööö", SentencesToWords.cleanWord("üüüüööö"));
+        assertEquals("Эйты", SentencesToWords.cleanWord("-Эйты!"));
 
     }
 }
