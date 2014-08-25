@@ -51,7 +51,8 @@ public class SentencesToWords {
     private static String cleanFromRight(String wordToBeCleaned) {
         if (wordToBeCleaned.length()>0 &&
             !Character.isLetter(wordToBeCleaned.charAt(wordToBeCleaned.length() - 1)) &&
-            !Character.isDigit(wordToBeCleaned.charAt(wordToBeCleaned.length() - 1))) {
+            !Character.isDigit(wordToBeCleaned.charAt(wordToBeCleaned.length() - 1)) &&
+                wordToBeCleaned.charAt(wordToBeCleaned.length() - 1) != ',') {
             wordToBeCleaned = wordToBeCleaned.substring(0, wordToBeCleaned.length() - 1) + "";
             wordToBeCleaned = cleanFromRight(wordToBeCleaned);
         }

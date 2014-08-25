@@ -10,15 +10,21 @@ import static org.junit.Assert.assertEquals;
 public class SentencesToWordsTest {
     @Test
     public void testTransform() throws Exception {
-        List<String> oneSentenceList = new ArrayList<>();
-        String sentence = "This is sentence";
-        oneSentenceList.add(sentence);
-
         ArrayList<String> wordEntities = new ArrayList<>();
         wordEntities.add("This");
         wordEntities.add("is");
         wordEntities.add("sentence");
         assertEquals("check that split of th word works fine",wordEntities, SentencesToWords.transform("This is sentence"));
+    }
+
+    @Test
+    public void testTransform1() throws Exception {
+        ArrayList<String> wordEntities = new ArrayList<>();
+        wordEntities.add("This");
+        wordEntities.add("is");
+        wordEntities.add("sentence,");
+        wordEntities.add("which");
+        assertEquals("check that split of th word works fine",wordEntities, SentencesToWords.transform("This is sentence, which."));
     }
 
     @Test
@@ -28,7 +34,7 @@ public class SentencesToWordsTest {
         assertEquals("Badword", SentencesToWords.cleanWord("Badword?"));
         assertEquals("Badword", SentencesToWords.cleanWord("Badword!"));
         assertEquals("Badword", SentencesToWords.cleanWord("Badword-"));
-        assertEquals("Badword", SentencesToWords.cleanWord("Badword,-"));
+        assertEquals("Badword,", SentencesToWords.cleanWord("Badword,-"));
         assertEquals("üüüüööö", SentencesToWords.cleanWord("üüüüööö"));
         assertEquals("Эйты", SentencesToWords.cleanWord("-Эйты!"));
 

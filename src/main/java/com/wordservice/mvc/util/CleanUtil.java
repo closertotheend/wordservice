@@ -19,7 +19,8 @@ public class CleanUtil {
 
 
     public static String removeSpecialCharacters(String word) {
-        return word.replaceAll("[—“”’\"\\t\\n\\r]", "");
+        String noSpecialChars = word.replaceAll("[—“”’\"]", "");
+        return noSpecialChars.replaceAll("[\\t\\n\\r]", " ");
     }
 
     public static String prepareTextForSave(String unparsedText){
