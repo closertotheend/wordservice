@@ -1,7 +1,6 @@
 package com.wordservice.mvc.service.wordsaver;
 
-import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
-import com.wordservice.mvc.model.WordEntity;
+import com.wordservice.mvc.dao.WordRelationshipDAO;
 import com.wordservice.mvc.repository.WordEntityRepository;
 import com.wordservice.mvc.dao.WordEntityDAO;
 import org.junit.Before;
@@ -11,8 +10,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
 
 
 public class TextSaverServiceTest {
@@ -24,7 +21,7 @@ public class TextSaverServiceTest {
     WordEntityDAO wordEntityDAO;
 
     @Mock
-    WordRelationshipTupleDAO WordRelationshipTupleDAO;
+    WordRelationshipDAO WordRelationshipDAO;
 
     @InjectMocks
     TextSaverService textSaverService;

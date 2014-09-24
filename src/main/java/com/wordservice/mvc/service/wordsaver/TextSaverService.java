@@ -1,10 +1,8 @@
 package com.wordservice.mvc.service.wordsaver;
 
 import com.wordservice.mvc.dao.WordEntityDAO;
-import com.wordservice.mvc.model.NullWordEntity;
 import com.wordservice.mvc.model.WordEntity;
-import com.wordservice.mvc.model.WordRelationshipTuple;
-import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
+import com.wordservice.mvc.dao.WordRelationshipDAO;
 import com.wordservice.mvc.util.CleanUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -26,7 +24,7 @@ public class TextSaverService {
     private WordEntityDAO wordEntityDAO;
 
     @Autowired
-    private WordRelationshipTupleDAO wordRelationshipTupleDAO;
+    private WordRelationshipDAO wordRelationshipDAO;
 
     public void saveToRepo(String text) {
         List<String> sentences = TextToSentences.transform(text);
@@ -40,7 +38,7 @@ public class TextSaverService {
     public boolean saveToRepo(List<String> words) {
         long startTime = System.currentTimeMillis();
         List<WordEntity> wordEntities = saveWordEntities(words);
-        wordRelationshipTupleDAO.saveWordRelationshipTuples(wordEntities);
+        wordRelationshipDAO.saveWordRelationshipTuples(wordEntities);
         logger.info("Sentence save took " + (System.currentTimeMillis() - startTime));
         return true;
     }

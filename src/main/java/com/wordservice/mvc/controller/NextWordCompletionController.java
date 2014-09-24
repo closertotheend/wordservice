@@ -14,7 +14,7 @@ import static com.wordservice.mvc.util.CleanUtil.*;
 
 @Controller
 @RequestMapping("/")
-public class WordController {
+public class NextWordCompletionController {
 
     @Autowired
     private WordEntityRepository wordEntityRepository;

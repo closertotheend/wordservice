@@ -19,9 +19,9 @@ import java.util.Set;
 
 @Service
 @Transactional
-public class WordRelationshipTupleDAO {
+public class WordRelationshipDAO {
     private static final Logger logger = LogManager
-            .getLogger(WordRelationshipTupleDAO.class.getName());
+            .getLogger(WordRelationshipDAO.class.getName());
 
     @Autowired
     private Neo4jTemplate template;
