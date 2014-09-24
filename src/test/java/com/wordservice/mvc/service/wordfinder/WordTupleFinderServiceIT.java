@@ -21,7 +21,7 @@ public class WordTupleFinderServiceIT extends IntegrationTestsBase {
         WordEntity car = wordEntityDAO.findByWordViaIndexAndRegex("car");
         WordEntity bus = wordEntityDAO.findByWordViaIndexAndRegex("bus");
 
-        List<WordEntity> nextWords = wordTupleFinderService.getNextWordsViaTuple("This", "is", "yellow");
+        List<WordEntity> nextWords = wordFinderService.getNextWordsViaTuple("This", "is", "yellow");
 
         assertTrue(nextWords.contains(car));
         assertTrue(nextWords.contains(bus));
@@ -34,7 +34,7 @@ public class WordTupleFinderServiceIT extends IntegrationTestsBase {
     public void getNextWordsViaTuple() {
         textSaverService.saveToRepo("This is grey car. This is yellow bus. This is black ledbetter");
 
-        List<WordEntity> nextWords = wordTupleFinderService.getNextWordsViaTuple("This", "is");
+        List<WordEntity> nextWords = wordFinderService.getNextWordsViaTuple("This", "is");
 
         WordEntity grey = wordEntityDAO.findByWordViaIndexAndRegex("grey");
         WordEntity yellow = wordEntityDAO.findByWordViaIndexAndRegex("yellow");

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class WordTupleFinderService {
+public class WordFinderService {
 
     @Autowired
     private WordRelationshipTupleDAO wordRelationshipTupleDAO;
