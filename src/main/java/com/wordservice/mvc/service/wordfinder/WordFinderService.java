@@ -29,7 +29,7 @@ public class WordFinderService {
         List<WordEntity> nextWords = new ArrayList<>();
         for (WordRelationshipTuple relationship : wordRelationshipDAO.getRelationshipsBetweenAsIterable(firstWord, secondWord)) {
             long third = relationship.getThird();
-            if(third != 0) {
+            if(wordNotEmpty(third)) {
                 nextWords.add(wordEntityDAO.findById(third));
             }
         }
@@ -52,12 +52,16 @@ public class WordFinderService {
         List<WordEntity> nextWords = new ArrayList<>();
         for (WordRelationshipTuple relationship : relationships) {
             long fourth = relationship.getFourth();
-            if(fourth != 0) {
+            if(wordNotEmpty(fourth)) {
                 nextWords.add(wordEntityDAO.findById(fourth));
             }
         }
 
         return nextWords;
+    }
+
+    private boolean wordNotEmpty(long third) {
+        return third != 0;
     }
 
 
