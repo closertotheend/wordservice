@@ -8,7 +8,7 @@
     <name>WordService</name>
 
     <properties>
-        <spring.version>3.2.4.RELEASE</spring.version>
+        <spring.version>3.2.9.RELEASE</spring.version>
         <spring.data>2.2.3.RELEASE</spring.data>
         <querydsl.version>2.9.0</querydsl.version>
         <querydsl.version>2.9.0</querydsl.version>
@@ -84,7 +84,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>4.11</version>
         </dependency>
 
         <dependency>
@@ -157,15 +157,6 @@
             <version>1.2.17</version>
         </dependency>
 
-
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
-        </dependency>
-
-
     </dependencies>
 
     <build>
@@ -173,6 +164,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
@@ -180,11 +172,13 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18</version>
                 <configuration>
                     <includes>
                         <include>**/*.java</include>
                     </includes>
                 </configuration>
+
             </plugin>
             <!-- JETTY-->
             <plugin>
