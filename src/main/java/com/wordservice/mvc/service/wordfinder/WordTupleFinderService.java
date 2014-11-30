@@ -1,22 +1,20 @@
 package com.wordservice.mvc.service.wordfinder;
 
 import com.wordservice.mvc.dao.WordEntityDAO;
-import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
+import com.wordservice.mvc.dao.WordRelationshipDAO;
 import com.wordservice.mvc.model.*;
-import com.wordservice.mvc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class WordTupleFinderService {
 
     @Autowired
-    private WordRelationshipTupleDAO wordRelationshipTupleDAO;
+    private WordRelationshipDAO wordRelationshipDAO;
 
     @Autowired
     private WordEntityDAO wordEntityDAO;
@@ -29,7 +27,7 @@ public class WordTupleFinderService {
         if (secondWord == null) return Collections.emptyList();
 
         List<WordEntity> nextWords = new ArrayList<>();
-        for (WordRelationshipTuple relationship : wordRelationshipTupleDAO.getRelationshipsBetweenAsIterable(firstWord, secondWord)) {
+        for (WordRelationship relationship : wordRelationshipDAO.getRelationshipsBetweenAsIterable(firstWord, secondWord)) {
             long third = relationship.getThird();
             if(third != 0) {
                 nextWords.add(wordEntityDAO.findById(third));
@@ -48,11 +46,11 @@ public class WordTupleFinderService {
         WordEntity thirdWord = wordEntityDAO.findByWordViaIndexAndRegex(third);
         if (thirdWord == null) return Collections.emptyList();
 
-        List<WordRelationshipTuple> relationships =
-                wordRelationshipTupleDAO.getRelationshipsBetweenAsList(firstWord, secondWord, thirdWord);
+        List<WordRelationship> relationships =
+                wordRelationshipDAO.getRelationshipsBetweenAsList(firstWord, secondWord, thirdWord);
 
         List<WordEntity> nextWords = new ArrayList<>();
-        for (WordRelationshipTuple relationship : relationships) {
+        for (WordRelationship relationship : relationships) {
             long fourth = relationship.getFourth();
             if(fourth != 0) {
                 nextWords.add(wordEntityDAO.findById(fourth));

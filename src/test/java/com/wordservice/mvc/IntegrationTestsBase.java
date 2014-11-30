@@ -1,7 +1,7 @@
 package com.wordservice.mvc;
 
 import com.wordservice.mvc.dao.WordEntityDAO;
-import com.wordservice.mvc.dao.WordRelationshipTupleDAO;
+import com.wordservice.mvc.dao.WordRelationshipDAO;
 import com.wordservice.mvc.repository.*;
 import com.wordservice.mvc.service.wordfinder.WordTupleFinderService;
 import com.wordservice.mvc.service.wordsaver.TextSaverService;
@@ -27,7 +27,7 @@ public abstract class IntegrationTestsBase {
     public WordRelationshipRepository wordRelationshipRepository;
 
     @Autowired
-    public WordRelationshipTupleDAO wordRelationshipTupleDAO;
+    public WordRelationshipDAO wordRelationshipDAO;
 
     @Autowired
     public TextSaverService textSaverService;

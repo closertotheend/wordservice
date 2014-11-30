@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.neo4j.annotation.*;
 
 @RelationshipEntity(type = "IS_FOLLOWED_BY_TUPLE")
-public class WordRelationshipTuple implements Comparable<WordRelationshipTuple>{
+public class WordRelationship implements Comparable<WordRelationship>{
     public static final String relationshipType = "IS_FOLLOWED_BY_TUPLE";
 
     @GraphId
@@ -24,10 +24,10 @@ public class WordRelationshipTuple implements Comparable<WordRelationshipTuple>{
 
     private long popularity = 1;
 
-    public WordRelationshipTuple() {
+    public WordRelationship() {
     }
 
-    public WordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
+    public WordRelationship(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
         this.first = first;
         this.second = second;
         this.third = third.getId();
@@ -95,7 +95,7 @@ public class WordRelationshipTuple implements Comparable<WordRelationshipTuple>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        WordRelationshipTuple that = (WordRelationshipTuple) o;
+        WordRelationship that = (WordRelationship) o;
 
         return !(id != null ? !id.equals(that.id) : that.id != null);
 
@@ -120,7 +120,7 @@ public class WordRelationshipTuple implements Comparable<WordRelationshipTuple>{
     }
 
     @Override
-    public int compareTo(WordRelationshipTuple o) {
+    public int compareTo(WordRelationship o) {
         return this.getPopularity() < o.getPopularity() ? -1 : o.getPopularity() == this.getPopularity() ? 0 : 1;
     }
 }

@@ -8,21 +8,21 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class WordRelationshipTupleTest {
+public class WordRelationshipTest {
 
     @Test
     public void testCompareTo() throws Exception {
 
-        WordRelationshipTuple one = new WordRelationshipTuple();
+        WordRelationship one = new WordRelationship();
         one.setPopularity(12);
 
-        WordRelationshipTuple two = new WordRelationshipTuple();
+        WordRelationship two = new WordRelationship();
         two.setPopularity(12000);
 
-        WordRelationshipTuple three = new WordRelationshipTuple();
+        WordRelationship three = new WordRelationship();
         two.setPopularity(12001);
 
-        List<WordRelationshipTuple> list = Arrays.asList(one, three, two);
+        List<WordRelationship> list = Arrays.asList(one, three, two);
         Collections.sort(list);
 
         assertEquals(three, list.get(0));

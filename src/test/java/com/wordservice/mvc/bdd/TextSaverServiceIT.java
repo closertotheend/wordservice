@@ -78,13 +78,13 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
         assertNotNull(sad);
         assertNotNull(world);
 
-        List<WordRelationshipTuple> relationshipBetweenHelloAndMy = wordRelationshipTupleDAO.getRelationshipsBetweenAsList(hello, my);
+        List<WordRelationship> relationshipBetweenHelloAndMy = wordRelationshipDAO.getRelationshipsBetweenAsList(hello, my);
         assertEquals(1, relationshipBetweenHelloAndMy.size());
 
-        WordRelationshipTuple relationshipBetweenMyAndSad = wordRelationshipTupleDAO.getRelationshipBetween(my,sad);
+        WordRelationship relationshipBetweenMyAndSad = wordRelationshipDAO.getRelationshipBetween(my,sad);
         assertNotNull(relationshipBetweenMyAndSad);
 
-        WordRelationshipTuple relationshipBetweenSadAndHello = wordRelationshipTupleDAO.getRelationshipBetween(sad,world);
+        WordRelationship relationshipBetweenSadAndHello = wordRelationshipDAO.getRelationshipBetween(sad,world);
         assertNotNull(relationshipBetweenSadAndHello);
     }
 
