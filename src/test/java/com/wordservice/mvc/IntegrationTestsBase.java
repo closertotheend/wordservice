@@ -3,7 +3,7 @@ package com.wordservice.mvc;
 import com.wordservice.mvc.dao.WordEntityDAO;
 import com.wordservice.mvc.dao.WordRelationshipDAO;
 import com.wordservice.mvc.repository.*;
-import com.wordservice.mvc.service.wordfinder.WordTupleFinderService;
+import com.wordservice.mvc.service.wordfinder.WordFinderService;
 import com.wordservice.mvc.service.wordsaver.TextSaverService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public abstract class IntegrationTestsBase {
     public WordEntityDAO wordEntityDAO;
 
     @Autowired
-    public WordTupleFinderService wordTupleFinderService;
+    public WordFinderService wordFinderService;
 
     public static final String dickensText = "I fully expected to find a Constable in the kitchen, waiting to take me up. But not only was there no Constable there, but no discovery had yet been made of the robbery. Mrs. Joe was prodigiously busy in getting the house ready for the festivities of the day, and Joe had been put upon the kitchen door-step to keep him out of the dust-pan - an article into which his destiny always led him sooner or later, when my sister was vigorously reaping the floors of her establishment.\n" +
             "\n" +
