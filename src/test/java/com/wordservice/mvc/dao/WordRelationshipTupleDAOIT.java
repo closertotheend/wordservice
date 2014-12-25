@@ -35,14 +35,6 @@ public class WordRelationshipTupleDAOIT extends IntegrationTestsBase {
 
     @Test
     @Rollback
-    public void getRelationshipBetween() throws Exception {
-        wordRelationshipDAO.save(new WordRelationship(hello, my, sad, world));
-
-        assertNotNull(wordRelationshipDAO.getRelationshipBetween(hello, my));
-    }
-
-    @Test
-    @Rollback
     public void getRelationshipsBetweenAsList() {
         wordRelationshipDAO.save(new WordRelationship(hello, my, sad, world));
         wordRelationshipDAO.save(new WordRelationship(hello, my, grey, world));

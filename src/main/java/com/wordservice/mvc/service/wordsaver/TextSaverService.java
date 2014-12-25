@@ -26,16 +26,16 @@ public class TextSaverService {
     @Autowired
     private WordRelationshipDAO wordRelationshipDAO;
 
-    public void saveToRepo(String text) {
+    public void save(String text) {
         List<String> sentences = TextToSentences.transform(text);
         for (String sentence : sentences) {
-            saveToRepo(SentencesToWords.transform(CleanUtil.prepareTextForSave(sentence)));
+            save(SentencesToWords.transform(CleanUtil.prepareTextForSave(sentence)));
         }
         logger.info("UPLOAD FINISHED!");
     }
 
 
-    public boolean saveToRepo(List<String> words) {
+    public boolean save(List<String> words) {
         long startTime = System.currentTimeMillis();
         List<WordEntity> wordEntities = saveWordEntities(words);
         wordRelationshipDAO.saveWordRelationshipTuples(wordEntities);

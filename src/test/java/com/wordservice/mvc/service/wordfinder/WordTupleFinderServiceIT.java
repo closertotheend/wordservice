@@ -16,7 +16,7 @@ public class WordTupleFinderServiceIT extends IntegrationTestsBase {
     @Test
     @Rollback
     public void getNextWordsViaTuple3args() throws Exception {
-        textSaverService.saveToRepo("This is yellow car. This is yellow bus. This is black ledbetter");
+        textSaverService.save("This is yellow car. This is yellow bus. This is black ledbetter");
 
         WordEntity car = wordEntityDAO.findByWordViaIndexAndRegex("car");
         WordEntity bus = wordEntityDAO.findByWordViaIndexAndRegex("bus");
@@ -32,7 +32,7 @@ public class WordTupleFinderServiceIT extends IntegrationTestsBase {
     @Test
     @Rollback
     public void getNextWordsViaTuple() {
-        textSaverService.saveToRepo("This is grey car. This is yellow bus. This is black ledbetter");
+        textSaverService.save("This is grey car. This is yellow bus. This is black ledbetter");
 
         List<WordEntity> nextWords = wordFinderService.getNextWordsViaTuple("This", "is");
 

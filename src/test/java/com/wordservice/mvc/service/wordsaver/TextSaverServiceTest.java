@@ -33,12 +33,12 @@ public class TextSaverServiceTest {
 
     @Test
     public void testSaveToRepo() throws Exception {
-        textSaverService.saveToRepo("Hello World!");
+        textSaverService.save("Hello World!");
     }
 
     @Test
     public void testSaveToRepo2() throws Exception {
-        textSaverService.saveToRepo("Hello World! Hello Sun and Earth.");
+        textSaverService.save("Hello World! Hello Sun and Earth.");
         int numberOfWords = 6;
         int numberOfRelationsBetween2Words = 4;
     }

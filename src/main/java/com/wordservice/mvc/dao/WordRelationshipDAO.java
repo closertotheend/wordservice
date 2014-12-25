@@ -33,28 +33,13 @@ public class WordRelationshipDAO {
     }
 
 
-    public WordRelationship getRelationshipBetween(WordEntity prelast, WordEntity last) {
-        return template.getRelationshipBetween(prelast, last,
-                WordRelationship.class, WordRelationship.relationshipType);
-    }
-
     /*
     * Maybe caching could help a lot?
     * **/
-    public Iterable<WordRelationship> getRelationshipsBetweenAsIterable(WordEntity prelast, WordEntity last) {
-        Iterable<WordRelationship> relationshipsBetween = template.getRelationshipsBetween(prelast, last,
-                WordRelationship.class, WordRelationship.relationshipType);
-        if (relationshipsBetween == null) {
-            return Collections.emptyList();
-        }
-        return relationshipsBetween;
-    }
-
     public List<WordRelationship> getRelationshipsBetweenAsList(WordEntity prelast, WordEntity last) {
-        List<WordRelationship> wordRelationships = new ArrayList<>();
-        for (WordRelationship wordRelationship : getRelationshipsBetweenAsIterable(prelast, last)) {
-            wordRelationships.add(wordRelationship);
-        }
+        Set<WordRelationship> tuple = wordRelationshipRepository.getTuple(prelast.getId(), last.getId());
+        List<WordRelationship> wordRelationships = new ArrayList<>(tuple);
+        Collections.sort(wordRelationships);
         return wordRelationships;
     }
 
@@ -65,11 +50,11 @@ public class WordRelationshipDAO {
         return wordRelationships;
     }
 
-    public WordRelationship getRelationshipBetween(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
+    WordRelationship getRelationshipBetween(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
         return wordRelationshipRepository.getTuple(first.getId(),second.getId(),third.getId(),fourth.getId());
     }
 
-    public WordRelationship createOrIncrementPopularityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
+    WordRelationship createOrIncrementPopularityOfWordRelationshipTuple(WordEntity first, WordEntity second, WordEntity third, WordEntity fourth) {
         long startTime = System.currentTimeMillis();
 
 

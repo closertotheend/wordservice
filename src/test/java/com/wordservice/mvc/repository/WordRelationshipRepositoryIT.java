@@ -5,8 +5,6 @@ import com.wordservice.mvc.model.WordEntity;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
-import java.util.List;
-
 import static junit.framework.Assert.*;
 
 public class WordRelationshipRepositoryIT extends IntegrationTestsBase {
@@ -15,7 +13,7 @@ public class WordRelationshipRepositoryIT extends IntegrationTestsBase {
     @Test
     @Rollback
     public void getTuple() throws Exception {
-        textSaverService.saveToRepo("Good news everyone here! Good news everyone there!");
+        textSaverService.save("Good news everyone here! Good news everyone there!");
 
         WordEntity good = wordEntityDAO.findByWordViaIndexAndRegex("Good");
         assertNotNull(good);

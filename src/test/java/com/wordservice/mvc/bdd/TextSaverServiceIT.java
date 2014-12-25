@@ -6,8 +6,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
-import java.util.List;
-
 import static junit.framework.Assert.*;
 import static junit.framework.Assert.assertNotNull;
 
@@ -20,7 +18,7 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     public void shouldSaveBigAmountOfWordsWithoutFailing() {
         long startTime = System.currentTimeMillis();
 
-        textSaverService.saveToRepo(dickensText);
+        textSaverService.save(dickensText);
         assertTrue(wordEntityRepository.count() > 300);
 
         long estimatedTime = System.currentTimeMillis() - startTime;
@@ -30,63 +28,42 @@ public class TextSaverServiceIT extends IntegrationTestsBase {
     @Test
     @Rollback
     public void shouldReturnCorrectAmountOfWords() {
-        textSaverService.saveToRepo("Hello Ilja!");
+        textSaverService.save("Hello Ilja!");
         assertEquals(2, wordEntityRepository.count());
     }
 
     @Test
     @Rollback
     public void shouldSaveOneWord() {
-        textSaverService.saveToRepo("Hello");
+        textSaverService.save("Hello");
         assertEquals(1, wordEntityRepository.count());
     }
 
     @Test
     @Rollback
     public void shouldReturnCorrectPopularityOfSavedWord() {
-        textSaverService.saveToRepo("Hello Hello Hello");
+        textSaverService.save("Hello Hello Hello");
         assertEquals(2, wordEntityDAO.findByWordViaIndexAndRegex("Hello").getPopularity());
     }
 
     @Test
     @Rollback
     public void shouldSaveWordsFromDifferentSenteces() {
-        textSaverService.saveToRepo("Hello Ilja! My name is neo4j, and I am confused.");
+        textSaverService.save("Hello Ilja! My name is neo4j, and I am confused.");
         assertTrue(wordEntityRepository.count() == 10);
     }
 
     @Test
     @Rollback
     public void shouldCheckThatSavedWordsShouldBeRetrivable() {
-        textSaverService.saveToRepo("tralala hahaha.");
+        textSaverService.save("tralala hahaha.");
         WordEntity hahaha = wordEntityDAO.findByWordViaIndexAndRegex("hahaha");
         assertNotNull(hahaha);
         WordEntity a = wordEntityDAO.findByWordViaIndexAndRegex("a");
         assertNull(a);
     }
 
-    @Test
-    @Rollback
-    public void shouldCheckThatRelationshipTupleShouldBeRetrievable() {
-        textSaverService.saveToRepo("Hello my sad world.");
-        WordEntity hello = wordEntityDAO.findByWordViaIndexAndRegex("Hello");
-        WordEntity my = wordEntityDAO.findByWordViaIndexAndRegex("my");
-        WordEntity sad = wordEntityDAO.findByWordViaIndexAndRegex("sad");
-        WordEntity world = wordEntityDAO.findByWordViaIndexAndRegex("world");
-        assertNotNull(hello);
-        assertNotNull(my);
-        assertNotNull(sad);
-        assertNotNull(world);
 
-        List<WordRelationship> relationshipBetweenHelloAndMy = wordRelationshipDAO.getRelationshipsBetweenAsList(hello, my);
-        assertEquals(1, relationshipBetweenHelloAndMy.size());
-
-        WordRelationship relationshipBetweenMyAndSad = wordRelationshipDAO.getRelationshipBetween(my,sad);
-        assertNotNull(relationshipBetweenMyAndSad);
-
-        WordRelationship relationshipBetweenSadAndHello = wordRelationshipDAO.getRelationshipBetween(sad,world);
-        assertNotNull(relationshipBetweenSadAndHello);
-    }
 
 
 

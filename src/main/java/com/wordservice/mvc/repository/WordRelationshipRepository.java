@@ -21,4 +21,8 @@ public interface WordRelationshipRepository extends GraphRepository<WordRelation
             "WHERE r.third={third} RETURN DISTINCT r ORDER BY r.popularity DESC LIMIT 20")
     Set<WordRelationship> getTuple(@Param("first") long first, @Param("second") long second, @Param("third") long third);
 
+    @Query("START wordEntity1=node({first}), wordEntity2=node({second}) MATCH wordEntity1-[r:IS_FOLLOWED_BY_TUPLE]->wordEntity2 " +
+            "RETURN DISTINCT r ORDER BY r.popularity DESC LIMIT 20")
+    Set<WordRelationship> getTuple(@Param("first") long first, @Param("second") long second);
+
 }

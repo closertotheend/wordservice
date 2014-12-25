@@ -6,7 +6,6 @@ import com.wordservice.mvc.service.wordsaver.TextToSentences;
 import com.wordservice.mvc.util.CleanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,10 +29,10 @@ public class TextSaveController {
     public void save(@RequestBody String text) {
         List<String> sentences = TextToSentences.transform(text);
         for (String sentence : sentences) {
-            textSaverService.saveToRepo(SentencesToWords.transform(CleanUtil.prepareTextForSave(sentence)));
+            textSaverService.save(SentencesToWords.transform(CleanUtil.prepareTextForSave(sentence)));
         }
     }
-
+//17:51
     @RequestMapping(value = "saveFromFile", method = RequestMethod.GET)
     @ResponseBody
     public void saveFromFile() throws IOException {

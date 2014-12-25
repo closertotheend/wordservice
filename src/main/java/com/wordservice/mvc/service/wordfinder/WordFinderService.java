@@ -27,7 +27,7 @@ public class WordFinderService {
         if (secondWord == null) return Collections.emptyList();
 
         List<WordEntity> nextWords = new ArrayList<>();
-        for (WordRelationship relationship : wordRelationshipDAO.getRelationshipsBetweenAsIterable(firstWord, secondWord)) {
+        for (WordRelationship relationship : wordRelationshipDAO.getRelationshipsBetweenAsList(firstWord, secondWord)) {
             long third = relationship.getThird();
             if(third != 0) {
                 nextWords.add(wordEntityDAO.findById(third));

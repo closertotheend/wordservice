@@ -32,7 +32,7 @@ public class WordEntityDAOIT extends IntegrationTestsBase{
     @Test
     @Rollback
     public void testFindByWordCheckCase() throws Exception {
-        textSaverService.saveToRepo("Hello Ilja! hello martin");
+        textSaverService.save("Hello Ilja! hello martin");
         WordEntity bigLetterHello = wordEntityDAO.findByWordViaIndexAndRegex("Hello");
         assertNotNull(bigLetterHello);
         WordEntity smallLetterHello = wordEntityDAO.findByWordViaIndexAndRegex("hello");
@@ -46,7 +46,7 @@ public class WordEntityDAOIT extends IntegrationTestsBase{
     @Test
     @Rollback
     public void findByWordViaIndex() throws Exception {
-        textSaverService.saveToRepo("Hello Ilja! hello martin");
+        textSaverService.save("Hello Ilja! hello martin");
         WordEntity bigLetterHello = wordEntityDAO.findByWordViaIndex("Hello");
         assertNotNull(bigLetterHello);
         WordEntity smallLetterHello = wordEntityDAO.findByWordViaIndex("hello");
@@ -72,7 +72,7 @@ public class WordEntityDAOIT extends IntegrationTestsBase{
     @Test
     @Rollback
     public void testFindByWordStartingWith() throws Exception {
-        textSaverService.saveToRepo("Hello Ilja! hello martin");
+        textSaverService.save("Hello Ilja! hello martin");
         List<WordEntity> bigLetterHello = wordEntityDAO.findByWordStartingWithViaIndex("Hello");
         assertEquals(1,bigLetterHello.size());
     }
